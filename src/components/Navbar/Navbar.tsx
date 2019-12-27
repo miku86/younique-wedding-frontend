@@ -1,4 +1,4 @@
-import { AppBar, Button, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
@@ -46,7 +46,7 @@ const Navbar: React.FC<Props> = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Dashboard", "Todos"].map(text => (
+        {[].map(text => (
           <ListItem button key={text}>
             <ListItemIcon>
               <InboxIcon />
@@ -76,7 +76,6 @@ const Navbar: React.FC<Props> = () => {
         <Typography variant="h6" className={classes.title}>
           Younique Wedding
         </Typography>
-        <Button color="inherit">Login</Button>
       </Toolbar>
     </AppBar>
   );
