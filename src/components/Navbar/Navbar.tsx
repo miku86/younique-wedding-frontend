@@ -1,8 +1,9 @@
-import { AppBar, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, ListItemIcon, ListItemText, Toolbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 interface Props {}
 
@@ -16,7 +17,12 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
+    fontSize: "1.25rem",
+    textAlign: "center",
+    "&:hover": {
+      textDecoration: "none"
+    }
   },
   list: {
     width: 250
@@ -73,9 +79,20 @@ const Navbar: React.FC<Props> = () => {
         <Drawer open={isSidebarOpen} onClose={toggleDrawer(false)}>
           {sideList()}
         </Drawer>
-        <Typography variant="h6" className={classes.title}>
+        <Link
+          color="inherit"
+          component={RouterLink}
+          to="/"
+          className={classes.title}
+        >
           Younique Wedding
-        </Typography>
+        </Link>
+        <Button color="inherit" component={RouterLink} to="/signup">
+          Signup
+        </Button>
+        <Button color="inherit" component={RouterLink} to="/login">
+          Login
+        </Button>
       </Toolbar>
     </AppBar>
   );
