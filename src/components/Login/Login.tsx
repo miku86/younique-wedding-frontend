@@ -1,9 +1,12 @@
 import { Button, makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import "./Login.css";
 
-interface Props {}
+interface Props {
+  isAuthenticated: boolean;
+  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -14,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Login: React.FC<Props> = () => {
+const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +31,7 @@ const Login: React.FC<Props> = () => {
 
     try {
       await Auth.signIn(email, password);
-      alert("logged in");
+      setIsAuthenticated(true);
     } catch (error) {
       alert(error.message);
     }
@@ -47,7 +50,7 @@ const Login: React.FC<Props> = () => {
           fullWidth
           onChange={e => setEmail(e.target.value)}
           value={email}
-          />
+        />
         <TextField
           required
           id="outlined-password-input"
@@ -58,7 +61,7 @@ const Login: React.FC<Props> = () => {
           fullWidth
           onChange={e => setPassword(e.target.value)}
           value={password}
-          />
+        />
         <Button
           variant="contained"
           color="primary"
