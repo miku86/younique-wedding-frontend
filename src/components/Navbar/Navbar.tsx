@@ -4,7 +4,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import { Auth } from "aws-amplify";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import { TisAuthenticated, TsetIsAuthenticated } from "../../customTypes";
 
 interface Props {
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   const classes = useStyles();
+  let history = useHistory();
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
   const toggleDrawer = (open: boolean) => (event: ToggleEvent) => {
@@ -51,6 +52,7 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   const handleLogout = async () => {
     await Auth.signOut();
     setIsAuthenticated(false);
+    history.push("/login");
   };
 
   const sideList = () => (
