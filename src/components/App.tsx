@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Routes from "../Routes";
 import "./App.css";
 import Navbar from "./Navbar/Navbar";
+import LoadingSpinner from "./shared/LoadingSpinner/LoadingSpinner";
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -20,7 +21,9 @@ const App: React.FC = () => {
     })();
   }, []);
 
-  return (
+  return isAuthenticating ? (
+    <LoadingSpinner />
+  ) : (
     <div className="App">
       <Navbar
         isAuthenticated={isAuthenticated}
