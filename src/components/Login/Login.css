@@ -1,0 +1,10 @@
+.Login {
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.Login form {
+  display: flex;
+  flex-direction: column;
+}
