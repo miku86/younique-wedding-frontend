@@ -4,8 +4,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { TisAuthenticated, TsetIsAuthenticated } from "../../customTypes";
 
-interface Props {}
+interface Props {
+  isAuthenticated: TisAuthenticated;
+  setIsAuthenticated: TsetIsAuthenticated;
+}
 
 type ToggleEvent = any;
 
@@ -19,7 +23,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     flexGrow: 1,
     fontSize: "1.25rem",
-    textAlign: "center",
     "&:hover": {
       textDecoration: "none"
     }
@@ -29,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Navbar: React.FC<Props> = () => {
+const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   const classes = useStyles();
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
@@ -42,6 +45,10 @@ const Navbar: React.FC<Props> = () => {
     }
 
     setIsSidebarOpen(open);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
   };
 
   const sideList = () => (
@@ -87,12 +94,21 @@ const Navbar: React.FC<Props> = () => {
         >
           Younique Wedding
         </Link>
-        <Button color="inherit" component={RouterLink} to="/signup">
-          Signup
-        </Button>
-        <Button color="inherit" component={RouterLink} to="/login">
-          Login
-        </Button>
+
+        {isAuthenticated ? (
+          <Button color="inherit" onClick={handleLogout}>
+            Logout
+          </Button>
+        ) : (
+          <>
+            <Button color="inherit" component={RouterLink} to="/signup">
+              Signup
+            </Button>
+            <Button color="inherit" component={RouterLink} to="/login">
+              Login
+            </Button>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );

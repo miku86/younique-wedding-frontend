@@ -8,8 +8,11 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <Navbar />
-      <Routes appProps={{isAuthenticated,setIsAuthenticated}} />
+      <Navbar
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
+      />
+      <Routes appProps={{ isAuthenticated, setIsAuthenticated }} />
     </div>
   );
 };
