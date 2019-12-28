@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 
+export type TisAuthenticated = boolean;
+export type TsetIsAuthenticated = Dispatch<SetStateAction<TisAuthenticated>>;
+
 export interface IappProps {
-  isAuthenticated: boolean;
-  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
-};
+  isAuthenticated: TisAuthenticated;
+  setIsAuthenticated: TsetIsAuthenticated;
+}
