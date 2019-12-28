@@ -1,7 +1,8 @@
-import { Button, makeStyles, TextField, Theme } from "@material-ui/core";
+import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { useHistory } from "react-router-dom";
+import LoadingButton from "../shared/LoadingButton/LoadingButton";
 import "./Login.css";
 
 interface Props {
@@ -42,7 +43,6 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
       alert(error.message);
       setIsLoading(false);
     }
-
   };
 
   return (
@@ -70,15 +70,16 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
           onChange={e => setPassword(e.target.value)}
           value={password}
         />
-        <Button
+        <LoadingButton
           variant="contained"
           color="primary"
           fullWidth
           disabled={!validateForm()}
+          isLoading={isLoading}
           type="submit"
         >
           Login
-        </Button>
+        </LoadingButton>
       </form>
     </div>
   );
