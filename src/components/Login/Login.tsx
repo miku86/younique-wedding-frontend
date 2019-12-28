@@ -1,13 +1,12 @@
 import { Button, makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
-import { History } from "history";
 import React, { Dispatch, SetStateAction, useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./Login.css";
 
 interface Props {
   isAuthenticated: boolean;
   setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
-  history: History;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -19,8 +18,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Login: React.FC<Props> = ({ setIsAuthenticated, history }) => {
+const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
   const classes = useStyles();
+  let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
