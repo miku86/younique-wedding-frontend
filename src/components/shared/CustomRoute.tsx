@@ -1,14 +1,12 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
+import { IappProps } from "../../customTypes";
 
 interface Props {
   path: string;
   exact: boolean;
   component: any;
-  appProps: {
-    isAuthenticated: boolean;
-    setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
-  };
+  appProps: IappProps;
 }
 
 const CustomRoute: React.FC<Props> = ({ component: C, appProps, ...rest }) => {
