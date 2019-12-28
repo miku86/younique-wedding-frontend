@@ -23,6 +23,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
   let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateForm = () => {
     return email.length > 0 && password.length >= 8;
@@ -31,13 +32,17 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
+    setIsLoading(true);
+
     try {
       await Auth.signIn(email, password);
       setIsAuthenticated(true);
       history.push("/");
     } catch (error) {
       alert(error.message);
+      setIsLoading(false);
     }
+
   };
 
   return (
