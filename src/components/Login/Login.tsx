@@ -1,7 +1,8 @@
-import { Button, makeStyles, TextField, Theme } from "@material-ui/core";
+import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { useHistory } from "react-router-dom";
+import LoadingButton from "../shared/LoadingButton/LoadingButton";
 import "./Login.css";
 
 interface Props {
@@ -23,6 +24,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
   let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateForm = () => {
     return email.length > 0 && password.length >= 8;
@@ -31,12 +33,15 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
+    setIsLoading(true);
+
     try {
       await Auth.signIn(email, password);
       setIsAuthenticated(true);
       history.push("/");
     } catch (error) {
       alert(error.message);
+      setIsLoading(false);
     }
   };
 
@@ -65,15 +70,16 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
           onChange={e => setPassword(e.target.value)}
           value={password}
         />
-        <Button
+        <LoadingButton
           variant="contained"
           color="primary"
           fullWidth
           disabled={!validateForm()}
+          isLoading={isLoading}
           type="submit"
         >
           Login
-        </Button>
+        </LoadingButton>
       </form>
     </div>
   );
