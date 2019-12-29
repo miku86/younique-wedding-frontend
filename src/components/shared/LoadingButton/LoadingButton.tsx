@@ -5,7 +5,7 @@ interface Props {
   isLoading: boolean;
   className?: string;
   disabled: boolean;
-  [key: string]: any;
+  [key: string]: string | number | boolean | undefined;
 }
 
 const LoadingButton: React.FC<Props> = ({

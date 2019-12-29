@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { IappProps } from "../../customTypes";
+import { IappProps } from "../../utils/customTypes";
 
 interface Props {
   path: string;

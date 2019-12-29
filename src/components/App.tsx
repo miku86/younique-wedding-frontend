@@ -1,6 +1,6 @@
 import { Auth } from "aws-amplify";
 import React, { useEffect, useState } from "react";
-import Routes from "../Routes";
+import Routes from "../utils/Routes";
 import "./App.css";
 import Navbar from "./Navbar/Navbar";
 import LoadingSpinner from "./shared/LoadingSpinner/LoadingSpinner";

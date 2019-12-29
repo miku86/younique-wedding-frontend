@@ -1,0 +1,10 @@
+.Signup {
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.Signup form {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,9 +1,10 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./components/Home/Home";
-import Login from "./components/Login/Login";
-import NotFound from "./components/NotFound/NotFound";
-import CustomRoute from "./components/shared/CustomRoute";
+import Home from "../components/Home/Home";
+import Login from "../components/Login/Login";
+import NotFound from "../components/NotFound/NotFound";
+import CustomRoute from "../components/shared/CustomRoute";
+import Signup from "../components/Signup/Signup";
 import { IappProps } from "./customTypes";
 
 interface Props {
@@ -18,6 +19,12 @@ const Routes: React.FC<Props> = ({ appProps }) => {
         path="/login"
         exact={true}
         component={Login}
+        appProps={appProps}
+      />
+      <CustomRoute
+        path="/signup"
+        exact={true}
+        component={Signup}
         appProps={appProps}
       />
       <Route component={NotFound} />
