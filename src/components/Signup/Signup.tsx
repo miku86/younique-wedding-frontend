@@ -1,6 +1,6 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
@@ -39,7 +39,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
     return fields.confirmationCode > 0;
   };
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setIsLoading(true);
@@ -56,7 +56,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
     setIsLoading(false);
   };
 
-  const handleConfirmationSubmit = async (event: any) => {
+  const handleConfirmationSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setIsLoading(true);
