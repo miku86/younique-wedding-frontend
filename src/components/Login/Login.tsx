@@ -2,6 +2,7 @@ import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton/LoadingButton";
 import "./Login.css";
 
@@ -22,12 +23,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
   const classes = useStyles();
   let history = useHistory();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [fields, handleFieldsChange] = useFormFields({
+    email: "",
+    password: ""
+  });
 
   const validateForm = () => {
-    return email.length > 0 && password.length >= 8;
+    return fields.email.length > 0 && fields.password.length >= 8;
   };
 
   const handleSubmit = async (event: any) => {
@@ -36,7 +39,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
     setIsLoading(true);
 
     try {
-      await Auth.signIn(email, password);
+      await Auth.signIn(fields.email, fields.password);
       setIsAuthenticated(true);
       history.push("/");
     } catch (error) {
@@ -49,26 +52,26 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
     <div className="Login">
       <form onSubmit={handleSubmit} className={classes.root}>
         <TextField
-          required
-          autoFocus
-          id="outlined-required"
           label="E-Mail"
+          id="email"
           placeholder="max@mustermann.com"
+          value={fields.email}
+          onChange={handleFieldsChange}
           variant="outlined"
           fullWidth
-          onChange={e => setEmail(e.target.value)}
-          value={email}
+          autoFocus
+          required
         />
         <TextField
-          required
-          id="outlined-password-input"
           label="Password"
           type="password"
+          id="password"
+          value={fields.password}
+          onChange={handleFieldsChange}
           autoComplete="current-password"
           variant="outlined"
           fullWidth
-          onChange={e => setPassword(e.target.value)}
-          value={password}
+          required
         />
         <LoadingButton
           variant="contained"
