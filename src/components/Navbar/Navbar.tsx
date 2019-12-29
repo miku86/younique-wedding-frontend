@@ -5,7 +5,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import { Auth } from "aws-amplify";
 import React from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
-import { TisAuthenticated, TsetIsAuthenticated } from "../../customTypes";
+import { TisAuthenticated, TsetIsAuthenticated } from "../../utils/customTypes";
 
 interface Props {
   isAuthenticated: TisAuthenticated;
