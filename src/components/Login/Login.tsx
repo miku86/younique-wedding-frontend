@@ -1,14 +1,14 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton/LoadingButton";
 import "./Login.css";
 
 interface Props {
-  isAuthenticated: boolean;
-  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
+  setIsAuthenticated: TsetIsAuthenticated;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
