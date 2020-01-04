@@ -4,6 +4,7 @@ import Home from "../components/Home/Home";
 import Login from "../components/Login/Login";
 import NotFound from "../components/NotFound/NotFound";
 import CustomRoute from "../components/shared/CustomRoute";
+import UnauthRoute from "../components/shared/UnauthRoute";
 import Signup from "../components/Signup/Signup";
 import { IappProps } from "./customTypes";
 
@@ -15,13 +16,13 @@ const Routes: React.FC<Props> = ({ appProps }) => {
   return (
     <Switch>
       <CustomRoute path="/" exact={true} component={Home} appProps={appProps} />
-      <CustomRoute
+      <UnauthRoute
         path="/login"
         exact={true}
         component={Login}
         appProps={appProps}
       />
-      <CustomRoute
+      <UnauthRoute
         path="/signup"
         exact={true}
         component={Signup}
