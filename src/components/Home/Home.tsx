@@ -1,34 +1,40 @@
 import { makeStyles, Theme } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
+import { TisAuthenticated } from "../../utils/customTypes";
+import Landing from "../shared/Landing";
 
-interface Props {}
+interface Props {
+  isAuthenticated: TisAuthenticated;
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
-  landing: {
+  dashboard: {
     padding: "80px 0",
     textAlign: "center",
 
     "& h1": {
       fontWeight: "600"
     },
-
     "& p": {
-      color: "#999"
+      color: "#666"
     }
   }
 }));
 
-const Home: React.FC<Props> = () => {
+const Home: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
+  const [isLoading, setIsLoading] = useState(false);
 
-  return (
-    <div>
-      <div className={classes.landing}>
-        <h1>Younique Wedding</h1>
-        <p>Plan your Wedding the right way</p>
+  const renderDashboard = () => {
+    return (
+      <div className={classes.dashboard}>
+        <h1>Your Dashboard</h1>
+        {!isLoading && "Dashboard"}
       </div>
-    </div>
-  );
+    );
+  };
+
+  return <div>{isAuthenticated ? renderDashboard() : <Landing />}</div>;
 };
 
 export default Home;
