@@ -8,6 +8,7 @@ import CustomRoute from "../components/shared/CustomRoute";
 import UnauthRoute from "../components/shared/UnauthRoute";
 import Signup from "../components/Signup/Signup";
 import NewTodo from "../components/Todos/NewTodo";
+import Todos from "../components/Todos/Todos";
 import { IappProps } from "./customTypes";
 
 interface Props {
@@ -33,6 +34,12 @@ const Routes: React.FC<Props> = ({ appProps }) => {
         path="/signup"
         exact={true}
         component={Signup}
+        appProps={appProps}
+      />
+      <AuthRoute
+        path="/todos"
+        exact={true}
+        component={Todos}
         appProps={appProps}
       />
       <AuthRoute

@@ -1,4 +1,4 @@
-import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, ListItemIcon, ListItemText, Toolbar } from "@material-ui/core";
+import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Toolbar } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
@@ -33,6 +33,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
+const sidebarItems = [
+  { text: "Dashboard", path: "/" },
+  { text: "Todos", path: "/todos" }
+];
+
 const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   const classes = useStyles();
   let history = useHistory();
@@ -63,12 +68,14 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {[].map(text => (
+        {sidebarItems.map(({text, path}) => (
           <ListItem button key={text}>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <Link color="inherit" component={RouterLink} to={path}>
+              {text}
+            </Link>
           </ListItem>
         ))}
       </List>
