@@ -1,12 +1,22 @@
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, makeStyles, Theme } from "@material-ui/core";
 import React from "react";
-import "./LoadingSpinner.css";
 
 interface Props {}
 
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+}));
+
 const LoadingSpinner: React.FC<Props> = () => {
+  const classes = useStyles();
+
   return (
-    <div className="Loadingspinner">
+    <div className={classes.root}>
       <CircularProgress />
     </div>
   );

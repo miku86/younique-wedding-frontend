@@ -4,7 +4,6 @@ import React, { FormEvent, useState } from "react";
 import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton/LoadingButton";
-import "./Login.css";
 
 interface Props {
   setIsAuthenticated: TsetIsAuthenticated;
@@ -12,6 +11,14 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
+    padding: "60px 0",
+    display: "flex",
+    justifyContent: "center"
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
       width: 200
@@ -46,8 +53,8 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div className="Login">
-      <form onSubmit={handleSubmit} className={classes.root}>
+    <div className={classes.root}>
+      <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
           label="E-Mail"
           id="email"
