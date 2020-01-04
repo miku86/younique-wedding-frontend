@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Home: React.FC<Props> = ({ isAuthenticated }) => {
+const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,4 +37,4 @@ const Home: React.FC<Props> = ({ isAuthenticated }) => {
   return <div>{isAuthenticated ? renderDashboard() : <Landing />}</div>;
 };
 
-export default Home;
+export default Dashboard;
