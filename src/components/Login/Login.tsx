@@ -1,7 +1,6 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton/LoadingButton";
@@ -22,7 +21,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
   const classes = useStyles();
-  let history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
     email: "",
@@ -41,7 +39,6 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
     try {
       await Auth.signIn(fields.email, fields.password);
       setIsAuthenticated(true);
-      history.push("/");
     } catch (error) {
       alert(error.message);
       setIsLoading(false);
