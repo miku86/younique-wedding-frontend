@@ -18,7 +18,7 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: "younique-wedding",
+        name: "todos",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION
       }
