@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton/LoadingButton";
-import "./Signup.css";
 
 interface Props {
   setIsAuthenticated: TsetIsAuthenticated;
@@ -13,6 +12,14 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
+    padding: "60px 0",
+    display: "flex",
+    justifyContent: "center"
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
       width: 200
@@ -56,7 +63,9 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
     setIsLoading(false);
   };
 
-  const handleConfirmationSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleConfirmationSubmit = async (
+    event: FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
 
     setIsLoading(true);
@@ -74,7 +83,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
 
   const renderForm = () => {
     return (
-      <form onSubmit={handleSubmit} className={classes.root}>
+      <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
           label="E-Mail"
           id="email"
@@ -113,7 +122,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
 
   const renderConfirmationForm = () => {
     return (
-      <form onSubmit={handleConfirmationSubmit} className={classes.root}>
+      <form onSubmit={handleConfirmationSubmit} className={classes.form}>
         <TextField
           id="confirmationCode"
           value={fields.confirmationCode}
@@ -138,7 +147,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div className="Signup">
+    <div className={classes.root}>
       {newUser === null ? renderForm() : renderConfirmationForm()}
     </div>
   );
