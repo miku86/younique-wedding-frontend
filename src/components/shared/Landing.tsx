@@ -1,8 +1,6 @@
 import { makeStyles, Theme } from "@material-ui/core";
 import React from "react";
 
-interface Props {}
-
 const useStyles = makeStyles((theme: Theme) => ({
   landing: {
     padding: "80px 0",
@@ -18,17 +16,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Home: React.FC<Props> = () => {
+interface Props {}
+
+const Landing: React.FC<Props> = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <div className={classes.landing}>
-        <h1>Younique Wedding</h1>
-        <p>Plan your Wedding the right way</p>
-      </div>
+    <div className={classes.landing}>
+      <h1>Younique Wedding</h1>
+      <p>Plan your Wedding the right way</p>
     </div>
   );
 };
 
-export default Home;
+export default Landing;

@@ -2,7 +2,7 @@ import { Auth } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import Routes from "../utils/Routes";
 import Navbar from "./Navbar/Navbar";
-import LoadingSpinner from "./shared/LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "./shared/LoadingSpinner";
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

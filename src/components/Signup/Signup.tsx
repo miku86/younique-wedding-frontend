@@ -4,7 +4,7 @@ import React, { FormEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
-import LoadingButton from "../shared/LoadingButton/LoadingButton";
+import LoadingButton from "../shared/LoadingButton";
 
 interface Props {
   setIsAuthenticated: TsetIsAuthenticated;
