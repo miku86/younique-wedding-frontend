@@ -1,6 +1,7 @@
 import { makeStyles, Theme } from "@material-ui/core";
 import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import config from "../../config";
 import { TisAuthenticated } from "../../utils/customTypes";
 import CustomTable from "../shared/CustomTable";
 import Landing from "../shared/Landing";
@@ -45,7 +46,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
   }, [isAuthenticated]);
 
   const loadNotes = () => {
-    return API.get("todos", "/todos", {});
+    return API.get(config.API.NAME, "/todos", {});
   };
 
   const renderTodos = () => {
