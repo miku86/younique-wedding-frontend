@@ -12,7 +12,7 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => ({
   todos: {
-    padding: "80px 0",
+    padding: "80px 20px",
     textAlign: "center",
 
     "& h1": {
