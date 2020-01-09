@@ -55,7 +55,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       <div className={classes.todos}>
         <h1>Your Todos</h1>
         {!isLoading && todos && <CustomTable data={todos} />}
-        <Box display="flex" my={1}>
+        <Box display="flex" my={2}>
           <Box justifyContent="flex-start">
             <Fab color="primary" aria-label="add">
               <Add />
