@@ -1,4 +1,5 @@
-import { makeStyles, Theme } from "@material-ui/core";
+import { Box, Fab, makeStyles, Theme } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import config from "../../config";
@@ -54,6 +55,13 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       <div className={classes.todos}>
         <h1>Your Todos</h1>
         {!isLoading && todos && <CustomTable data={todos} />}
+        <Box display="flex" my={1}>
+          <Box justifyContent="flex-start">
+            <Fab color="primary" aria-label="add">
+              <Add />
+            </Fab>
+          </Box>
+        </Box>
       </div>
     );
   };
