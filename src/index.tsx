@@ -10,17 +10,17 @@ import "./index.css";
 Amplify.configure({
   Auth: {
     mandatorySignIn: true,
-    region: config.cognito.REGION,
-    userPoolId: config.cognito.USER_POOL_ID,
-    identityPoolId: config.cognito.IDENTITY_POOL_ID,
-    userPoolWebClientId: config.cognito.APP_CLIENT_ID
+    region: config.Auth.REGION,
+    userPoolId: config.Auth.USER_POOL_ID,
+    identityPoolId: config.Auth.IDENTITY_POOL_ID,
+    userPoolWebClientId: config.Auth.APP_CLIENT_ID
   },
   API: {
     endpoints: [
       {
-        name: "todos",
-        endpoint: config.apiGateway.URL,
-        region: config.apiGateway.REGION
+        name: config.API.NAME,
+        endpoint: config.API.ENDPOINT,
+        region: config.API.REGION
       }
     ]
   }

@@ -1,6 +1,8 @@
-import { makeStyles, Theme } from "@material-ui/core";
+import { Box, Fab, makeStyles, Theme } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import config from "../../config";
 import { TisAuthenticated } from "../../utils/customTypes";
 import CustomTable from "../shared/CustomTable";
 import Landing from "../shared/Landing";
@@ -11,7 +13,7 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => ({
   todos: {
-    padding: "80px 0",
+    padding: "80px 20px",
     textAlign: "center",
 
     "& h1": {
@@ -45,7 +47,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
   }, [isAuthenticated]);
 
   const loadNotes = () => {
-    return API.get("todos", "/todos", {});
+    return API.get(config.API.NAME, "/todos", {});
   };
 
   const renderTodos = () => {
@@ -53,6 +55,13 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       <div className={classes.todos}>
         <h1>Your Todos</h1>
         {!isLoading && todos && <CustomTable data={todos} />}
+        <Box display="flex" my={2}>
+          <Box justifyContent="flex-start">
+            <Fab color="primary" aria-label="add">
+              <Add />
+            </Fab>
+          </Box>
+        </Box>
       </div>
     );
   };

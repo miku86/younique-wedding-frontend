@@ -1,12 +1,13 @@
 export default {
-  apiGateway: {
+  Auth: {
     REGION: "eu-central-1",
-    URL: "https://lzal93o4wk.execute-api.eu-central-1.amazonaws.com/prod"
+    USER_POOL_ID: "eu-central-1_S1et4IKBG",
+    IDENTITY_POOL_ID: "eu-central-1:3e58b936-1fee-41f7-8d59-bd69404d10f8",
+    APP_CLIENT_ID: "5p93948bncuuv69pr8ecab1e0s",
   },
-  cognito: {
+  API: {
+    NAME: "dev-younique-wedding-api-2",
+    ENDPOINT: "https://8wydy5fq89.execute-api.eu-central-1.amazonaws.com/dev",
     REGION: "eu-central-1",
-    USER_POOL_ID: "eu-central-1_V34V397Hf",
-    APP_CLIENT_ID: "1jes6n8dodah3v1d6c0cojom0c",
-    IDENTITY_POOL_ID: "eu-central-1:7deff903-73fe-4cc1-9fce-2ada4f0c4a3e"
   }
 };
