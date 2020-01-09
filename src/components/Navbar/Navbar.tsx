@@ -68,15 +68,20 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {sidebarItems.map(({text, path}) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <Link color="inherit" component={RouterLink} to={path}>
+        {sidebarItems.map(({ text, path }) => (
+          <Link
+            color="inherit"
+            underline="none"
+            component={RouterLink}
+            to={path}
+          >
+            <ListItem button key={text}>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
               {text}
-            </Link>
-          </ListItem>
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>
