@@ -74,8 +74,9 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
             underline="none"
             component={RouterLink}
             to={path}
+            key={text}
           >
-            <ListItem button key={text}>
+            <ListItem button>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
