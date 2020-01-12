@@ -39,7 +39,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
 
       try {
         const todos = await loadNotes();
-        console.log(todos);
         setTodos(todos);
       } catch (error) {
         alert(error);
