@@ -65,7 +65,7 @@ const NewTodo: React.FC<Props> = () => {
 
     try {
       await createTodo(fields);
-      history.push("/");
+      history.push("/todos");
     } catch (error) {
       alert(error.message);
       setIsLoading(false);
@@ -85,7 +85,7 @@ const NewTodo: React.FC<Props> = () => {
           fullWidth
           autoFocus
           required
-          />
+        />
         <TextField
           label="Deadline"
           id="deadline"
