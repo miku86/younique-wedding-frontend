@@ -41,8 +41,8 @@ const CustomTable: React.FC<Props> = ({ data }) => {
               <TableCell component="th" scope="item">
                 {item.title}
               </TableCell>
-              <TableCell align="right">{item.comment}</TableCell>
-              <TableCell align="right">{item.comment}</TableCell>
+              <TableCell align="right">{item.deadline}</TableCell>
+              <TableCell align="right">{item.responsible}</TableCell>
               <TableCell align="right">{item.comment}</TableCell>
             </TableRow>
           ))}
