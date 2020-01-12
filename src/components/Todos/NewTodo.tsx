@@ -2,13 +2,17 @@ import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { API } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
+import config from "../../config";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
 interface Props {}
 
 interface Todo {
-  content: string;
+  title: string;
+  deadline: string;
+  responsible: string;
+  comment: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -33,19 +37,25 @@ const NewTodo: React.FC<Props> = () => {
   let history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
-    content: ""
+    title: "",
+    deadline: "",
+    responsible: "",
+    comment: ""
   });
 
   const validateForm = () => {
-    return fields.content.length > 3;
+    return fields.title.length > 3;
   };
 
-  const createTodo = ({ content }: Todo) => {
+  const createTodo = ({ title, deadline, responsible, comment }: Todo) => {
     const body = {
-      content
+      title,
+      deadline,
+      responsible,
+      comment
     };
 
-    return API.post("todos", "/todos", { body });
+    return API.post(config.API.NAME, "/todos", { body });
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -55,7 +65,7 @@ const NewTodo: React.FC<Props> = () => {
 
     try {
       await createTodo(fields);
-      history.push("/");
+      history.push("/todos");
     } catch (error) {
       alert(error.message);
       setIsLoading(false);
@@ -66,14 +76,47 @@ const NewTodo: React.FC<Props> = () => {
     <div className={classes.root}>
       <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
-          label="Content"
-          id="content"
-          placeholder="Content"
-          value={fields.content}
+          label="Title"
+          id="title"
+          placeholder="Buy Shoes"
+          value={fields.title}
           onChange={handleFieldsChange}
           variant="outlined"
           fullWidth
           autoFocus
+          required
+        />
+        <TextField
+          label="Deadline"
+          id="deadline"
+          value={fields.deadline}
+          type="date"
+          onChange={handleFieldsChange}
+          variant="outlined"
+          fullWidth
+          required
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
+        <TextField
+          label="Responsible"
+          id="responsible"
+          placeholder="Max"
+          value={fields.responsible}
+          onChange={handleFieldsChange}
+          variant="outlined"
+          fullWidth
+          required
+        />
+        <TextField
+          label="Comment"
+          id="comment"
+          placeholder="Black"
+          value={fields.comment}
+          onChange={handleFieldsChange}
+          variant="outlined"
+          fullWidth
           required
         />
         <LoadingButton

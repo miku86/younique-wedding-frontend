@@ -1,7 +1,8 @@
-import { Box, Fab, makeStyles, Theme } from "@material-ui/core";
+import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import config from "../../config";
 import { TisAuthenticated } from "../../utils/customTypes";
 import CustomTable from "../shared/CustomTable";
@@ -38,7 +39,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
 
       try {
         const todos = await loadNotes();
-        console.log(todos);
         setTodos(todos);
       } catch (error) {
         alert(error);
@@ -57,9 +57,16 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
         {!isLoading && todos && <CustomTable data={todos} />}
         <Box display="flex" my={2}>
           <Box justifyContent="flex-start">
-            <Fab color="primary" aria-label="add">
-              <Add />
-            </Fab>
+            <Link
+              color="inherit"
+              underline="none"
+              component={RouterLink}
+              to="/todos/new"
+            >
+              <Fab color="primary" aria-label="add">
+                <Add />
+              </Fab>
+            </Link>
           </Box>
         </Box>
       </div>
