@@ -54,7 +54,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     return (
       <div className={classes.todos}>
         <h1>Your Todos</h1>
-        {!isLoading && todos && <CustomTable data={todos} />}
+        {!isLoading && todos && <CustomTable data={todos} showDeleteButton={true}/>}
         <Box display="flex" my={2}>
           <Box justifyContent="flex-start">
             <Link
