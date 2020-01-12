@@ -23,6 +23,9 @@ Amplify.configure({
         region: config.API.REGION
       }
     ]
+  },
+  Analytics: {
+    disabled: true
   }
 });
 
