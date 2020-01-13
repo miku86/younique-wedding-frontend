@@ -9,7 +9,7 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => ({
   dashboard: {
-    padding: "80px 0",
+    padding: "0px 20px",
     textAlign: "center",
 
     "& h1": {

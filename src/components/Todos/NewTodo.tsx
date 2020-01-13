@@ -8,7 +8,7 @@ import LoadingButton from "../shared/LoadingButton";
 
 interface Props {}
 
-interface Todo {
+interface TodoInputs {
   title: string;
   deadline: string;
   responsible: string;
@@ -47,7 +47,12 @@ const NewTodo: React.FC<Props> = () => {
     return fields.title.length > 3;
   };
 
-  const createTodo = ({ title, deadline, responsible, comment }: Todo) => {
+  const createTodo = ({
+    title,
+    deadline,
+    responsible,
+    comment
+  }: TodoInputs) => {
     const body = {
       title,
       deadline,
