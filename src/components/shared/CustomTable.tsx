@@ -19,11 +19,16 @@ interface Todo {
 interface Props {
   data: Item[];
   showDeleteButton: boolean;
+  handleDelete: any;
 }
 
 type Item = Todo;
 
-const CustomTable: React.FC<Props> = ({ data, showDeleteButton }) => {
+const CustomTable: React.FC<Props> = ({
+  data,
+  showDeleteButton,
+  handleDelete
+}) => {
   const classes = useStyles();
 
   return (
@@ -49,7 +54,7 @@ const CustomTable: React.FC<Props> = ({ data, showDeleteButton }) => {
               <TableCell align="right">{item.comment}</TableCell>
               {showDeleteButton && (
                 <TableCell align="right">
-                  <Delete />
+                  <Delete onClick={() => handleDelete(item.SK)} />
                 </TableCell>
               )}
             </TableRow>

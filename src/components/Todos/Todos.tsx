@@ -50,11 +50,21 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     return API.get(config.API.NAME, "/todos", {});
   };
 
+  const deleteItem = (todoId: any) => {
+    return API.del(config.API.NAME, "/todos", { todoId });
+  };
+
   const renderTodos = () => {
     return (
       <div className={classes.todos}>
         <h1>Your Todos</h1>
-        {!isLoading && todos && <CustomTable data={todos} showDeleteButton={true}/>}
+        {!isLoading && todos && (
+          <CustomTable
+            data={todos}
+            showDeleteButton={true}
+            handleDelete={deleteItem}
+          />
+        )}
         <Box display="flex" my={2}>
           <Box justifyContent="flex-start">
             <Link
