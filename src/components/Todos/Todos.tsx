@@ -2,7 +2,7 @@ import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink, useHistory } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import config from "../../config";
 import { TisAuthenticated } from "../../utils/customTypes";
 import CustomTable from "../shared/CustomTable";
@@ -29,9 +29,25 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Todos: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
-  let history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [todos, setTodos] = useState([]);
+
+  const fetchTodos = async () => {
+    setIsLoading(true);
+    const todos = await API.get(config.API.NAME, "/todos", {});
+    setTodos(todos);
+    setIsLoading(false);
+  };
+
+  const deleteTodo = async (todoId: string) => {
+    const body = {
+      todoId
+    };
+
+    setIsLoading(true);
+    await API.del(config.API.NAME, "/todos", { body });
+    setIsLoading(false);
+  };
 
   useEffect(() => {
     (async () => {
@@ -39,40 +55,30 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
         return;
       }
 
-      setIsLoading(true);
-
       try {
-        const todos = await loadNotes();
-        setTodos(todos);
+        fetchTodos();
       } catch (error) {
         alert(error);
       }
-
-      setIsLoading(false);
     })();
   }, [isAuthenticated]);
 
-  const loadNotes = () => {
-    return API.get(config.API.NAME, "/todos", {});
-  };
+  const handleDelete = async (
+    todoId: any
+  ) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this todo?"
+    );
 
-  const deleteTodo = (todoId: string) => {
-    const body = {
-      todoId
-    };
-
-    return API.del(config.API.NAME, "/todos", { body });
-  };
-
-  const handleDelete = async (todoId: any) => {
-    setIsLoading(true);
+    if (!confirmed) {
+      return;
+    }
 
     try {
       await deleteTodo(todoId);
-      history.push("/todos");
+      fetchTodos();
     } catch (error) {
       alert(error.message);
-      setIsLoading(false);
     }
   };
 
