@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& th": {
       color: "white"
     }
+  },
+  deleteButton: {
+    cursor: "pointer"
   }
 }));
 
@@ -49,7 +52,10 @@ const CustomTable: React.FC<Props> = ({
               <TableCell align="right">{item.comment}</TableCell>
               {showDeleteButton && (
                 <TableCell align="right">
-                  <Delete onClick={() => handleDelete(item.todoId)} />
+                  <Delete
+                    className={classes.deleteButton}
+                    onClick={() => handleDelete(item.todoId)}
+                  />
                 </TableCell>
               )}
             </TableRow>
