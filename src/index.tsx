@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "typeface-roboto";
 import App from "./components/App";
-import config from "./config";
+import { config } from "./config";
 import "./index.css";
 
 Amplify.configure({
@@ -25,7 +25,7 @@ Amplify.configure({
     ]
   },
   Analytics: {
-    disabled: true
+    disabled: config.Analytics.DISABLED
   }
 });
 

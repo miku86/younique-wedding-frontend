@@ -2,7 +2,7 @@ import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { API } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
-import config from "../../config";
+import { config } from "../../config";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 

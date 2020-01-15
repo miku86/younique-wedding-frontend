@@ -3,7 +3,7 @@ import { Add } from "@material-ui/icons";
 import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import config from "../../config";
+import { config } from "../../config";
 import { TisAuthenticated } from "../../utils/customTypes";
 import CustomTable from "../shared/CustomTable";
 import Landing from "../shared/Landing";
@@ -63,9 +63,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     })();
   }, [isAuthenticated]);
 
-  const handleDelete = async (
-    todoId: any
-  ) => {
+  const handleDelete = async (todoId: any) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this todo?"
     );
