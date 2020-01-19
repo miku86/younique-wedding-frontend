@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Dashboard from "../components/Dashboard/Dashboard";
+import Guests from "../components/Guests/Guests";
+import NewGuest from "../components/Guests/NewGuest";
 import Login from "../components/Login/Login";
 import NotFound from "../components/NotFound/NotFound";
 import AuthRoute from "../components/shared/AuthRoute";
@@ -46,6 +48,18 @@ const Routes: React.FC<Props> = ({ appProps }) => {
         path="/todos/new"
         exact={true}
         component={NewTodo}
+        appProps={appProps}
+      />
+      <AuthRoute
+        path="/guests"
+        exact={true}
+        component={Guests}
+        appProps={appProps}
+      />
+      <AuthRoute
+        path="/guests/new"
+        exact={true}
+        component={NewGuest}
         appProps={appProps}
       />
       <Route component={NotFound} />

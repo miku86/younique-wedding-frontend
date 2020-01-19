@@ -14,7 +14,7 @@ interface Props {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  todos: {
+  guests: {
     padding: "0px 20px",
     textAlign: "center",
 
@@ -27,25 +27,25 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Todos: React.FC<Props> = ({ isAuthenticated }) => {
+const Guests: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
-  const [todos, setTodos] = useState([]);
+  const [guests, setGuests] = useState([]);
 
-  const fetchTodos = async () => {
+  const fetchGuests = async () => {
     setIsLoading(true);
-    const todos = await API.get(config.API.NAME, "/todos", {});
-    setTodos(todos);
+    const guests = await API.get(config.API.NAME, "/guests", {});
+    setGuests(guests);
     setIsLoading(false);
   };
 
-  const deleteTodo = async (todoId: string) => {
+  const deleteGuest = async (guestId: string) => {
     const body = {
-      todoId
+      guestId
     };
 
     setIsLoading(true);
-    await API.del(config.API.NAME, "/todos", { body });
+    await API.del(config.API.NAME, "/guests", { body });
     setIsLoading(false);
   };
 
@@ -56,16 +56,16 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       }
 
       try {
-        fetchTodos();
+        fetchGuests();
       } catch (error) {
         alert(error);
       }
     })();
   }, [isAuthenticated]);
 
-  const handleDelete = async (todoId: any) => {
+  const handleDelete = async (guestId: any) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this todo?"
+      "Are you sure you want to delete this guest?"
     );
 
     if (!confirmed) {
@@ -73,23 +73,23 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     }
 
     try {
-      await deleteTodo(todoId);
-      fetchTodos();
+      await deleteGuest(guestId);
+      fetchGuests();
     } catch (error) {
       alert(error.message);
     }
   };
 
-  const renderTodos = () => {
+  const renderGuests = () => {
     return (
-      <div className={classes.todos}>
+      <div className={classes.guests}>
         {isLoading ? (
           <LoadingSpinner />
         ) : (
           <>
-            <h1>Your Todos</h1>
+            <h1>Your Guests</h1>
             <CustomTable
-              data={todos}
+              data={guests}
               showDeleteButton={true}
               handleDelete={handleDelete}
             />
@@ -100,7 +100,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
                   color="inherit"
                   underline="none"
                   component={RouterLink}
-                  to="/todos/new"
+                  to="/guests/new"
                 >
                   <Fab color="primary" aria-label="add">
                     <Add />
@@ -114,7 +114,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     );
   };
 
-  return <div>{isAuthenticated ? renderTodos() : <Landing />}</div>;
+  return <div>{isAuthenticated ? renderGuests() : <Landing />}</div>;
 };
 
-export default Todos;
+export default Guests;

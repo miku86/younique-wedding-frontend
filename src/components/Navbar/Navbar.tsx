@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const sidebarItems = [
   { text: "Dashboard", path: "/" },
-  { text: "Todos", path: "/todos" }
+  { text: "Todos", path: "/todos" },
+  { text: "Guests", path: "/guests" }
 ];
 
 const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
