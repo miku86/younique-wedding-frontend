@@ -39,16 +39,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     setIsLoading(false);
   };
 
-  const deleteTodo = async (todoId: string) => {
-    const body = {
-      todoId
-    };
-
-    setIsLoading(true);
-    await API.del(config.API.NAME, "/todos", { body });
-    setIsLoading(false);
-  };
-
   useEffect(() => {
     (async () => {
       if (!isAuthenticated) {
@@ -62,6 +52,16 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       }
     })();
   }, [isAuthenticated]);
+
+  const deleteTodo = async (todoId: string) => {
+    const body = {
+      todoId
+    };
+
+    setIsLoading(true);
+    await API.del(config.API.NAME, "/todos", { body });
+    setIsLoading(false);
+  };
 
   const handleDelete = async (todoId: string) => {
     const confirmed = window.confirm(
@@ -80,6 +80,38 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     }
   };
 
+  const updateTodo = (
+    todoId: string,
+    fieldKey: string,
+    newFieldValue: boolean
+  ) => {
+    const body = {
+      todoId,
+      fieldKey,
+      newFieldValue
+    };
+
+    return API.put(config.API.NAME, "/todos", { body });
+  };
+
+  const handleUpdate = async (
+    todoId: string,
+    fieldKey: string,
+    fieldValue: boolean
+  ) => {
+    const newFieldValue = !fieldValue;
+
+    setIsLoading(true);
+
+    try {
+      await updateTodo(todoId, fieldKey, newFieldValue);
+      fetchTodos();
+    } catch (error) {
+      alert(error.message);
+      setIsLoading(false);
+    }
+  };
+
   const renderTodos = () => {
     return (
       <div className={classes.todos}>
@@ -92,6 +124,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
               data={todos}
               showDeleteButton={true}
               handleDelete={handleDelete}
+              handleUpdate={handleUpdate}
             />
 
             <Box display="flex" my={2}>

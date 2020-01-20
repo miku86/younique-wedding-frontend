@@ -41,7 +41,7 @@ const CustomTable: React.FC<Props> = ({
       <Table size="small">
         <TableHead className={classes.head}>
           <TableRow>
-            <TableCell>Name</TableCell>
+            <TableCell align="center">Name</TableCell>
             <TableCell align="center">Sent Save The Date?</TableCell>
             <TableCell align="center">Sent Invite?</TableCell>
             <TableCell align="center">Received Response?</TableCell>
@@ -64,10 +64,10 @@ const CustomTable: React.FC<Props> = ({
                 guestId
               }: Guest) => (
                 <TableRow key={SK}>
-                  <TableCell>{name}</TableCell>
+                  <TableCell align="center">{name}</TableCell>
                   <TableCell align="center">
                     <CheckingIcon
-                      guestId={guestId}
+                      itemId={guestId}
                       fieldKey="sentSaveTheDate"
                       fieldValue={sentSaveTheDate}
                       handleClick={handleUpdate}
@@ -75,7 +75,7 @@ const CustomTable: React.FC<Props> = ({
                   </TableCell>
                   <TableCell align="center">
                     <CheckingIcon
-                      guestId={guestId}
+                      itemId={guestId}
                       fieldKey="sentInvite"
                       fieldValue={sentInvite}
                       handleClick={handleUpdate}
@@ -83,7 +83,7 @@ const CustomTable: React.FC<Props> = ({
                   </TableCell>
                   <TableCell align="center">
                     <CheckingIcon
-                      guestId={guestId}
+                      itemId={guestId}
                       fieldKey="receivedResponse"
                       fieldValue={receivedResponse}
                       handleClick={handleUpdate}
@@ -91,7 +91,7 @@ const CustomTable: React.FC<Props> = ({
                   </TableCell>
                   <TableCell align="center">
                     <CheckingIcon
-                      guestId={guestId}
+                      itemId={guestId}
                       fieldKey="coming"
                       fieldValue={coming}
                       handleClick={handleUpdate}
@@ -99,7 +99,7 @@ const CustomTable: React.FC<Props> = ({
                   </TableCell>
                   <TableCell align="center">{comment}</TableCell>
                   {showDeleteButton && (
-                    <TableCell align="right">
+                    <TableCell align="center">
                       <Delete
                         className={classes.deleteButton}
                         onClick={() => handleDelete(guestId)}
