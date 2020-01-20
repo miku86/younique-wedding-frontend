@@ -39,16 +39,6 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
     setIsLoading(false);
   };
 
-  const deleteGuest = async (guestId: string) => {
-    const body = {
-      guestId
-    };
-
-    setIsLoading(true);
-    await API.del(config.API.NAME, "/guests", { body });
-    setIsLoading(false);
-  };
-
   useEffect(() => {
     (async () => {
       if (!isAuthenticated) {
@@ -63,7 +53,17 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
     })();
   }, [isAuthenticated]);
 
-  const handleDelete = async (guestId: any) => {
+  const deleteGuest = async (guestId: string) => {
+    const body = {
+      guestId
+    };
+
+    setIsLoading(true);
+    await API.del(config.API.NAME, "/guests", { body });
+    setIsLoading(false);
+  };
+
+  const handleDelete = async (guestId: string) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this guest?"
     );
@@ -80,6 +80,38 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
     }
   };
 
+  const updateGuest = (
+    guestId: string,
+    fieldKey: string,
+    newFieldValue: boolean
+  ) => {
+    const body = {
+      guestId,
+      fieldKey,
+      newFieldValue
+    };
+
+    return API.put(config.API.NAME, "/guests", { body });
+  };
+
+  const handleUpdate = async (
+    guestId: string,
+    fieldKey: string,
+    fieldValue: boolean
+  ) => {
+    const newFieldValue = !fieldValue;
+
+    setIsLoading(true);
+
+    try {
+      await updateGuest(guestId, fieldKey, newFieldValue);
+      fetchGuests();
+    } catch (error) {
+      alert(error.message);
+      setIsLoading(false);
+    }
+  };
+
   const renderGuests = () => {
     return (
       <div className={classes.guests}>
@@ -92,6 +124,7 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
               data={guests}
               showDeleteButton={true}
               handleDelete={handleDelete}
+              handleUpdate={handleUpdate}
             />
 
             <Box display="flex" my={2}>

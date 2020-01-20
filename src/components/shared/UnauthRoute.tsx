@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactType } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { IappProps } from "../../utils/customTypes";
 
@@ -21,7 +21,7 @@ const querystring = (name: string, url: string = window.location.href) => {
 interface Props {
   path: string;
   exact: boolean;
-  component: any;
+  component: ReactType;
   appProps: IappProps;
 }
 

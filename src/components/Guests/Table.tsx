@@ -20,13 +20,19 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   data: Guest[];
   showDeleteButton: boolean;
-  handleDelete: any;
+  handleDelete: (guestId: string) => void;
+  handleUpdate: (
+    guestId: string,
+    fieldKey: string,
+    fieldValue: boolean
+  ) => void;
 }
 
 const CustomTable: React.FC<Props> = ({
   data,
   showDeleteButton,
-  handleDelete
+  handleDelete,
+  handleUpdate
 }) => {
   const classes = useStyles();
 
@@ -60,16 +66,36 @@ const CustomTable: React.FC<Props> = ({
                 <TableRow key={SK}>
                   <TableCell>{name}</TableCell>
                   <TableCell align="center">
-                    <CheckingIcon property={sentSaveTheDate} />
+                    <CheckingIcon
+                      guestId={guestId}
+                      fieldKey="sentSaveTheDate"
+                      fieldValue={sentSaveTheDate}
+                      handleClick={handleUpdate}
+                    />
                   </TableCell>
                   <TableCell align="center">
-                    <CheckingIcon property={sentInvite} />
+                    <CheckingIcon
+                      guestId={guestId}
+                      fieldKey="sentInvite"
+                      fieldValue={sentInvite}
+                      handleClick={handleUpdate}
+                    />
                   </TableCell>
                   <TableCell align="center">
-                    <CheckingIcon property={receivedResponse} />
+                    <CheckingIcon
+                      guestId={guestId}
+                      fieldKey="receivedResponse"
+                      fieldValue={receivedResponse}
+                      handleClick={handleUpdate}
+                    />
                   </TableCell>
                   <TableCell align="center">
-                    <CheckingIcon property={coming} />
+                    <CheckingIcon
+                      guestId={guestId}
+                      fieldKey="coming"
+                      fieldValue={coming}
+                      handleClick={handleUpdate}
+                    />
                   </TableCell>
                   <TableCell align="center">{comment}</TableCell>
                   {showDeleteButton && (

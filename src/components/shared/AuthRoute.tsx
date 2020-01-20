@@ -1,11 +1,11 @@
-import React from "react";
+import React, { ReactType } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { IappProps } from "../../utils/customTypes";
 
 interface Props {
   path: string;
   exact: boolean;
-  component: any;
+  component: ReactType;
   appProps: IappProps;
 }
 
