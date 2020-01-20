@@ -6,7 +6,7 @@ import CheckingIcon from "../shared/CheckingIcon";
 
 const useStyles = makeStyles((theme: Theme) => ({
   head: {
-    backgroundColor: "#3f51b5;",
+    backgroundColor: theme.palette.primary.main,
 
     "& th": {
       color: "white"

@@ -1,9 +1,9 @@
 import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Toolbar } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { FormatListBulleted, Home, Person } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import { Auth } from "aws-amplify";
-import React from "react";
+import React, { useState } from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import { TisAuthenticated, TsetIsAuthenticated } from "../../utils/customTypes";
 
@@ -30,19 +30,29 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   list: {
     width: 250
+  },
+  sideList: {
+    padding: "0"
+  },
+  sideItem: {
+    fontSize: "1.5rem",
+    paddingTop: "20px",
+    paddingBottom: "20px",
+    borderBottom: "1px solid hsl(0, 24%, 89%)"
   }
 }));
 
 const sidebarItems = [
-  { text: "Dashboard", path: "/" },
-  { text: "Todos", path: "/todos" },
-  { text: "Guests", path: "/guests" }
+  { id: 1, text: "Dashboard", path: "/", icon: "Home" },
+  { id: 2, text: "Todos", path: "/todos", icon: "FormatListBulleted" },
+  { id: 3, text: "Guests", path: "/guests", icon: "Person" }
 ];
 
 const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   const classes = useStyles();
   let history = useHistory();
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   const toggleDrawer = (open: boolean) => (event: ToggleEvent) => {
     if (
@@ -61,33 +71,55 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
     history.push("/login");
   };
 
-  const sideList = () => (
-    <div
-      className={classes.list}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
-      <List>
-        {sidebarItems.map(({ text, path }) => (
-          <Link
-            color="inherit"
-            underline="none"
-            component={RouterLink}
-            to={path}
-            key={text}
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              {text}
-            </ListItem>
-          </Link>
-        ))}
-      </List>
-    </div>
-  );
+  const renderIcon = (icon: string) => {
+    switch (icon) {
+      case "Home":
+        return <Home />;
+      case "FormatListBulleted":
+        return <FormatListBulleted />;
+      case "Person":
+        return <Person />;
+      default:
+        return <Home />;
+    }
+  };
+
+  const handleListItemClick = (index: number) => {
+    setSelectedIndex(index);
+  };
+
+  const sideList = () => {
+    return (
+      <div
+        className={classes.list}
+        role="presentation"
+        onClick={toggleDrawer(false)}
+        onKeyDown={toggleDrawer(false)}
+      >
+        <List className={classes.sideList}>
+          {sidebarItems.map(({ id, text, path, icon }) => (
+            <Link
+              color="inherit"
+              underline="none"
+              component={RouterLink}
+              to={path}
+              key={text}
+            >
+              <ListItem
+                button
+                className={classes.sideItem}
+                selected={selectedIndex === id}
+                onClick={() => handleListItemClick(id)}
+              >
+                <ListItemIcon>{renderIcon(icon)}</ListItemIcon>
+                {text}
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+      </div>
+    );
+  };
 
   return (
     <AppBar position="static">
