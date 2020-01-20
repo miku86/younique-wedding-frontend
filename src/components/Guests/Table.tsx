@@ -2,6 +2,7 @@ import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHe
 import { Delete } from "@material-ui/icons";
 import React from "react";
 import { Guest } from "../../utils/customTypes";
+import CheckingIcon from "../shared/CheckingIcon";
 
 const useStyles = makeStyles((theme: Theme) => ({
   head: {
@@ -47,10 +48,18 @@ const CustomTable: React.FC<Props> = ({
           {data.map((item: Guest) => (
             <TableRow key={item.SK}>
               <TableCell>{item.name}</TableCell>
-              <TableCell align="right">{item.sentSaveTheDate}</TableCell>
-              <TableCell align="right">{item.sentInvite}</TableCell>
-              <TableCell align="right">{item.receivedResponse}</TableCell>
-              <TableCell align="right">{item.coming}</TableCell>
+              <TableCell align="right">
+                <CheckingIcon property={item.sentSaveTheDate} />
+              </TableCell>
+              <TableCell align="right">
+                <CheckingIcon property={item.sentInvite} />
+              </TableCell>
+              <TableCell align="right">
+                <CheckingIcon property={item.receivedResponse} />
+              </TableCell>
+              <TableCell align="right">
+                <CheckingIcon property={item.coming} />
+              </TableCell>
               <TableCell align="right">{item.comment}</TableCell>
               {showDeleteButton && (
                 <TableCell align="right">
