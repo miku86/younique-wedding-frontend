@@ -36,41 +36,58 @@ const CustomTable: React.FC<Props> = ({
         <TableHead className={classes.head}>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell align="right">Sent Save The Date?</TableCell>
-            <TableCell align="right">Sent Invite?</TableCell>
-            <TableCell align="right">Received Response?</TableCell>
-            <TableCell align="right">Coming?</TableCell>
-            <TableCell align="right">Comment?</TableCell>
-            <TableCell align="right">Options</TableCell>
+            <TableCell align="center">Sent Save The Date?</TableCell>
+            <TableCell align="center">Sent Invite?</TableCell>
+            <TableCell align="center">Received Response?</TableCell>
+            <TableCell align="center">Coming?</TableCell>
+            <TableCell align="center">Comment?</TableCell>
+            <TableCell align="center">Options</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((item: Guest) => (
-            <TableRow key={item.SK}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell align="right">
-                <CheckingIcon property={item.sentSaveTheDate} />
-              </TableCell>
-              <TableCell align="right">
-                <CheckingIcon property={item.sentInvite} />
-              </TableCell>
-              <TableCell align="right">
-                <CheckingIcon property={item.receivedResponse} />
-              </TableCell>
-              <TableCell align="right">
-                <CheckingIcon property={item.coming} />
-              </TableCell>
-              <TableCell align="right">{item.comment}</TableCell>
-              {showDeleteButton && (
-                <TableCell align="right">
-                  <Delete
-                    className={classes.deleteButton}
-                    onClick={() => handleDelete(item.guestId)}
-                  />
-                </TableCell>
-              )}
+          {data.length ? (
+            data.map(
+              ({
+                SK,
+                name,
+                sentSaveTheDate,
+                sentInvite,
+                receivedResponse,
+                coming,
+                comment,
+                guestId
+              }: Guest) => (
+                <TableRow key={SK}>
+                  <TableCell>{name}</TableCell>
+                  <TableCell align="center">
+                    <CheckingIcon property={sentSaveTheDate} />
+                  </TableCell>
+                  <TableCell align="center">
+                    <CheckingIcon property={sentInvite} />
+                  </TableCell>
+                  <TableCell align="center">
+                    <CheckingIcon property={receivedResponse} />
+                  </TableCell>
+                  <TableCell align="center">
+                    <CheckingIcon property={coming} />
+                  </TableCell>
+                  <TableCell align="center">{comment}</TableCell>
+                  {showDeleteButton && (
+                    <TableCell align="right">
+                      <Delete
+                        className={classes.deleteButton}
+                        onClick={() => handleDelete(guestId)}
+                      />
+                    </TableCell>
+                  )}
+                </TableRow>
+              )
+            )
+          ) : (
+            <TableRow>
+              <TableCell align="left">You have no entry so far.</TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </TableContainer>

@@ -5,7 +5,7 @@ interface Props {
   property: boolean;
 }
 
-const CheckingIcon: React.FC<Props> = (property) => {
+const CheckingIcon: React.FC<Props> = ({ property }) => {
   return property ? <CheckCircleOutline /> : <RadioButtonUnchecked />;
 };
 
