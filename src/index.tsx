@@ -1,3 +1,4 @@
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import Amplify from "aws-amplify";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -29,9 +30,19 @@ Amplify.configure({
   }
 });
 
+const customTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#e33371"
+    }
+  }
+});
+
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <MuiThemeProvider theme={customTheme}>
+      <App />
+    </MuiThemeProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );
