@@ -63,7 +63,7 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
     setIsLoading(false);
   };
 
-  const handleDelete = async (guestId: any) => {
+  const handleDelete = async (guestId: string) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this guest?"
     );

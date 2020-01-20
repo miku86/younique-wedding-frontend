@@ -6,7 +6,7 @@ interface Props {
   guestId: string;
   fieldKey: string;
   fieldValue: boolean;
-  handleClick: any;
+  handleClick: (guestId: string, fieldKey: string, fieldValue: boolean) => void;
 }
 
 const CheckingIcon: React.FC<Props> = ({
