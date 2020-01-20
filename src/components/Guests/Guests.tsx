@@ -39,16 +39,6 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
     setIsLoading(false);
   };
 
-  const deleteGuest = async (guestId: string) => {
-    const body = {
-      guestId
-    };
-
-    setIsLoading(true);
-    await API.del(config.API.NAME, "/guests", { body });
-    setIsLoading(false);
-  };
-
   useEffect(() => {
     (async () => {
       if (!isAuthenticated) {
@@ -63,7 +53,17 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
     })();
   }, [isAuthenticated]);
 
-  const handleDelete = async (guestId: any) => {
+  const deleteGuest = async (guestId: string) => {
+    const body = {
+      guestId
+    };
+
+    setIsLoading(true);
+    await API.del(config.API.NAME, "/guests", { body });
+    setIsLoading(false);
+  };
+
+  const handleDelete = async (guestId: string) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this guest?"
     );

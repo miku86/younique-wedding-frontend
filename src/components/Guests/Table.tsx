@@ -20,7 +20,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   data: Guest[];
   showDeleteButton: boolean;
-  handleDelete: any;
+  handleDelete: (guestId: string) => void;
+  handleUpdate: (
+    guestId: string,
+    fieldKey: string,
+    fieldValue: boolean
+  ) => void;
 }
 
 const CustomTable: React.FC<Props> = ({

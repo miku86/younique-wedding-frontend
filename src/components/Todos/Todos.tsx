@@ -63,7 +63,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     })();
   }, [isAuthenticated]);
 
-  const handleDelete = async (todoId: any) => {
+  const handleDelete = async (todoId: string) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this todo?"
     );
