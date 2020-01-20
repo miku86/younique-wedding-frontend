@@ -32,7 +32,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 250
   },
   sideItem: {
-    fontSize: "1.5rem"
+    fontSize: "1.5rem",
+    paddingTop: "20px",
+    paddingBottom: "20px",
+    borderBottom: "1px solid hsl(0, 24%, 89%)"
   }
 }));
 
