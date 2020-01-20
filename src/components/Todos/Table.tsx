@@ -43,23 +43,29 @@ const CustomTable: React.FC<Props> = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((item: Todo) => (
-            <TableRow key={item.SK}>
-              <TableCell align="center">{item.done}</TableCell>
-              <TableCell align="center">{item.title}</TableCell>
-              <TableCell align="center">{item.deadline}</TableCell>
-              <TableCell align="center">{item.responsible}</TableCell>
-              <TableCell align="center">{item.comment}</TableCell>
-              {showDeleteButton && (
-                <TableCell align="center">
-                  <Delete
-                    className={classes.deleteButton}
-                    onClick={() => handleDelete(item.todoId)}
-                  />
-                </TableCell>
-              )}
+          {data.length ? (
+            data.map((item: Todo) => (
+              <TableRow key={item.SK}>
+                <TableCell align="center">{item.done}</TableCell>
+                <TableCell align="center">{item.title}</TableCell>
+                <TableCell align="center">{item.deadline}</TableCell>
+                <TableCell align="center">{item.responsible}</TableCell>
+                <TableCell align="center">{item.comment}</TableCell>
+                {showDeleteButton && (
+                  <TableCell align="center">
+                    <Delete
+                      className={classes.deleteButton}
+                      onClick={() => handleDelete(item.todoId)}
+                    />
+                  </TableCell>
+                )}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell align="left">You have no entry so far.</TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </TableContainer>
