@@ -3,7 +3,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FormatListBulleted, Home, Person } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Auth } from "aws-amplify";
-import React from "react";
+import React, { useState } from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import { TisAuthenticated, TsetIsAuthenticated } from "../../utils/customTypes";
 
@@ -43,15 +43,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const sidebarItems = [
-  { text: "Dashboard", path: "/", icon: "Home" },
-  { text: "Todos", path: "/todos", icon: "FormatListBulleted" },
-  { text: "Guests", path: "/guests", icon: "Person" }
+  { id: 1, text: "Dashboard", path: "/", icon: "Home" },
+  { id: 2, text: "Todos", path: "/todos", icon: "FormatListBulleted" },
+  { id: 3, text: "Guests", path: "/guests", icon: "Person" }
 ];
 
 const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   const classes = useStyles();
   let history = useHistory();
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   const toggleDrawer = (open: boolean) => (event: ToggleEvent) => {
     if (
@@ -83,31 +84,42 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
     }
   };
 
-  const sideList = () => (
-    <div
-      className={classes.list}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
-      <List className={classes.sideList}>
-        {sidebarItems.map(({ text, path, icon }) => (
-          <Link
-            color="inherit"
-            underline="none"
-            component={RouterLink}
-            to={path}
-            key={text}
-          >
-            <ListItem button className={classes.sideItem}>
-              <ListItemIcon>{renderIcon(icon)}</ListItemIcon>
-              {text}
-            </ListItem>
-          </Link>
-        ))}
-      </List>
-    </div>
-  );
+  const handleListItemClick = (index: number) => {
+    setSelectedIndex(index);
+  };
+
+  const sideList = () => {
+    return (
+      <div
+        className={classes.list}
+        role="presentation"
+        onClick={toggleDrawer(false)}
+        onKeyDown={toggleDrawer(false)}
+      >
+        <List className={classes.sideList}>
+          {sidebarItems.map(({ id, text, path, icon }) => (
+            <Link
+              color="inherit"
+              underline="none"
+              component={RouterLink}
+              to={path}
+              key={text}
+            >
+              <ListItem
+                button
+                className={classes.sideItem}
+                selected={selectedIndex === id}
+                onClick={() => handleListItemClick(id)}
+              >
+                <ListItemIcon>{renderIcon(icon)}</ListItemIcon>
+                {text}
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+      </div>
+    );
+  };
 
   return (
     <AppBar position="static">
