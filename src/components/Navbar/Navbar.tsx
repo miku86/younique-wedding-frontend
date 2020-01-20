@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   list: {
     width: 250
   },
+  sideList: {
+    padding: "0"
+  },
   sideItem: {
     fontSize: "1.5rem",
     paddingTop: "20px",
@@ -87,7 +90,7 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List>
+      <List className={classes.sideList}>
         {sidebarItems.map(({ text, path, icon }) => (
           <Link
             color="inherit"
