@@ -1,7 +1,7 @@
 import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Toolbar } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { FormatListBulleted, Home, Person } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import { Auth } from "aws-amplify";
 import React from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
@@ -37,9 +37,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const sidebarItems = [
-  { text: "Dashboard", path: "/" },
-  { text: "Todos", path: "/todos" },
-  { text: "Guests", path: "/guests" }
+  { text: "Dashboard", path: "/", icon: "Home" },
+  { text: "Todos", path: "/todos", icon: "FormatListBulleted" },
+  { text: "Guests", path: "/guests", icon: "Person" }
 ];
 
 const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
@@ -64,6 +64,19 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
     history.push("/login");
   };
 
+  const renderIcon = (icon: string) => {
+    switch (icon) {
+      case "Dashboard":
+        return <Home />;
+      case "Todos":
+        return <FormatListBulleted />;
+      case "Guests":
+        return <Person />;
+      default:
+        return <Home />;
+    }
+  };
+
   const sideList = () => (
     <div
       className={classes.list}
@@ -72,7 +85,7 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {sidebarItems.map(({ text, path }) => (
+        {sidebarItems.map(({ text, path, icon }) => (
           <Link
             color="inherit"
             underline="none"
@@ -80,10 +93,8 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
             to={path}
             key={text}
           >
-            <ListItem button>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
+            <ListItem button className={classes.sideItem}>
+              <ListItemIcon>{renderIcon(icon)}</ListItemIcon>
               {text}
             </ListItem>
           </Link>
