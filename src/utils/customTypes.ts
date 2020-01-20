@@ -18,6 +18,7 @@ export interface Todo {
   deadline: string;
   responsible: string;
   timestamp: number;
+  done: boolean;
 }
 
 export interface Guest {
