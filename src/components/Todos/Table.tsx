@@ -2,6 +2,7 @@ import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHe
 import { Delete } from "@material-ui/icons";
 import React from "react";
 import { Todo } from "../../utils/customTypes";
+import CheckingIcon from "../shared/CheckingIcon";
 
 const useStyles = makeStyles((theme: Theme) => ({
   head: {
@@ -20,12 +21,14 @@ interface Props {
   data: Todo[];
   showDeleteButton: boolean;
   handleDelete: (guestId: string) => void;
+  handleUpdate: (todoId: string, fieldKey: string, fieldValue: boolean) => void;
 }
 
 const CustomTable: React.FC<Props> = ({
   data,
   showDeleteButton,
-  handleDelete
+  handleDelete,
+  handleUpdate
 }) => {
   const classes = useStyles();
 
@@ -44,23 +47,40 @@ const CustomTable: React.FC<Props> = ({
         </TableHead>
         <TableBody>
           {data.length ? (
-            data.map((item: Todo) => (
-              <TableRow key={item.SK}>
-                <TableCell align="center">{item.done}</TableCell>
-                <TableCell align="center">{item.title}</TableCell>
-                <TableCell align="center">{item.deadline}</TableCell>
-                <TableCell align="center">{item.responsible}</TableCell>
-                <TableCell align="center">{item.comment}</TableCell>
-                {showDeleteButton && (
+            data.map(
+              ({
+                SK,
+                done,
+                title,
+                deadline,
+                responsible,
+                comment,
+                todoId
+              }: Todo) => (
+                <TableRow key={SK}>
                   <TableCell align="center">
-                    <Delete
-                      className={classes.deleteButton}
-                      onClick={() => handleDelete(item.todoId)}
+                    <CheckingIcon
+                      itemId={todoId}
+                      fieldKey="done"
+                      fieldValue={done}
+                      handleClick={handleUpdate}
                     />
                   </TableCell>
-                )}
-              </TableRow>
-            ))
+                  <TableCell align="center">{title}</TableCell>
+                  <TableCell align="center">{deadline}</TableCell>
+                  <TableCell align="center">{responsible}</TableCell>
+                  <TableCell align="center">{comment}</TableCell>
+                  {showDeleteButton && (
+                    <TableCell align="center">
+                      <Delete
+                        className={classes.deleteButton}
+                        onClick={() => handleDelete(todoId)}
+                      />
+                    </TableCell>
+                  )}
+                </TableRow>
+              )
+            )
           ) : (
             <TableRow>
               <TableCell align="left">You have no entry so far.</TableCell>

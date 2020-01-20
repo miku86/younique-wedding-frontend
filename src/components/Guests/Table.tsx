@@ -67,7 +67,7 @@ const CustomTable: React.FC<Props> = ({
                   <TableCell align="center">{name}</TableCell>
                   <TableCell align="center">
                     <CheckingIcon
-                      guestId={guestId}
+                      itemId={guestId}
                       fieldKey="sentSaveTheDate"
                       fieldValue={sentSaveTheDate}
                       handleClick={handleUpdate}
@@ -75,7 +75,7 @@ const CustomTable: React.FC<Props> = ({
                   </TableCell>
                   <TableCell align="center">
                     <CheckingIcon
-                      guestId={guestId}
+                      itemId={guestId}
                       fieldKey="sentInvite"
                       fieldValue={sentInvite}
                       handleClick={handleUpdate}
@@ -83,7 +83,7 @@ const CustomTable: React.FC<Props> = ({
                   </TableCell>
                   <TableCell align="center">
                     <CheckingIcon
-                      guestId={guestId}
+                      itemId={guestId}
                       fieldKey="receivedResponse"
                       fieldValue={receivedResponse}
                       handleClick={handleUpdate}
@@ -91,7 +91,7 @@ const CustomTable: React.FC<Props> = ({
                   </TableCell>
                   <TableCell align="center">
                     <CheckingIcon
-                      guestId={guestId}
+                      itemId={guestId}
                       fieldKey="coming"
                       fieldValue={coming}
                       handleClick={handleUpdate}
