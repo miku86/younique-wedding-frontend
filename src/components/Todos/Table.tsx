@@ -34,24 +34,24 @@ const CustomTable: React.FC<Props> = ({
       <Table size="small">
         <TableHead className={classes.head}>
           <TableRow>
-            <TableCell>Title</TableCell>
-            <TableCell align="right">Deadline</TableCell>
-            <TableCell align="right">Responsible</TableCell>
-            <TableCell align="right">Comment</TableCell>
-            <TableCell align="right">Options</TableCell>
+            <TableCell align="center">Done</TableCell>
+            <TableCell align="center">Title</TableCell>
+            <TableCell align="center">Deadline</TableCell>
+            <TableCell align="center">Responsible</TableCell>
+            <TableCell align="center">Comment</TableCell>
+            <TableCell align="center">Options</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data.map((item: Todo) => (
             <TableRow key={item.SK}>
-              <TableCell component="th" scope="item">
-                {item.title}
-              </TableCell>
-              <TableCell align="right">{item.deadline}</TableCell>
-              <TableCell align="right">{item.responsible}</TableCell>
-              <TableCell align="right">{item.comment}</TableCell>
+              <TableCell align="center">{item.done}</TableCell>
+              <TableCell align="center">{item.title}</TableCell>
+              <TableCell align="center">{item.deadline}</TableCell>
+              <TableCell align="center">{item.responsible}</TableCell>
+              <TableCell align="center">{item.comment}</TableCell>
               {showDeleteButton && (
-                <TableCell align="right">
+                <TableCell align="center">
                   <Delete
                     className={classes.deleteButton}
                     onClick={() => handleDelete(item.todoId)}

@@ -99,7 +99,7 @@ const CustomTable: React.FC<Props> = ({
                   </TableCell>
                   <TableCell align="center">{comment}</TableCell>
                   {showDeleteButton && (
-                    <TableCell align="right">
+                    <TableCell align="center">
                       <Delete
                         className={classes.deleteButton}
                         onClick={() => handleDelete(guestId)}
