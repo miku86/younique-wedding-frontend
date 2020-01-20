@@ -41,7 +41,7 @@ const CustomTable: React.FC<Props> = ({
       <Table size="small">
         <TableHead className={classes.head}>
           <TableRow>
-            <TableCell>Name</TableCell>
+            <TableCell align="center">Name</TableCell>
             <TableCell align="center">Sent Save The Date?</TableCell>
             <TableCell align="center">Sent Invite?</TableCell>
             <TableCell align="center">Received Response?</TableCell>
@@ -64,7 +64,7 @@ const CustomTable: React.FC<Props> = ({
                 guestId
               }: Guest) => (
                 <TableRow key={SK}>
-                  <TableCell>{name}</TableCell>
+                  <TableCell align="center">{name}</TableCell>
                   <TableCell align="center">
                     <CheckingIcon
                       guestId={guestId}
