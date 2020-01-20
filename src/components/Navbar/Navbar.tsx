@@ -69,11 +69,11 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
 
   const renderIcon = (icon: string) => {
     switch (icon) {
-      case "Dashboard":
+      case "Home":
         return <Home />;
-      case "Todos":
+      case "FormatListBulleted":
         return <FormatListBulleted />;
-      case "Guests":
+      case "Person":
         return <Person />;
       default:
         return <Home />;
