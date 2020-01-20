@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   list: {
     width: 250
+  },
+  sideItem: {
+    fontSize: "1.5rem"
   }
 }));
 
