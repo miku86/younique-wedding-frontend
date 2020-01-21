@@ -1,4 +1,4 @@
-import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Toolbar } from "@material-ui/core";
+import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FormatListBulleted, Home, Person } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     flexGrow: 1,
     fontSize: "1.25rem",
+    textAlign: "center",
+
     "&:hover": {
       textDecoration: "none"
     }
@@ -121,6 +123,21 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
     );
   };
 
+  const renderSiteTitle = () => {
+    const path = history.location.pathname;
+
+    switch (path) {
+      case "/":
+        return "Dashboard";
+      case "/todos":
+        return "Todos";
+      case "/guests":
+        return "Guests";
+      default:
+        return "";
+    }
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -136,14 +153,9 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
         <Drawer open={isSidebarOpen} onClose={toggleDrawer(false)}>
           {sideList()}
         </Drawer>
-        <Link
-          color="inherit"
-          component={RouterLink}
-          to="/"
-          className={classes.title}
-        >
-          Younique Wedding
-        </Link>
+        <Typography color="inherit" className={classes.title}>
+          {renderSiteTitle()}
+        </Typography>
 
         {isAuthenticated ? (
           <Button color="inherit" onClick={handleLogout}>

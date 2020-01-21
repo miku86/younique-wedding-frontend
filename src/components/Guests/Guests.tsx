@@ -119,7 +119,6 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
           <LoadingSpinner />
         ) : (
           <>
-            <h1>Your Guests</h1>
             <CustomTable
               data={guests}
               showDeleteButton={true}
