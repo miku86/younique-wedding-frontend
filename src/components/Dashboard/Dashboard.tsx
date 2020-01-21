@@ -8,6 +8,7 @@ import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { config } from "../../config";
+import budgetImage from "../../static/images/budget.jpg";
 import guestsImage from "../../static/images/guests.jpg";
 import todosImage from "../../static/images/todos.jpg";
 import { TisAuthenticated } from "../../utils/customTypes";
@@ -146,6 +147,36 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
                       component="p"
                     >
                       Coming
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Link>
+            </Card>
+            <Card className={classes.card}>
+              <Link component={RouterLink} to="/budget">
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={budgetImage}
+                    title="Budget"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Budget
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {`${dashboardData?.budget?.amountDoneItems} /  ${dashboardData?.budget?.amountItems}`}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      Bought
                     </Typography>
                   </CardContent>
                 </CardActionArea>
