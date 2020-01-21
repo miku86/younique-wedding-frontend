@@ -6,19 +6,30 @@ import { Todo } from "../../utils/customTypes";
 const useStyles = makeStyles((theme: Theme) => ({
   summary: {
     display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    margin: "10px 0"
+    flexDirection: "column",
+    margin: "10px 0",
+
+    [theme.breakpoints.up("md")]: {
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      alignItems: "center",
+      margin: "10px 0"
+    }
   },
   card: {
-    display: "flex",
     border: `1px solid ${theme.palette.primary.main}`,
-    width: "240px",
+    display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    margin: "10px 0",
 
     "& .MuiCardContent-root:last-child": {
       paddingBottom: "16px"
+    },
+
+    [theme.breakpoints.up("md")]: {
+      width: "240px",
+      margin: "20px 0"
     }
   },
   content: {
@@ -29,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.primary.main
   }
 }));
-
 interface Props {
   data: Todo[];
 }
