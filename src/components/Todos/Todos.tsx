@@ -120,8 +120,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
           <LoadingSpinner />
         ) : (
           <>
-            <h1>Your Todos</h1>
-
             <Summary data={todos} />
 
             <CustomTable
