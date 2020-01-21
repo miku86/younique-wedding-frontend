@@ -1,4 +1,3 @@
-import { green, red } from "@material-ui/core/colors";
 import { CheckCircleOutline, RadioButtonUnchecked } from "@material-ui/icons";
 import React from "react";
 
@@ -18,9 +17,9 @@ const CheckingIcon: React.FC<Props> = ({
   return (
     <div onClick={() => handleClick(itemId, fieldKey, fieldValue)}>
       {fieldValue ? (
-        <CheckCircleOutline style={{ color: green[500] }} />
+        <CheckCircleOutline style={{ color: "#e33371" }} />
       ) : (
-        <RadioButtonUnchecked style={{ color: red[500] }} />
+        <RadioButtonUnchecked />
       )}
     </div>
   );
