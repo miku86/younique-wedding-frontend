@@ -4,8 +4,10 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import React, { useState } from "react";
+import { API } from "aws-amplify";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { config } from "../../config";
 import guestsImage from "../../static/images/guests.jpg";
 import todosImage from "../../static/images/todos.jpg";
 import { TisAuthenticated } from "../../utils/customTypes";
@@ -14,6 +16,10 @@ import LoadingSpinner from "../shared/LoadingSpinner";
 
 interface Props {
   isAuthenticated: TisAuthenticated;
+}
+
+interface DashboardData {
+  [key: string]: any;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -33,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     [theme.breakpoints.up("md")]: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))",
+      gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
       justifyItems: "center",
       gridGap: "10px"
     }
@@ -55,6 +61,28 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
+  const [dashboardData, setDashboardData] = useState<DashboardData>({});
+
+  const fetchDashboardData = async () => {
+    setIsLoading(true);
+    const data = await API.get(config.API.NAME, "/dashboard", {});
+    setDashboardData(data);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    (async () => {
+      if (!isAuthenticated) {
+        return;
+      }
+
+      try {
+        fetchDashboardData();
+      } catch (error) {
+        alert(error);
+      }
+    })();
+  }, [isAuthenticated]);
 
   const renderDashboard = () => {
     return (
@@ -76,11 +104,18 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
                       Todos
                     </Typography>
                     <Typography
+                      variant="body1"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {`${dashboardData?.todos?.amountDoneItems} /  ${dashboardData?.todos?.amountItems}`}
+                    </Typography>
+                    <Typography
                       variant="body2"
                       color="textSecondary"
                       component="p"
                     >
-                      Information about Todos
+                      Done
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -99,11 +134,18 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
                       Guests
                     </Typography>
                     <Typography
+                      variant="body1"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {`${dashboardData?.guests?.amountDoneItems} /  ${dashboardData?.guests?.amountItems}`}
+                    </Typography>
+                    <Typography
                       variant="body2"
                       color="textSecondary"
                       component="p"
                     >
-                      Information about Guests
+                      Coming
                     </Typography>
                   </CardContent>
                 </CardActionArea>
