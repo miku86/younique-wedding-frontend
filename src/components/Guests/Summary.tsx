@@ -1,7 +1,7 @@
 import { Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
 import { CheckCircleOutline, RadioButtonUnchecked } from "@material-ui/icons";
 import React from "react";
-import { Todo } from "../../utils/customTypes";
+import { Guest } from "../../utils/customTypes";
 
 const useStyles = makeStyles((theme: Theme) => ({
   summary: {
@@ -9,12 +9,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: "column",
     margin: "10px 0",
 
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       flexDirection: "row",
       justifyContent: "space-evenly",
       alignItems: "center",
-      margin: "10px 0"
-    }
+      margin: "10px 0",
+    },
   },
   card: {
     border: `1px solid ${theme.palette.primary.main}`,
@@ -22,15 +22,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "center",
     alignItems: "center",
     margin: "10px 0",
-
+    
     "& .MuiCardContent-root:last-child": {
       paddingBottom: "16px"
     },
-
-    [theme.breakpoints.up("md")]: {
+    
+    [theme.breakpoints.up('md')]: {
       width: "240px",
-      margin: "20px 0"
-    }
+      margin: "20px 0",
+    },
   },
   content: {
     display: "flex",
@@ -40,16 +40,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.primary.main
   }
 }));
+
 interface Props {
-  data: Todo[];
+  data: Guest[];
 }
 
 const Summary: React.FC<Props> = ({ data }) => {
   const classes = useStyles();
 
   const amountItems = data.length;
-  const amountDoneItems = data.filter(item => item.done).length;
-  const amountOpenItems = data.filter(item => !item.done).length;
+  const amountDoneItems = data.filter(item => item.coming).length;
+  const amountOpenItems = data.filter(item => !item.coming).length;
 
   return (
     <div className={classes.summary}>
@@ -60,7 +61,7 @@ const Summary: React.FC<Props> = ({ data }) => {
             {`${amountDoneItems} /  ${amountItems}`}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            Done
+            Coming
           </Typography>
         </CardContent>
       </Card>
@@ -71,7 +72,7 @@ const Summary: React.FC<Props> = ({ data }) => {
             {`${amountOpenItems} /  ${amountItems}`}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            Open
+            Not Coming
           </Typography>
         </CardContent>
       </Card>
