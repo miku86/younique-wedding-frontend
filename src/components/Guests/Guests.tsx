@@ -7,6 +7,7 @@ import { config } from "../../config";
 import { TisAuthenticated } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import Summary from "./Summary";
 import CustomTable from "./Table";
 
 interface Props {
@@ -119,6 +120,8 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
           <LoadingSpinner />
         ) : (
           <>
+            <Summary data={guests} />
+
             <CustomTable
               data={guests}
               showDeleteButton={true}
