@@ -7,6 +7,7 @@ import { config } from "../../config";
 import { TisAuthenticated } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import Summary from "./Summary";
 import CustomTable from "./Table";
 
 interface Props {
@@ -120,6 +121,9 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
         ) : (
           <>
             <h1>Your Todos</h1>
+
+            <Summary data={todos} />
+
             <CustomTable
               data={todos}
               showDeleteButton={true}
