@@ -34,3 +34,15 @@ export interface Guest {
   coming: boolean;
   timestamp: number;
 }
+
+export interface BudgetItem {
+  PK: string;
+  SK: string;
+  userId: string;
+  budgetItemId: string;
+  name: string;
+  done: boolean;
+  plannedCost: string;
+  actualCost: string;
+  timestamp: number;
+}

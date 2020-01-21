@@ -1,6 +1,6 @@
 import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { FormatListBulleted, Home, Person } from "@material-ui/icons";
+import { Euro, FormatListBulleted, Home, Person } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Auth } from "aws-amplify";
 import React, { useState } from "react";
@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 const sidebarItems = [
   { id: 1, text: "Dashboard", path: "/", icon: "Home" },
   { id: 2, text: "Todos", path: "/todos", icon: "FormatListBulleted" },
-  { id: 3, text: "Guests", path: "/guests", icon: "Person" }
+  { id: 3, text: "Guests", path: "/guests", icon: "Person" },
+  { id: 4, text: "Budget", path: "/budget", icon: "Euro" }
 ];
 
 const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
@@ -81,6 +82,8 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
         return <FormatListBulleted />;
       case "Person":
         return <Person />;
+      case "Euro":
+        return <Euro />;
       default:
         return <Home />;
     }
@@ -133,6 +136,8 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
         return "Todos";
       case "/guests":
         return "Guests";
+      case "/budget":
+        return "Budget";
       default:
         return "";
     }
