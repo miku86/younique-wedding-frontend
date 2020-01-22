@@ -15,7 +15,10 @@ const resources = {
       budget: "Budget",
       done: "Done",
       coming: "Coming",
-      bought: "Bought"
+      bought: "Bought",
+      email: "E-Mail",
+      password: "Password",
+      passwordMin: "Password (min. 8 characters)"
     }
   },
   de: {
@@ -31,7 +34,10 @@ const resources = {
       budget: "Budget",
       done: "Erledigt",
       coming: "Zugesagt",
-      bought: "Gekauft"
+      bought: "Gekauft",
+      email: "E-Mail",
+      password: "Passwort",
+      passwordMin: "Passwort (min. 8 Zeichen)"
     }
   }
 };
