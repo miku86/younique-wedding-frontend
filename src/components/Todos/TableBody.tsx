@@ -1,6 +1,7 @@
 import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Todo } from "../../utils/customTypes";
 import { getSorting, stableSort } from "../../utils/helpers";
 import CheckingIcon from "../shared/CheckingIcon";
@@ -30,6 +31,7 @@ const ExtendedTableBody: React.FC<Props> = ({
   handleUpdate
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <TableBody>
@@ -72,7 +74,7 @@ const ExtendedTableBody: React.FC<Props> = ({
         )
       ) : (
         <TableRow>
-          <TableCell align="left">You have no entry so far.</TableCell>
+          <TableCell align="left">{t("noEntries")}</TableCell>
         </TableRow>
       )}
     </TableBody>

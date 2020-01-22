@@ -1,5 +1,6 @@
 import { makeStyles, TableCell, TableHead, TableRow, TableSortLabel, Theme } from "@material-ui/core";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   head: {
@@ -24,7 +25,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface HeadCell {
   id: string;
-  label: string;
   sorting: boolean;
 }
 
@@ -44,6 +44,7 @@ const ExtendedTableHead: React.FC<Props> = ({
   headCells
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   const createSortHandler = (property: string) => (
     event: React.MouseEvent<unknown>
@@ -66,7 +67,7 @@ const ExtendedTableHead: React.FC<Props> = ({
                 direction={orderBy === headCell.id ? order : "asc"}
                 onClick={createSortHandler(headCell.id)}
               >
-                {headCell.label}
+                {t(headCell.id)}
                 {orderBy === headCell.id ? (
                   <span className={classes.visuallyHidden}>
                     {order === "desc"
@@ -78,7 +79,7 @@ const ExtendedTableHead: React.FC<Props> = ({
             </TableCell>
           ) : (
             <TableCell key={headCell.id} align="center">
-              {headCell.label}
+              {t(headCell.id)}
             </TableCell>
           );
         })}

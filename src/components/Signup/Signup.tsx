@@ -1,6 +1,7 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
@@ -37,6 +38,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
     password: "",
     confirmationCode: ""
   });
+  const { t } = useTranslation();
 
   const validateForm = () => {
     return fields.email.length > 0 && fields.password.length >= 8;
@@ -85,7 +87,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
     return (
       <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
-          label="E-Mail"
+          label={t("email")}
           id="email"
           placeholder="max@mustermann.com"
           value={fields.email}
@@ -96,7 +98,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
           required
         />
         <TextField
-          label="Password (min. 8 characters)"
+          label={t("passwordMin")}
           type="password"
           id="password"
           value={fields.password}

@@ -1,6 +1,7 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { API } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { config } from "../../config";
 import { useFormFields } from "../../utils/hooks";
@@ -42,6 +43,7 @@ const NewTodo: React.FC<Props> = () => {
     responsible: "",
     comment: ""
   });
+  const { t } = useTranslation();
 
   const validateForm = () => {
     return fields.title.length > 0;
@@ -81,9 +83,8 @@ const NewTodo: React.FC<Props> = () => {
     <div className={classes.root}>
       <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
-          label="Title"
+          label={t("title")}
           id="title"
-          placeholder="Buy Shoes"
           value={fields.title}
           onChange={handleFieldsChange}
           variant="outlined"
@@ -92,7 +93,7 @@ const NewTodo: React.FC<Props> = () => {
           required
         />
         <TextField
-          label="Deadline"
+          label={t("deadline")}
           id="deadline"
           value={fields.deadline}
           type="date"
@@ -104,18 +105,16 @@ const NewTodo: React.FC<Props> = () => {
           }}
         />
         <TextField
-          label="Responsible"
+          label={t("responsible")}
           id="responsible"
-          placeholder="Max"
           value={fields.responsible}
           onChange={handleFieldsChange}
           variant="outlined"
           fullWidth
         />
         <TextField
-          label="Comment"
+          label={t("comment")}
           id="comment"
-          placeholder="Black"
           value={fields.comment}
           onChange={handleFieldsChange}
           variant="outlined"

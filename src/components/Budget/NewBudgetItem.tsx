@@ -1,6 +1,7 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { API } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { config } from "../../config";
 import { useFormFields } from "../../utils/hooks";
@@ -40,6 +41,7 @@ const NewBudgetItem: React.FC<Props> = () => {
     plannedCost: 0,
     actualCost: 0
   });
+  const { t } = useTranslation();
 
   const validateForm = () => {
     return fields.name.length > 0;
@@ -77,9 +79,8 @@ const NewBudgetItem: React.FC<Props> = () => {
     <div className={classes.root}>
       <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
-          label="Name"
+          label={t("name")}
           id="name"
-          placeholder="Buy Shoes"
           value={fields.name}
           onChange={handleFieldsChange}
           variant="outlined"
@@ -88,7 +89,7 @@ const NewBudgetItem: React.FC<Props> = () => {
           required
         />
         <TextField
-          label="Planned Cost"
+          label={t("plannedCost")}
           id="plannedCost"
           type="number"
           value={fields.plannedCost}
@@ -97,7 +98,7 @@ const NewBudgetItem: React.FC<Props> = () => {
           fullWidth
         />
         <TextField
-          label="Actual Cost"
+          label={t("actualCost")}
           id="actualCost"
           type="number"
           value={fields.actualCost}

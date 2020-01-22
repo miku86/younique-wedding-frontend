@@ -2,6 +2,7 @@ import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config } from "../../config";
 import { TisAuthenticated } from "../../utils/customTypes";
@@ -32,6 +33,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const [budgetItems, setBudgetItems] = useState([]);
+  const { t } = useTranslation();
 
   const fetchBudgetItems = async () => {
     setIsLoading(true);
@@ -65,9 +67,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
   };
 
   const handleDelete = async (budgetItemId: string) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this budget item?"
-    );
+    const confirmed = window.confirm(t("deleteQuestion"));
 
     if (!confirmed) {
       return;
