@@ -89,11 +89,8 @@ const NewBudgetItem: React.FC<Props> = () => {
         />
         <TextField
           label="Planned Cost"
-          id="planned-cost"
+          id="plannedCost"
           type="number"
-          InputLabelProps={{
-            shrink: true
-          }}
           value={fields.plannedCost}
           onChange={handleFieldsChange}
           variant="outlined"
@@ -101,11 +98,8 @@ const NewBudgetItem: React.FC<Props> = () => {
         />
         <TextField
           label="Actual Cost"
-          id="actual-cost"
+          id="actualCost"
           type="number"
-          InputLabelProps={{
-            shrink: true
-          }}
           value={fields.actualCost}
           onChange={handleFieldsChange}
           variant="outlined"
