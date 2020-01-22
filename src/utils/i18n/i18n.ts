@@ -12,7 +12,10 @@ const resources = {
       dashboard: "Dashboard",
       todos: "Todos",
       guests: "Guests",
-      budget: "Budget"
+      budget: "Budget",
+      done: "Done",
+      coming: "Coming",
+      bought: "Bought"
     }
   },
   de: {
@@ -25,7 +28,10 @@ const resources = {
       dashboard: "Dashboard",
       todos: "Aufgaben",
       guests: "Gäste",
-      budget: "Budget"
+      budget: "Budget",
+      done: "Erledigt",
+      coming: "Zugesagt",
+      bought: "Gekauft"
     }
   }
 };

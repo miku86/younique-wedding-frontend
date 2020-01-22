@@ -6,6 +6,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { API } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config } from "../../config";
 import budgetImage from "../../static/images/budget.jpg";
@@ -63,6 +64,7 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const [dashboardData, setDashboardData] = useState<DashboardData>({});
+  const { t } = useTranslation();
 
   const fetchDashboardData = async () => {
     setIsLoading(true);
@@ -95,14 +97,10 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
             <Card className={classes.card}>
               <Link component={RouterLink} to="/todos">
                 <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image={todosImage}
-                    title="Todos"
-                  />
+                  <CardMedia className={classes.media} image={todosImage} />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Todos
+                      {t("todos")}
                     </Typography>
                     <Typography
                       variant="body1"
@@ -116,7 +114,7 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
                       color="textSecondary"
                       component="p"
                     >
-                      Done
+                      {t("done")}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -125,14 +123,10 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
             <Card className={classes.card}>
               <Link component={RouterLink} to="/guests">
                 <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image={guestsImage}
-                    title="Guests"
-                  />
+                  <CardMedia className={classes.media} image={guestsImage} />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Guests
+                      {t("guests")}
                     </Typography>
                     <Typography
                       variant="body1"
@@ -146,7 +140,7 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
                       color="textSecondary"
                       component="p"
                     >
-                      Coming
+                      {t("coming")}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -155,14 +149,10 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
             <Card className={classes.card}>
               <Link component={RouterLink} to="/budget">
                 <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image={budgetImage}
-                    title="Budget"
-                  />
+                  <CardMedia className={classes.media} image={budgetImage} />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Budget
+                      {t("budget")}
                     </Typography>
                     <Typography
                       variant="body1"
@@ -176,7 +166,7 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
                       color="textSecondary"
                       component="p"
                     >
-                      Bought
+                      {t("bought")}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
