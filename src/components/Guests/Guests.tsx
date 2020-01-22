@@ -124,7 +124,6 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
 
             <CustomTable
               data={guests}
-              showDeleteButton={true}
               handleDelete={handleDelete}
               handleUpdate={handleUpdate}
             />
