@@ -1,10 +1,8 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
 import React from "react";
 import { BudgetItem } from "../../utils/customTypes";
+import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
 import ExtendedTableBody from "./TableBody";
-import ExtendedTableHead from "./TableHead";
-
-export type Order = "asc" | "desc";
 
 export interface Data {
   done: boolean;
@@ -13,6 +11,14 @@ export interface Data {
   actualCost: string;
   options?: string;
 }
+
+const headCells: HeadCell[] = [
+  { id: "done", label: "Done", sorting: true },
+  { id: "name", label: "Name", sorting: true },
+  { id: "plannedCost", label: "Planned Cost", sorting: true },
+  { id: "actualCost", label: "Actual Cost", sorting: true },
+  { id: "options", label: "Options", sorting: false }
+];
 
 interface Props {
   data: BudgetItem[];
@@ -44,6 +50,7 @@ const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
           order={order}
           orderBy={orderBy}
           onRequestSort={handleRequestSort}
+          headCells={headCells}
         />
         <ExtendedTableBody
           data={data}
