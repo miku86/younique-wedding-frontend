@@ -1,12 +1,10 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
 import React from "react";
 import { Guest } from "../../utils/customTypes";
+import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
 import ExtendedTableBody from "./TableBody";
-import ExtendedTableHead from "./TableHead";
 
-export type Order = "asc" | "desc";
-
-export interface Data {
+interface Data {
   name: string;
   sentSaveTheDate: boolean;
   sentInvite: boolean;
@@ -15,6 +13,16 @@ export interface Data {
   comment: string;
   options?: string;
 }
+
+const headCells: HeadCell[] = [
+  { id: "name", label: "Name", sorting: true },
+  { id: "sentSaveTheDate", label: "Sent Save The Date?", sorting: true },
+  { id: "sentInvite", label: "Sent Invite?", sorting: true },
+  { id: "receivedResponse", label: "Received Response?", sorting: true },
+  { id: "coming", label: "Coming?", sorting: true },
+  { id: "comment", label: "Comment?", sorting: false },
+  { id: "options", label: "Options", sorting: false }
+];
 
 interface Props {
   data: Guest[];
@@ -45,6 +53,7 @@ const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
           order={order}
           orderBy={orderBy}
           onRequestSort={handleRequestSort}
+          headCells={headCells}
         />
         <ExtendedTableBody
           data={data}
