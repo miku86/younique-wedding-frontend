@@ -1,92 +1,63 @@
-import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
+import { Paper, Table, TableContainer } from "@material-ui/core";
 import React from "react";
 import { Todo } from "../../utils/customTypes";
-import CheckingIcon from "../shared/CheckingIcon";
+import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
+import ExtendedTableBody from "./TableBody";
 
-const useStyles = makeStyles((theme: Theme) => ({
-  head: {
-    backgroundColor: theme.palette.primary.main,
+interface Data {
+  done: boolean;
+  title: string;
+  deadline: string;
+  responsible: string;
+  comment: string;
+  options?: string;
+}
 
-    "& th": {
-      color: "white"
-    }
-  },
-  deleteButton: {
-    cursor: "pointer"
-  }
-}));
+const headCells: HeadCell[] = [
+  { id: "done", label: "Done", sorting: true },
+  { id: "title", label: "Title", sorting: true },
+  { id: "deadline", label: "Deadline", sorting: true },
+  { id: "responsible", label: "Responsible", sorting: true },
+  { id: "comment", label: "Comment", sorting: true },
+  { id: "options", label: "Options", sorting: false }
+];
 
 interface Props {
   data: Todo[];
-  showDeleteButton: boolean;
   handleDelete: (guestId: string) => void;
   handleUpdate: (todoId: string, fieldKey: string, fieldValue: boolean) => void;
 }
 
-const CustomTable: React.FC<Props> = ({
-  data,
-  showDeleteButton,
-  handleDelete,
-  handleUpdate
-}) => {
-  const classes = useStyles();
+const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
+  const [order, setOrder] = React.useState<Order>("asc");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("done");
+
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: any
+  ) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
 
   return (
     <TableContainer component={Paper}>
-      <Table size="small">
-        <TableHead className={classes.head}>
-          <TableRow>
-            <TableCell align="center">Done</TableCell>
-            <TableCell align="center">Title</TableCell>
-            <TableCell align="center">Deadline</TableCell>
-            <TableCell align="center">Responsible</TableCell>
-            <TableCell align="center">Comment</TableCell>
-            <TableCell align="center">Options</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.length ? (
-            data.map(
-              ({
-                SK,
-                done,
-                title,
-                deadline,
-                responsible,
-                comment,
-                todoId
-              }: Todo) => (
-                <TableRow key={SK}>
-                  <TableCell align="center">
-                    <CheckingIcon
-                      itemId={todoId}
-                      fieldKey="done"
-                      fieldValue={done}
-                      handleClick={handleUpdate}
-                    />
-                  </TableCell>
-                  <TableCell align="center">{title}</TableCell>
-                  <TableCell align="center">{deadline}</TableCell>
-                  <TableCell align="center">{responsible}</TableCell>
-                  <TableCell align="center">{comment}</TableCell>
-                  {showDeleteButton && (
-                    <TableCell align="center">
-                      <Delete
-                        className={classes.deleteButton}
-                        onClick={() => handleDelete(todoId)}
-                      />
-                    </TableCell>
-                  )}
-                </TableRow>
-              )
-            )
-          ) : (
-            <TableRow>
-              <TableCell align="left">You have no entry so far.</TableCell>
-            </TableRow>
-          )}
-        </TableBody>
+      <Table size="medium">
+        <ExtendedTableHead
+          order={order}
+          orderBy={orderBy}
+          onRequestSort={handleRequestSort}
+          headCells={headCells}
+        />
+        <ExtendedTableBody
+          data={data}
+          order={order}
+          orderBy={orderBy}
+          showDeleteButton={true}
+          handleDelete={handleDelete}
+          handleUpdate={handleUpdate}
+        />
       </Table>
     </TableContainer>
   );

@@ -124,7 +124,6 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
 
             <CustomTable
               data={budgetItems}
-              showDeleteButton={true}
               handleDelete={handleDelete}
               handleUpdate={handleUpdate}
             />
