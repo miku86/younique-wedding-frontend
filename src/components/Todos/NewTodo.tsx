@@ -99,7 +99,6 @@ const NewTodo: React.FC<Props> = () => {
           onChange={handleFieldsChange}
           variant="outlined"
           fullWidth
-          required
           InputLabelProps={{
             shrink: true
           }}
@@ -112,7 +111,6 @@ const NewTodo: React.FC<Props> = () => {
           onChange={handleFieldsChange}
           variant="outlined"
           fullWidth
-          required
         />
         <TextField
           label="Comment"
@@ -122,7 +120,6 @@ const NewTodo: React.FC<Props> = () => {
           onChange={handleFieldsChange}
           variant="outlined"
           fullWidth
-          required
         />
         <LoadingButton
           variant="contained"
