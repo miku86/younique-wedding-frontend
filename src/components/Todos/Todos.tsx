@@ -124,7 +124,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
 
             <CustomTable
               data={todos}
-              showDeleteButton={true}
               handleDelete={handleDelete}
               handleUpdate={handleUpdate}
             />

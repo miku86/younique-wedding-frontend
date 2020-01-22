@@ -1,5 +1,6 @@
 import { makeStyles, TableCell, TableHead, TableRow, TableSortLabel, Theme } from "@material-ui/core";
 import React from "react";
+import { Data, Order } from "./Table";
 
 const useStyles = makeStyles((theme: Theme) => ({
   head: {
@@ -22,15 +23,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-interface Data {
-  done: boolean;
-  title: string;
-  deadline: string;
-  responsible: string;
-  comment: string;
-  options: string;
-}
-
 interface HeadCell {
   id: keyof Data;
   label: string;
@@ -45,8 +37,6 @@ const headCells: HeadCell[] = [
   { id: "comment", label: "Comment", sorting: true },
   { id: "options", label: "Options", sorting: false }
 ];
-
-type Order = "asc" | "desc";
 
 interface Props {
   onRequestSort: (
