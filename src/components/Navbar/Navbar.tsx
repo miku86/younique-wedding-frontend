@@ -4,6 +4,7 @@ import { Euro, FormatListBulleted, Home, Person } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Auth } from "aws-amplify";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import { TisAuthenticated, TsetIsAuthenticated } from "../../utils/customTypes";
 
@@ -46,9 +47,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const sidebarItems = [
   { id: 1, text: "Dashboard", path: "/", icon: "Home" },
-  { id: 2, text: "Todos", path: "/todos", icon: "FormatListBulleted" },
-  { id: 3, text: "Guests", path: "/guests", icon: "Person" },
-  { id: 4, text: "Budget", path: "/budget", icon: "Euro" }
+  { id: 2, text: "todos", path: "/todos", icon: "FormatListBulleted" },
+  { id: 3, text: "guests", path: "/guests", icon: "Person" },
+  { id: 4, text: "budget", path: "/budget", icon: "Euro" }
 ];
 
 const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
@@ -56,6 +57,7 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   let history = useHistory();
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
+  const { t } = useTranslation();
 
   const toggleDrawer = (open: boolean) => (event: ToggleEvent) => {
     if (
@@ -117,7 +119,7 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
                 onClick={() => handleListItemClick(id)}
               >
                 <ListItemIcon>{renderIcon(icon)}</ListItemIcon>
-                {text}
+                {t(text)}
               </ListItem>
             </Link>
           ))}
@@ -131,15 +133,15 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
 
     switch (path) {
       case "/":
-        return "Dashboard";
+        return t("dashboard");
       case "/todos":
-        return "Todos";
+        return t("todos");
       case "/guests":
-        return "Guests";
+        return t("guests");
       case "/budget":
-        return "Budget";
+        return t("budget");
       default:
-        return "";
+        return t("");
     }
   };
 
@@ -159,20 +161,20 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
           {sideList()}
         </Drawer>
         <Typography color="inherit" className={classes.title}>
-          {renderSiteTitle()}
+          {isAuthenticated && renderSiteTitle()}
         </Typography>
 
         {isAuthenticated ? (
           <Button color="inherit" onClick={handleLogout}>
-            Logout
+            {t("logout")}
           </Button>
         ) : (
           <>
             <Button color="inherit" component={RouterLink} to="/signup">
-              Signup
+              {t("signup")}
             </Button>
             <Button color="inherit" component={RouterLink} to="/login">
-              Login
+              {t("login")}
             </Button>
           </>
         )}
