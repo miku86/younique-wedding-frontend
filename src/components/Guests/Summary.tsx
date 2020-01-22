@@ -1,6 +1,7 @@
 import { Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
 import { CheckCircleOutline, RadioButtonUnchecked } from "@material-ui/icons";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Guest } from "../../utils/customTypes";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -22,11 +23,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "center",
     alignItems: "center",
     margin: "10px 0",
-    
+
     "& .MuiCardContent-root:last-child": {
       paddingBottom: "16px"
     },
-    
+
     [theme.breakpoints.up('md')]: {
       width: "240px",
       margin: "20px 0",
@@ -47,6 +48,7 @@ interface Props {
 
 const Summary: React.FC<Props> = ({ data }) => {
   const classes = useStyles();
+  const {t}= useTranslation();
 
   const amountItems = data.length;
   const amountDoneItems = data.filter(item => item.coming).length;
@@ -61,7 +63,7 @@ const Summary: React.FC<Props> = ({ data }) => {
             {`${amountDoneItems} /  ${amountItems}`}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            Coming
+            {t("coming")}
           </Typography>
         </CardContent>
       </Card>
@@ -72,7 +74,7 @@ const Summary: React.FC<Props> = ({ data }) => {
             {`${amountOpenItems} /  ${amountItems}`}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            Not Coming
+            {t("notComing")}
           </Typography>
         </CardContent>
       </Card>

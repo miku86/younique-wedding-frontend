@@ -13,11 +13,11 @@ export interface Data {
 }
 
 const headCells: HeadCell[] = [
-  { id: "done", label: "Done", sorting: true },
-  { id: "name", label: "Name", sorting: true },
-  { id: "plannedCost", label: "Planned Cost", sorting: true },
-  { id: "actualCost", label: "Actual Cost", sorting: true },
-  { id: "options", label: "Options", sorting: false }
+  { id: "done", sorting: true },
+  { id: "name", sorting: true },
+  { id: "plannedCost", sorting: true },
+  { id: "actualCost", sorting: true },
+  { id: "options", sorting: false }
 ];
 
 interface Props {

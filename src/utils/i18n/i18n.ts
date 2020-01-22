@@ -14,11 +14,27 @@ const resources = {
       guests: "Guests",
       budget: "Budget",
       done: "Done",
+      notDone: "Not Done",
       coming: "Coming",
+      notComing: "Not Coming",
       bought: "Bought",
+      notBought: "Not Bought",
       email: "E-Mail",
       password: "Password",
-      passwordMin: "Password (min. 8 characters)"
+      passwordMin: "Password (min. 8 characters)",
+      deleteQuestion: "Are you sure you want to delete this entry?",
+      title: "Title",
+      deadline: "Deadline",
+      responsible: "Responsible",
+      comment: "Comment",
+      options: "Options",
+      name: "Name",
+      plannedCost: "Planned Cost",
+      actualCost: "Actual Cost",
+      sentSaveTheDate: "Sent Save The Date?",
+      sentInvite: "Sent Invite?",
+      receivedResponse: "Received Response?",
+      noEntries: "You have no entry so far."
     }
   },
   de: {
@@ -33,11 +49,27 @@ const resources = {
       guests: "Gäste",
       budget: "Budget",
       done: "Erledigt",
+      notDone: "Nicht erledigt",
       coming: "Zugesagt",
+      notComing: "Nicht zugesagt",
       bought: "Gekauft",
+      notBought: "Nicht gekauft",
       email: "E-Mail",
       password: "Passwort",
-      passwordMin: "Passwort (min. 8 Zeichen)"
+      passwordMin: "Passwort (min. 8 Zeichen)",
+      deleteQuestion: "Willst du diesen Eintrag wirklich löschen?",
+      title: "Titel",
+      deadline: "Bis",
+      responsible: "Verantwortlich",
+      comment: "Kommentar",
+      options: "Optionen",
+      name: "Name",
+      plannedCost: "Geplante Kosten",
+      actualCost: "Tatsächliche Kosten",
+      sentSaveTheDate: "Save The Date versendet?",
+      sentInvite: "Einladung versendet?",
+      receivedResponse: "Antwort erhalten?",
+      noEntries: "Du hast noch keine Einträge."
     }
   }
 };

@@ -15,13 +15,13 @@ interface Data {
 }
 
 const headCells: HeadCell[] = [
-  { id: "name", label: "Name", sorting: true },
-  { id: "sentSaveTheDate", label: "Sent Save The Date?", sorting: true },
-  { id: "sentInvite", label: "Sent Invite?", sorting: true },
-  { id: "receivedResponse", label: "Received Response?", sorting: true },
-  { id: "coming", label: "Coming?", sorting: true },
-  { id: "comment", label: "Comment?", sorting: false },
-  { id: "options", label: "Options", sorting: false }
+  { id: "name", sorting: true },
+  { id: "sentSaveTheDate", sorting: true },
+  { id: "sentInvite", sorting: true },
+  { id: "receivedResponse", sorting: true },
+  { id: "coming", sorting: true },
+  { id: "comment", sorting: false },
+  { id: "options", sorting: false }
 ];
 
 interface Props {

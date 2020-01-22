@@ -14,12 +14,12 @@ interface Data {
 }
 
 const headCells: HeadCell[] = [
-  { id: "done", label: "Done", sorting: true },
-  { id: "title", label: "Title", sorting: true },
-  { id: "deadline", label: "Deadline", sorting: true },
-  { id: "responsible", label: "Responsible", sorting: true },
-  { id: "comment", label: "Comment", sorting: true },
-  { id: "options", label: "Options", sorting: false }
+  { id: "done",  sorting: true },
+  { id: "title",  sorting: true },
+  { id: "deadline",  sorting: true },
+  { id: "responsible",  sorting: true },
+  { id: "comment",  sorting: true },
+  { id: "options",  sorting: false }
 ];
 
 interface Props {
