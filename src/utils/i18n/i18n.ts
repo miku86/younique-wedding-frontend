@@ -5,13 +5,27 @@ const resources = {
   en: {
     translation: {
       siteTitle: "Younique Wedding",
-      sitePitch: "Plan your Wedding the right way"
+      sitePitch: "Plan your Wedding the right way",
+      signup: "Signup",
+      login: "Login",
+      logout: "Logout",
+      dashboard: "Dashboard",
+      todos: "Todos",
+      guests: "Guests",
+      budget: "Budget"
     }
   },
   de: {
     translation: {
       siteTitle: "Younique Wedding",
-      sitePitch: "Der einfachste Weg, deine Hochzeit zu planen!"
+      sitePitch: "Der einfachste Weg, deine Hochzeit zu planen!",
+      signup: "Anmelden",
+      login: "Einloggen",
+      logout: "Ausloggen",
+      dashboard: "Dashboard",
+      todos: "Aufgaben",
+      guests: "Gäste",
+      budget: "Budget"
     }
   }
 };
