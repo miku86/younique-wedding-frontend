@@ -42,7 +42,7 @@ const NewBudgetItem: React.FC<Props> = () => {
   });
 
   const validateForm = () => {
-    return fields.name.length > 3;
+    return fields.name.length > 0;
   };
 
   const createBudgetItem = ({
