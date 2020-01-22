@@ -1,17 +1,11 @@
-import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme } from "@material-ui/core";
+import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Theme } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
 import React from "react";
 import { Todo } from "../../utils/customTypes";
 import CheckingIcon from "../shared/CheckingIcon";
+import ExtendedTableHead from "./TableHead";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  head: {
-    backgroundColor: theme.palette.primary.main,
-
-    "& th": {
-      color: "white"
-    }
-  },
   deleteButton: {
     cursor: "pointer"
   }
@@ -24,6 +18,8 @@ interface Props {
   handleUpdate: (todoId: string, fieldKey: string, fieldValue: boolean) => void;
 }
 
+type Order = "asc" | "desc";
+
 const CustomTable: React.FC<Props> = ({
   data,
   showDeleteButton,
@@ -31,20 +27,26 @@ const CustomTable: React.FC<Props> = ({
   handleUpdate
 }) => {
   const classes = useStyles();
+  const [order, setOrder] = React.useState<Order>("asc");
+  const [orderBy, setOrderBy] = React.useState("title");
+
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: any
+  ) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
 
   return (
     <TableContainer component={Paper}>
       <Table size="small">
-        <TableHead className={classes.head}>
-          <TableRow>
-            <TableCell align="center">Done</TableCell>
-            <TableCell align="center">Title</TableCell>
-            <TableCell align="center">Deadline</TableCell>
-            <TableCell align="center">Responsible</TableCell>
-            <TableCell align="center">Comment</TableCell>
-            <TableCell align="center">Options</TableCell>
-          </TableRow>
-        </TableHead>
+        <ExtendedTableHead
+          order={order}
+          orderBy={orderBy}
+          onRequestSort={handleRequestSort}
+        />
         <TableBody>
           {data.length ? (
             data.map(
