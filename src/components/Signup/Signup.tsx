@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
-      width: 200
+      width: 260
     }
   }
 }));
