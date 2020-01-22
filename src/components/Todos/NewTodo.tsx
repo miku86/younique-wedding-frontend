@@ -44,7 +44,7 @@ const NewTodo: React.FC<Props> = () => {
   });
 
   const validateForm = () => {
-    return fields.title.length > 3;
+    return fields.title.length > 0;
   };
 
   const createTodo = ({
