@@ -3,7 +3,7 @@ import { Delete } from "@material-ui/icons";
 import React from "react";
 import { Todo } from "../../utils/customTypes";
 import CheckingIcon from "../shared/CheckingIcon";
-import { Order } from "./Table";
+import { Order } from "../shared/TableHead";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {

@@ -1,12 +1,10 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
 import React from "react";
 import { Todo } from "../../utils/customTypes";
+import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
 import ExtendedTableBody from "./TableBody";
-import ExtendedTableHead from "./TableHead";
 
-export type Order = "asc" | "desc";
-
-export interface Data {
+interface Data {
   done: boolean;
   title: string;
   deadline: string;
@@ -14,6 +12,15 @@ export interface Data {
   comment: string;
   options?: string;
 }
+
+const headCells: HeadCell[] = [
+  { id: "done", label: "Done", sorting: true },
+  { id: "title", label: "Title", sorting: true },
+  { id: "deadline", label: "Deadline", sorting: true },
+  { id: "responsible", label: "Responsible", sorting: true },
+  { id: "comment", label: "Comment", sorting: true },
+  { id: "options", label: "Options", sorting: false }
+];
 
 interface Props {
   data: Todo[];
@@ -41,6 +48,7 @@ const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
           order={order}
           orderBy={orderBy}
           onRequestSort={handleRequestSort}
+          headCells={headCells}
         />
         <ExtendedTableBody
           data={data}

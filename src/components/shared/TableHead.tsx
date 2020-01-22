@@ -1,6 +1,5 @@
 import { makeStyles, TableCell, TableHead, TableRow, TableSortLabel, Theme } from "@material-ui/core";
 import React from "react";
-import { Data, Order } from "./Table";
 
 const useStyles = makeStyles((theme: Theme) => ({
   head: {
@@ -23,38 +22,30 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-interface HeadCell {
-  id: keyof Data;
+export interface HeadCell {
+  id: string;
   label: string;
   sorting: boolean;
 }
 
-const headCells: HeadCell[] = [
-  { id: "done", label: "Done", sorting: true },
-  { id: "title", label: "Title", sorting: true },
-  { id: "deadline", label: "Deadline", sorting: true },
-  { id: "responsible", label: "Responsible", sorting: true },
-  { id: "comment", label: "Comment", sorting: true },
-  { id: "options", label: "Options", sorting: false }
-];
+export type Order = "asc" | "desc";
 
 interface Props {
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data
-  ) => void;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
   order: Order;
   orderBy: string;
+  headCells: HeadCell[];
 }
 
 const ExtendedTableHead: React.FC<Props> = ({
   order,
   orderBy,
-  onRequestSort
+  onRequestSort,
+  headCells
 }) => {
   const classes = useStyles();
 
-  const createSortHandler = (property: keyof Data) => (
+  const createSortHandler = (property: string) => (
     event: React.MouseEvent<unknown>
   ) => {
     onRequestSort(event, property);
