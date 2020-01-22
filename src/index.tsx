@@ -7,6 +7,7 @@ import "typeface-roboto";
 import App from "./components/App";
 import { config } from "./config";
 import "./index.css";
+import './utils/i18n/i18n';
 
 Amplify.configure({
   Auth: {
