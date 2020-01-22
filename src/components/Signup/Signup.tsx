@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
-      width: 200
+      width: 260
     }
   }
 }));
@@ -96,7 +96,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
           required
         />
         <TextField
-          label="Password"
+          label="Password (min. 8 characters)"
           type="password"
           id="password"
           value={fields.password}
