@@ -96,7 +96,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
           required
         />
         <TextField
-          label="Password"
+          label="Password (min. 8 characters)"
           type="password"
           id="password"
           value={fields.password}
