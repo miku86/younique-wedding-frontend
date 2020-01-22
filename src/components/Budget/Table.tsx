@@ -1,25 +1,21 @@
-import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
+import { Paper, Table, TableContainer } from "@material-ui/core";
 import React from "react";
 import { BudgetItem } from "../../utils/customTypes";
-import CheckingIcon from "../shared/CheckingIcon";
+import ExtendedTableBody from "./TableBody";
+import ExtendedTableHead from "./TableHead";
 
-const useStyles = makeStyles((theme: Theme) => ({
-  head: {
-    backgroundColor: theme.palette.primary.main,
+export type Order = "asc" | "desc";
 
-    "& th": {
-      color: "white"
-    }
-  },
-  deleteButton: {
-    cursor: "pointer"
-  }
-}));
+export interface Data {
+  done: boolean;
+  name: string;
+  plannedCost: string;
+  actualCost: string;
+  options?: string;
+}
 
 interface Props {
   data: BudgetItem[];
-  showDeleteButton: boolean;
   handleDelete: (guestId: string) => void;
   handleUpdate: (
     budgetItemId: string,
@@ -28,66 +24,35 @@ interface Props {
   ) => void;
 }
 
-const CustomTable: React.FC<Props> = ({
-  data,
-  showDeleteButton,
-  handleDelete,
-  handleUpdate
-}) => {
-  const classes = useStyles();
+const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
+  const [order, setOrder] = React.useState<Order>("asc");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("done");
+
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: any
+  ) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
 
   return (
     <TableContainer component={Paper}>
-      <Table size="small">
-        <TableHead className={classes.head}>
-          <TableRow>
-            <TableCell align="center">Done</TableCell>
-            <TableCell align="center">Name</TableCell>
-            <TableCell align="center">Planned Cost</TableCell>
-            <TableCell align="center">Actual Cost</TableCell>
-            <TableCell align="center">Options</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.length ? (
-            data.map(
-              ({
-                SK,
-                done,
-                name,
-                plannedCost,
-                actualCost,
-                budgetItemId
-              }: BudgetItem) => (
-                <TableRow key={SK}>
-                  <TableCell align="center">
-                    <CheckingIcon
-                      itemId={budgetItemId}
-                      fieldKey="done"
-                      fieldValue={done}
-                      handleClick={handleUpdate}
-                    />
-                  </TableCell>
-                  <TableCell align="center">{name}</TableCell>
-                  <TableCell align="center">{plannedCost}</TableCell>
-                  <TableCell align="center">{actualCost}</TableCell>
-                  {showDeleteButton && (
-                    <TableCell align="center">
-                      <Delete
-                        className={classes.deleteButton}
-                        onClick={() => handleDelete(budgetItemId)}
-                      />
-                    </TableCell>
-                  )}
-                </TableRow>
-              )
-            )
-          ) : (
-            <TableRow>
-              <TableCell align="left">You have no entry so far.</TableCell>
-            </TableRow>
-          )}
-        </TableBody>
+      <Table size="medium">
+        <ExtendedTableHead
+          order={order}
+          orderBy={orderBy}
+          onRequestSort={handleRequestSort}
+        />
+        <ExtendedTableBody
+          data={data}
+          order={order}
+          orderBy={orderBy}
+          showDeleteButton={true}
+          handleDelete={handleDelete}
+          handleUpdate={handleUpdate}
+        />
       </Table>
     </TableContainer>
   );

@@ -1,7 +1,7 @@
 import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
 import React from "react";
-import { Guest } from "../../utils/customTypes";
+import { BudgetItem } from "../../utils/customTypes";
 import CheckingIcon from "../shared/CheckingIcon";
 import { Order } from "./Table";
 
@@ -41,12 +41,16 @@ function getSorting<K extends keyof any>(
 }
 
 interface Props {
-  data: Guest[];
+  data: BudgetItem[];
   order: Order;
   orderBy: string;
   showDeleteButton: boolean;
-  handleDelete: (guestId: string) => void;
-  handleUpdate: (guestId: string, fieldKey: string, fieldValue: boolean) => void;
+  handleDelete: (budgetItemId: string) => void;
+  handleUpdate: (
+    budgetItemId: string,
+    fieldKey: string,
+    fieldValue: boolean
+  ) => void;
 }
 
 const ExtendedTableBody: React.FC<Props> = ({
@@ -64,63 +68,32 @@ const ExtendedTableBody: React.FC<Props> = ({
       {data.length ? (
         stableSort(data, getSorting(order, orderBy)).map(
           (
-            {
-              SK,
-              name,
-              sentSaveTheDate,
-              sentInvite,
-              receivedResponse,
-              coming,
-              comment,
-              guestId
-            },
+            { SK, done, name, plannedCost, actualCost, budgetItemId },
             index
           ) => {
             const labelId = `${index}`;
 
             return (
               <TableRow hover role="checkbox" tabIndex={-1} key={SK}>
+                <TableCell align="center">
+                  <CheckingIcon
+                    itemId={budgetItemId}
+                    fieldKey="done"
+                    fieldValue={done}
+                    handleClick={handleUpdate}
+                  />
+                </TableCell>
+
                 <TableCell id={labelId} scope="item" align="center">
                   {name}
                 </TableCell>
-                <TableCell align="center">
-                  <CheckingIcon
-                    itemId={guestId}
-                    fieldKey="sentSaveTheDate"
-                    fieldValue={sentSaveTheDate}
-                    handleClick={handleUpdate}
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <CheckingIcon
-                    itemId={guestId}
-                    fieldKey="sentInvite"
-                    fieldValue={sentInvite}
-                    handleClick={handleUpdate}
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <CheckingIcon
-                    itemId={guestId}
-                    fieldKey="receivedResponse"
-                    fieldValue={receivedResponse}
-                    handleClick={handleUpdate}
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <CheckingIcon
-                    itemId={guestId}
-                    fieldKey="coming"
-                    fieldValue={coming}
-                    handleClick={handleUpdate}
-                  />
-                </TableCell>
-                <TableCell align="center">{comment}</TableCell>
+                <TableCell align="center">{plannedCost}</TableCell>
+                <TableCell align="center">{actualCost}</TableCell>
                 {showDeleteButton && (
                   <TableCell align="center">
                     <Delete
                       className={classes.deleteButton}
-                      onClick={() => handleDelete(guestId)}
+                      onClick={() => handleDelete(budgetItemId)}
                     />
                   </TableCell>
                 )}
