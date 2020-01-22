@@ -44,6 +44,6 @@
     ]
   },
   "devDependencies": {
-    "source-map-explorer": "^2.2.2"
+    "source-map-explorer": "2.2.2"
   }
 }
