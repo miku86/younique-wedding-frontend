@@ -17,9 +17,6 @@ interface Props {
 
 const useStyles = makeStyles((theme: Theme) => ({
   todos: {
-    padding: "0px 20px",
-    textAlign: "center",
-
     "& h1": {
       fontWeight: "600"
     },
