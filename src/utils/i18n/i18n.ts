@@ -45,7 +45,7 @@ const resources = {
       login: "Einloggen",
       logout: "Ausloggen",
       dashboard: "Dashboard",
-      todos: "Aufgaben",
+      todos: "Todos",
       guests: "Gäste",
       budget: "Budget",
       done: "Erledigt",
