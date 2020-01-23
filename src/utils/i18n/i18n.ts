@@ -41,11 +41,11 @@ const resources = {
     translation: {
       siteTitle: "Younique Weddings",
       sitePitch: "Der einfachste Weg, deine Hochzeit zu planen!",
-      signup: "Anmelden",
+      signup: "Registrieren",
       login: "Einloggen",
       logout: "Ausloggen",
       dashboard: "Dashboard",
-      todos: "Aufgaben",
+      todos: "Todos",
       guests: "Gäste",
       budget: "Budget",
       done: "Erledigt",
