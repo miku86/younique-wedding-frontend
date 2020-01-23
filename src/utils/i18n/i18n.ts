@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      siteTitle: "Younique Wedding",
+      siteTitle: "Younique Weddings",
       sitePitch: "Plan your Wedding the right way",
       signup: "Signup",
       login: "Login",
@@ -39,7 +39,7 @@ const resources = {
   },
   de: {
     translation: {
-      siteTitle: "Younique Wedding",
+      siteTitle: "Younique Weddings",
       sitePitch: "Der einfachste Weg, deine Hochzeit zu planen!",
       signup: "Anmelden",
       login: "Einloggen",
