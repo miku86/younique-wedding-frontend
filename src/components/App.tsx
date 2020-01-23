@@ -1,12 +1,27 @@
+import { makeStyles, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import Routes from "../utils/Routes";
 import Navbar from "./Navbar/Navbar";
 import LoadingSpinner from "./shared/LoadingSpinner";
 
+const useStyles = makeStyles((theme: Theme) => ({
+  content: {
+    padding: "0px 20px",
+
+    "& h1": {
+      fontWeight: "600"
+    },
+    "& p": {
+      color: "#666"
+    }
+  }
+}));
+
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const classes = useStyles();
 
   useEffect(() => {
     (async () => {
@@ -23,12 +38,14 @@ const App: React.FC = () => {
   return isAuthenticating ? (
     <LoadingSpinner />
   ) : (
-    <div className="App">
+    <div>
       <Navbar
         isAuthenticated={isAuthenticated}
         setIsAuthenticated={setIsAuthenticated}
       />
-      <Routes appProps={{ isAuthenticated, setIsAuthenticated }} />
+      <div className={classes.content}>
+        <Routes appProps={{ isAuthenticated, setIsAuthenticated }} />
+      </div>
     </div>
   );
 };
