@@ -8,6 +8,8 @@ import LoadingSpinner from "./shared/LoadingSpinner";
 
 const useStyles = makeStyles((theme: Theme) => ({
   content: {
+    display: "flex",
+    flexDirection: "column",
     padding: "0px 20px",
 
     "& h1": {

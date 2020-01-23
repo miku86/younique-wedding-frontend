@@ -26,7 +26,6 @@ interface DashboardData {
 
 const useStyles = makeStyles((theme: Theme) => ({
   dashboard: {
-    padding: "0px 20px",
     textAlign: "center",
     display: "flex",
     flexDirection: "column",

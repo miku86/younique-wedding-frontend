@@ -1,15 +1,25 @@
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, FormControlLabel, makeStyles, Radio, RadioGroup, Slide, Theme } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
+import { API } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { config } from "../../config";
 import LoadingButton from "../shared/LoadingButton";
 import { feedbackChoices } from "./data";
 
 const useStyles = makeStyles((theme: Theme) => ({
   feedbackbox: {
-    position: "fixed",
-    bottom: 20,
-    right: 20
+    position: "sticky",
+    bottom: 10,
+    marginTop: 20,
+    display: "flex",
+    justifyContent: "center",
+
+    [theme.breakpoints.up("md")]: {
+      position: "fixed",
+      bottom: 20,
+      right: 20
+    }
   },
   content: {
     padding: 20
@@ -38,10 +48,10 @@ const Feedbackbox: React.FC<Props> = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [value, setValue] = React.useState("");
+  const [feedback, setValue] = React.useState("");
 
   const validateForm = () => {
-    return value.length > 0;
+    return feedback.length > 0;
   };
 
   const handleClickOpen = () => {
@@ -58,6 +68,19 @@ const Feedbackbox: React.FC<Props> = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const body = {
+      feedback
+    };
+
+    try {
+      const response = await API.post(config.API.NAME, "/sendFeedbackEmail", {
+        body
+      });
+      response.MessageId && handleClose();
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -79,7 +102,7 @@ const Feedbackbox: React.FC<Props> = () => {
               <RadioGroup
                 aria-label="feedback"
                 name="feedback"
-                value={value}
+                value={feedback}
                 onChange={handleChange}
               >
                 {feedbackChoices.length &&
