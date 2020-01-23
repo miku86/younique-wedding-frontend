@@ -2,6 +2,7 @@ import { makeStyles, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import Routes from "../utils/Routes";
+import Feedbackbox from "./Feedback/Feedbackbox";
 import Navbar from "./Navbar/Navbar";
 import LoadingSpinner from "./shared/LoadingSpinner";
 
@@ -38,15 +39,16 @@ const App: React.FC = () => {
   return isAuthenticating ? (
     <LoadingSpinner />
   ) : (
-    <div>
+    <>
       <Navbar
         isAuthenticated={isAuthenticated}
         setIsAuthenticated={setIsAuthenticated}
       />
       <div className={classes.content}>
         <Routes appProps={{ isAuthenticated, setIsAuthenticated }} />
+        {isAuthenticated && <Feedbackbox />}
       </div>
-    </div>
+    </>
   );
 };
 

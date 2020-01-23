@@ -34,7 +34,19 @@ const resources = {
       sentSaveTheDate: "Sent Save The Date?",
       sentInvite: "Sent Invite?",
       receivedResponse: "Received Response?",
-      noEntries: "You have no entry so far."
+      noEntries: "You have no entry so far.",
+      feedbackButton: "Which new feature do you want?",
+      feedbackHeading: "Help us to improve this app!",
+      feedbackText: "Which new feature do you want to have the most?",
+      cancel: "Cancel",
+      okay: "Send",
+      calendar: "Calendar",
+      downloads: "Downloads",
+      shops: "Shops",
+      onlineFair: "Online Fair",
+      afterWedding: "After The Wedding",
+      theDay: "Agenda For The Big Day",
+      ideas: "Ideas"
     }
   },
   de: {
@@ -69,7 +81,19 @@ const resources = {
       sentSaveTheDate: "Save The Date versendet?",
       sentInvite: "Einladung versendet?",
       receivedResponse: "Antwort erhalten?",
-      noEntries: "Du hast noch keine Einträge."
+      noEntries: "Du hast noch keine Einträge.",
+      feedbackButton: "Welche neue Funktion möchtest du?",
+      feedbackHeading: "Hilf uns, die App besser zu machen!",
+      feedbackText: "Welche neue Funktion willst du unbedingt haben?",
+      cancel: "Abbrechen",
+      okay: "Senden",
+      calendar: "Kalender",
+      downloads: "Downloads",
+      shops: "Einkaufsmöglichkeiten",
+      onlineFair: "Online-Messe",
+      afterWedding: "Nach der Hochzeit",
+      theDay: "Ablaufplan am Tag der Hochzeit",
+      ideas: "Ideen"
     }
   }
 };
