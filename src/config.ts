@@ -33,3 +33,8 @@ const prod = {
 };
 
 export const config = process.env.REACT_APP_STAGE === "prod" ? prod : dev;
+
+export const demoUser = {
+  email: "demo@miku86.com",
+  password: "demo2020"
+};
