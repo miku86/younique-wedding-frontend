@@ -1,7 +1,8 @@
-import { makeStyles, TextField, Theme } from "@material-ui/core";
+import { Button, makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { demoUser } from "../../config";
 import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
@@ -24,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       marginBottom: theme.spacing(3),
       width: 260
     }
+  },
+  demoButton: {
+    marginTop: 100,
+    color: "rgba(0, 0, 0, 0.5)"
   }
 }));
 
@@ -34,7 +39,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
     email: "",
     password: ""
   });
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const validateForm = () => {
     return fields.email.length > 0 && fields.password.length >= 8;
@@ -47,6 +52,20 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
 
     try {
       await Auth.signIn(fields.email, fields.password);
+      setIsAuthenticated(true);
+    } catch (error) {
+      alert(error.message);
+      setIsLoading(false);
+    }
+  };
+
+  const handleUseDemo = async (event: any) => {
+    event.preventDefault();
+
+    setIsLoading(true);
+
+    try {
+      await Auth.signIn(demoUser.email, demoUser.password);
       setIsAuthenticated(true);
     } catch (error) {
       alert(error.message);
@@ -89,6 +108,15 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
         >
           {t("login")}
         </LoadingButton>
+
+        <Button
+          variant="outlined"
+          fullWidth
+          onClick={handleUseDemo}
+          className={classes.demoButton}
+        >
+          {t("useDemoAccount")}
+        </Button>
       </form>
     </div>
   );
