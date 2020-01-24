@@ -49,7 +49,8 @@ const resources = {
       ideas: "Ideas",
       add: "add",
       send: "Send",
-      verify: "Verify E-Mail Code"
+      verify: "Verify E-Mail Code",
+      useDemoAccount: "Use Demo Account"
     }
   },
   de: {
@@ -99,7 +100,8 @@ const resources = {
       ideas: "Ideen",
       add: "Hinzufügen",
       send: "Senden",
-      verify: "E-Mail Code bestätigen"
+      verify: "E-Mail Code bestätigen",
+      useDemoAccount: "Demo Account nutzen"
     }
   }
 };
