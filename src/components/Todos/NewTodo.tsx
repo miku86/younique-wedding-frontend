@@ -128,7 +128,7 @@ const NewTodo: React.FC<Props> = () => {
           isLoading={isLoading}
           type="submit"
         >
-          Add new todo
+          {t("add")}
         </LoadingButton>
       </form>
     </div>

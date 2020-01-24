@@ -46,7 +46,10 @@ const resources = {
       onlineFair: "Online Fair",
       afterWedding: "After The Wedding",
       theDay: "Agenda For The Big Day",
-      ideas: "Ideas"
+      ideas: "Ideas",
+      add: "add",
+      send: "Send",
+      verify: "Verify E-Mail Code"
     }
   },
   de: {
@@ -93,7 +96,10 @@ const resources = {
       onlineFair: "Online-Messe",
       afterWedding: "Nach der Hochzeit",
       theDay: "Ablaufplan am Tag der Hochzeit",
-      ideas: "Ideen"
+      ideas: "Ideen",
+      add: "Hinzufügen",
+      send: "Senden",
+      verify: "E-Mail Code bestätigen"
     }
   }
 };

@@ -87,7 +87,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
           isLoading={isLoading}
           type="submit"
         >
-          Login
+          {t("login")}
         </LoadingButton>
       </form>
     </div>
