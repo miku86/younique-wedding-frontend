@@ -97,7 +97,7 @@ const NewGuest: React.FC<Props> = () => {
           isLoading={isLoading}
           type="submit"
         >
-          Add new guest
+          {t("add")}
         </LoadingButton>
       </form>
     </div>

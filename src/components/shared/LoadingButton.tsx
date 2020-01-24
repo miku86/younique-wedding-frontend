@@ -11,7 +11,7 @@ interface Props {
   isLoading: boolean;
   className?: string;
   disabled: boolean;
-  [key: string]: string | number | boolean | undefined;
+  [key: string]: any;
 }
 
 const LoadingButton: React.FC<Props> = ({

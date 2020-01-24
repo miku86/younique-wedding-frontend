@@ -116,7 +116,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
           isLoading={isLoading}
           type="submit"
         >
-          Signup
+          {t("signup")}
         </LoadingButton>
       </form>
     );
@@ -142,7 +142,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
           isLoading={isLoading}
           type="submit"
         >
-          Verify E-Mail Code
+          {t("verify")}
         </LoadingButton>
       </form>
     );

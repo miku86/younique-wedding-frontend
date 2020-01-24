@@ -127,7 +127,7 @@ const Feedbackbox: React.FC<Props> = () => {
                 isLoading={isLoading}
                 type="submit"
               >
-                Senden
+                {t("send")}
               </LoadingButton>
             </form>
           </DialogContent>

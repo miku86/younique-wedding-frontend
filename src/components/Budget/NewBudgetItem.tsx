@@ -114,7 +114,7 @@ const NewBudgetItem: React.FC<Props> = () => {
           isLoading={isLoading}
           type="submit"
         >
-          Add new budget item
+          {t("add")}
         </LoadingButton>
       </form>
     </div>
