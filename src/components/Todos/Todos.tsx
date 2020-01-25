@@ -1,11 +1,11 @@
 import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { API } from "aws-amplify";
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config } from "../../config";
-import { TisAuthenticated } from "../../utils/customTypes";
+import { TisAuthenticated, TodoInputs } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
@@ -36,7 +36,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     setIsLoading(true);
     const todos = await API.get(config.API.NAME, "/todos", {});
     setTodos(todos);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -50,17 +49,17 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       } catch (error) {
         alert(error);
       }
+      setIsLoading(false);
     })();
   }, [isAuthenticated]);
 
   const deleteTodo = async (todoId: string) => {
-    const body = {
-      todoId
-    };
-
     setIsLoading(true);
-    await API.del(config.API.NAME, "/todos", { body });
-    setIsLoading(false);
+    await API.del(config.API.NAME, "/todos", {
+      body: {
+        todoId
+      }
+    });
   };
 
   const handleDelete = async (todoId: string) => {
@@ -76,38 +75,46 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     } catch (error) {
       alert(error.message);
     }
+    setIsLoading(false);
   };
 
-  const updateTodo = (
-    todoId: string,
-    fieldKey: string,
-    newFieldValue: boolean
-  ) => {
-    const body = {
-      todoId,
-      fieldKey,
-      newFieldValue
-    };
-
-    return API.put(config.API.NAME, "/todos", { body });
+  const updateTodo = (todoId: string, data: any) => {
+    setIsLoading(true);
+    API.put(config.API.NAME, "/todos", { body: { todoId, data } });
   };
 
-  const handleUpdate = async (
+  const handleUpdateBools = async (
     todoId: string,
     fieldKey: string,
     fieldValue: boolean
   ) => {
-    const newFieldValue = !fieldValue;
-
-    setIsLoading(true);
+    const data = {
+      [fieldKey]: !fieldValue
+    };
 
     try {
-      await updateTodo(todoId, fieldKey, newFieldValue);
+      await updateTodo(todoId, data);
       fetchTodos();
     } catch (error) {
       alert(error.message);
-      setIsLoading(false);
     }
+    setIsLoading(false);
+  };
+
+  const handleUpdateTexts = async (
+    event: FormEvent<HTMLFormElement>,
+    todoId: string,
+    fields: TodoInputs
+  ) => {
+    event.preventDefault();
+
+    try {
+      await updateTodo(todoId, fields);
+      fetchTodos();
+    } catch (error) {
+      alert(error.message);
+    }
+    setIsLoading(false);
   };
 
   const renderTodos = () => {
@@ -122,7 +129,8 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
             <CustomTable
               data={todos}
               handleDelete={handleDelete}
-              handleUpdate={handleUpdate}
+              handleUpdateBools={handleUpdateBools}
+              handleUpdateTexts={handleUpdateTexts}
             />
 
             <Box display="flex" my={2}>

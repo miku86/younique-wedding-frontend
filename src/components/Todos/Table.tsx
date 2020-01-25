@@ -1,6 +1,6 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
-import React from "react";
-import { Todo } from "../../utils/customTypes";
+import React, { FormEvent, useState } from "react";
+import { Todo, TodoInputs } from "../../utils/customTypes";
 import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
 import ExtendedTableBody from "./TableBody";
 
@@ -14,23 +14,37 @@ interface Data {
 }
 
 const headCells: HeadCell[] = [
-  { id: "done",  sorting: true },
-  { id: "title",  sorting: true },
-  { id: "deadline",  sorting: true },
-  { id: "responsible",  sorting: true },
-  { id: "comment",  sorting: true },
-  { id: "options",  sorting: false }
+  { id: "done", sorting: true },
+  { id: "title", sorting: true },
+  { id: "deadline", sorting: true },
+  { id: "responsible", sorting: true },
+  { id: "comment", sorting: true },
+  { id: "options", sorting: false }
 ];
 
 interface Props {
   data: Todo[];
   handleDelete: (guestId: string) => void;
-  handleUpdate: (todoId: string, fieldKey: string, fieldValue: boolean) => void;
+  handleUpdateBools: (
+    todoId: string,
+    fieldKey: string,
+    fieldValue: boolean
+  ) => void;
+  handleUpdateTexts: (
+    event: FormEvent<HTMLFormElement>,
+    todoId: string,
+    fields: TodoInputs
+  ) => void;
 }
 
-const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("done");
+const CustomTable: React.FC<Props> = ({
+  data,
+  handleDelete,
+  handleUpdateBools,
+  handleUpdateTexts
+}) => {
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<keyof Data>("done");
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -54,9 +68,9 @@ const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
           data={data}
           order={order}
           orderBy={orderBy}
-          showDeleteButton={true}
           handleDelete={handleDelete}
-          handleUpdate={handleUpdate}
+          handleUpdateBools={handleUpdateBools}
+          handleUpdateTexts={handleUpdateTexts}
         />
       </Table>
     </TableContainer>

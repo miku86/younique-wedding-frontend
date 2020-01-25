@@ -21,6 +21,14 @@ export interface Todo {
   done: boolean;
 }
 
+export interface TodoInputs {
+  done?: string;
+  title?: string;
+  deadline?: string;
+  responsible?: string;
+  comment?: string;
+}
+
 export interface Guest {
   PK: string;
   SK: string;
