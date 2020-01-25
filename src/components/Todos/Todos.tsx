@@ -1,7 +1,7 @@
 import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { API } from "aws-amplify";
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config } from "../../config";
@@ -110,6 +110,14 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     }
   };
 
+  const handleUpdateTexts = async (
+    event: FormEvent<HTMLFormElement>,
+    fields: any
+  ) => {
+    event.preventDefault();
+    // TODO: send fields to update function
+  };
+
   const renderTodos = () => {
     return (
       <div className={classes.todos}>
@@ -123,6 +131,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
               data={todos}
               handleDelete={handleDelete}
               handleUpdateBools={handleUpdateBools}
+              handleUpdateTexts={handleUpdateTexts}
             />
 
             <Box display="flex" my={2}>

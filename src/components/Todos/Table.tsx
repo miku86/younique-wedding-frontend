@@ -1,5 +1,5 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { Todo } from "../../utils/customTypes";
 import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
 import ExtendedTableBody from "./TableBody";
@@ -30,15 +30,17 @@ interface Props {
     fieldKey: string,
     fieldValue: boolean
   ) => void;
+  handleUpdateTexts: any;
 }
 
 const CustomTable: React.FC<Props> = ({
   data,
   handleDelete,
-  handleUpdateBools
+  handleUpdateBools,
+  handleUpdateTexts
 }) => {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("done");
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<keyof Data>("done");
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -64,6 +66,7 @@ const CustomTable: React.FC<Props> = ({
           orderBy={orderBy}
           handleDelete={handleDelete}
           handleUpdateBools={handleUpdateBools}
+          handleUpdateTexts={handleUpdateTexts}
         />
       </Table>
     </TableContainer>
