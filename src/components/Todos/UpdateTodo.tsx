@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, makeStyles, Slide, TextField, Theme } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Todo } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
@@ -35,8 +35,8 @@ const Transition = React.forwardRef<unknown, TransitionProps>(
 interface Props {
   item: Todo;
   open: boolean;
-  handleClose: any;
-  handleSubmit: any;
+  handleClose: () => void;
+  handleSubmit: (event: FormEvent<HTMLFormElement>, fields: any) => void;
 }
 
 const UpdateTodo: React.FC<Props> = ({

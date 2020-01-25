@@ -1,5 +1,5 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Todo } from "../../utils/customTypes";
 import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
 import ExtendedTableBody from "./TableBody";
@@ -30,7 +30,10 @@ interface Props {
     fieldKey: string,
     fieldValue: boolean
   ) => void;
-  handleUpdateTexts: any;
+  handleUpdateTexts: (
+    event: FormEvent<HTMLFormElement>,
+    fields: any
+  ) => void;
 }
 
 const CustomTable: React.FC<Props> = ({

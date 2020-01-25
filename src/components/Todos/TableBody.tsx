@@ -1,6 +1,6 @@
 import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/core";
 import { Create, Delete } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Todo } from "../../utils/customTypes";
 import { getSorting, stableSort } from "../../utils/helpers";
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   updateButton: {
     cursor: "pointer"
-  },
+  }
 }));
 
 interface Props {
@@ -27,7 +27,7 @@ interface Props {
     fieldKey: string,
     fieldValue: boolean
   ) => void;
-  handleUpdateTexts: any;
+  handleUpdateTexts: (event: FormEvent<HTMLFormElement>, fields: any) => void;
 }
 
 const ExtendedTableBody: React.FC<Props> = ({
