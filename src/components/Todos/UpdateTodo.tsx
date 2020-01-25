@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, makeStyles, Slide, TextField, Theme } from "@material-ui/core";
+import { Button, Dialog, DialogContent, DialogTitle, makeStyles, Slide, TextField, Theme } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -71,9 +71,8 @@ const UpdateTodo: React.FC<Props> = ({
       onClose={handleClose}
     >
       <div className={classes.content}>
-        <DialogTitle> {t("feedbackHeading")}</DialogTitle>
+        <DialogTitle> {t("updateTodoHeading")}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{t("feedbackText")}</DialogContentText>
           <form
             onSubmit={event => handleSubmit(event, item.todoId, fields)}
             className={classes.form}
