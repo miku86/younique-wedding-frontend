@@ -51,7 +51,8 @@ const resources = {
       send: "Send",
       verify: "Verify E-Mail Code",
       useDemoAccount: "Use Demo Account",
-      save: "Save"
+      save: "Save",
+      updateTodoHeading: "Update your Todo"
     }
   },
   de: {
@@ -103,7 +104,8 @@ const resources = {
       send: "Senden",
       verify: "E-Mail Code bestätigen",
       useDemoAccount: "Demo Account nutzen",
-      save: "Speichern"
+      save: "Speichern",
+      updateTodoHeading: "Update dein Todo"
     }
   }
 };
