@@ -1,6 +1,6 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
-import { Todo } from "../../utils/customTypes";
+import { Todo, TodoInputs } from "../../utils/customTypes";
 import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
 import ExtendedTableBody from "./TableBody";
 
@@ -32,7 +32,8 @@ interface Props {
   ) => void;
   handleUpdateTexts: (
     event: FormEvent<HTMLFormElement>,
-    fields: any
+    todoId: string,
+    fields: TodoInputs
   ) => void;
 }
 

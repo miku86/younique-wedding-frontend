@@ -5,7 +5,7 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config } from "../../config";
-import { TisAuthenticated } from "../../utils/customTypes";
+import { TisAuthenticated, TodoInputs } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
@@ -36,7 +36,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     setIsLoading(true);
     const todos = await API.get(config.API.NAME, "/todos", {});
     setTodos(todos);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -50,17 +49,17 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       } catch (error) {
         alert(error);
       }
+      setIsLoading(false);
     })();
   }, [isAuthenticated]);
 
   const deleteTodo = async (todoId: string) => {
-    const body = {
-      todoId
-    };
-
     setIsLoading(true);
-    await API.del(config.API.NAME, "/todos", { body });
-    setIsLoading(false);
+    await API.del(config.API.NAME, "/todos", {
+      body: {
+        todoId
+      }
+    });
   };
 
   const handleDelete = async (todoId: string) => {
@@ -76,20 +75,12 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     } catch (error) {
       alert(error.message);
     }
+    setIsLoading(false);
   };
 
-  const updateTodo = (
-    todoId: string,
-    fieldKey: string,
-    newFieldValue: boolean
-  ) => {
-    const body = {
-      todoId,
-      fieldKey,
-      newFieldValue
-    };
-
-    return API.put(config.API.NAME, "/todos", { body });
+  const updateTodo = (todoId: string, data: any) => {
+    setIsLoading(true);
+    API.put(config.API.NAME, "/todos", { body: { todoId, data } });
   };
 
   const handleUpdateBools = async (
@@ -97,25 +88,33 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     fieldKey: string,
     fieldValue: boolean
   ) => {
-    const newFieldValue = !fieldValue;
-
-    setIsLoading(true);
+    const data = {
+      [fieldKey]: !fieldValue
+    };
 
     try {
-      await updateTodo(todoId, fieldKey, newFieldValue);
+      await updateTodo(todoId, data);
       fetchTodos();
     } catch (error) {
       alert(error.message);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   const handleUpdateTexts = async (
     event: FormEvent<HTMLFormElement>,
-    fields: any
+    todoId: string,
+    fields: TodoInputs
   ) => {
     event.preventDefault();
-    // TODO: send fields to update function
+
+    try {
+      await updateTodo(todoId, fields);
+      fetchTodos();
+    } catch (error) {
+      alert(error.message);
+    }
+    setIsLoading(false);
   };
 
   const renderTodos = () => {

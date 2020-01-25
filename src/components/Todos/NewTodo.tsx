@@ -4,17 +4,11 @@ import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { config } from "../../config";
+import { TodoInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
 interface Props {}
-
-interface TodoInputs {
-  title: string;
-  deadline: string;
-  responsible: string;
-  comment: string;
-}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

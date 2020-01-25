@@ -2,7 +2,7 @@ import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/
 import { Create, Delete } from "@material-ui/icons";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Todo } from "../../utils/customTypes";
+import { Todo, TodoInputs } from "../../utils/customTypes";
 import { getSorting, stableSort } from "../../utils/helpers";
 import CheckingIcon from "../shared/CheckingIcon";
 import { Order } from "../shared/TableHead";
@@ -27,7 +27,11 @@ interface Props {
     fieldKey: string,
     fieldValue: boolean
   ) => void;
-  handleUpdateTexts: (event: FormEvent<HTMLFormElement>, fields: any) => void;
+  handleUpdateTexts: (
+    event: FormEvent<HTMLFormElement>,
+    todoId: string,
+    fields: TodoInputs
+  ) => void;
 }
 
 const ExtendedTableBody: React.FC<Props> = ({

@@ -2,7 +2,7 @@ import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, makeStyl
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Todo } from "../../utils/customTypes";
+import { Todo, TodoInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
@@ -36,7 +36,11 @@ interface Props {
   item: Todo;
   open: boolean;
   handleClose: () => void;
-  handleSubmit: (event: FormEvent<HTMLFormElement>, fields: any) => void;
+  handleSubmit: (
+    event: FormEvent<HTMLFormElement>,
+    todoId: string,
+    fields: TodoInputs
+  ) => void;
 }
 
 const UpdateTodo: React.FC<Props> = ({
@@ -71,7 +75,7 @@ const UpdateTodo: React.FC<Props> = ({
         <DialogContent>
           <DialogContentText>{t("feedbackText")}</DialogContentText>
           <form
-            onSubmit={event => handleSubmit(event, fields)}
+            onSubmit={event => handleSubmit(event, item.todoId, fields)}
             className={classes.form}
           >
             <TextField
