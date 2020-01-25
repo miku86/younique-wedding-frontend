@@ -1,5 +1,5 @@
 import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
+import { Create, Delete } from "@material-ui/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Todo } from "../../utils/customTypes";
@@ -10,6 +10,9 @@ import { Order } from "../shared/TableHead";
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
     cursor: "pointer"
+  },
+  updateButton: {
+    cursor: "pointer"
   }
 }));
 
@@ -17,7 +20,6 @@ interface Props {
   data: Todo[];
   order: Order;
   orderBy: string;
-  showDeleteButton: boolean;
   handleDelete: (guestId: string) => void;
   handleUpdateBools: (
     todoId: string,
@@ -30,7 +32,6 @@ const ExtendedTableBody: React.FC<Props> = ({
   data,
   order,
   orderBy,
-  showDeleteButton,
   handleDelete,
   handleUpdateBools
 }) => {
@@ -64,14 +65,13 @@ const ExtendedTableBody: React.FC<Props> = ({
                 <TableCell align="center">{deadline}</TableCell>
                 <TableCell align="center">{responsible}</TableCell>
                 <TableCell align="center">{comment}</TableCell>
-                {showDeleteButton && (
-                  <TableCell align="center">
-                    <Delete
-                      className={classes.deleteButton}
-                      onClick={() => handleDelete(todoId)}
-                    />
-                  </TableCell>
-                )}
+                <TableCell align="center">
+                  <Create className={classes.updateButton} />
+                  <Delete
+                    className={classes.deleteButton}
+                    onClick={() => handleDelete(todoId)}
+                  />
+                </TableCell>
               </TableRow>
             );
           }
