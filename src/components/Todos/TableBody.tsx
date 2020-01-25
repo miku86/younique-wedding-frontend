@@ -19,7 +19,11 @@ interface Props {
   orderBy: string;
   showDeleteButton: boolean;
   handleDelete: (guestId: string) => void;
-  handleUpdate: (todoId: string, fieldKey: string, fieldValue: boolean) => void;
+  handleUpdateBools: (
+    todoId: string,
+    fieldKey: string,
+    fieldValue: boolean
+  ) => void;
 }
 
 const ExtendedTableBody: React.FC<Props> = ({
@@ -28,7 +32,7 @@ const ExtendedTableBody: React.FC<Props> = ({
   orderBy,
   showDeleteButton,
   handleDelete,
-  handleUpdate
+  handleUpdateBools
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -50,7 +54,7 @@ const ExtendedTableBody: React.FC<Props> = ({
                     itemId={todoId}
                     fieldKey="done"
                     fieldValue={done}
-                    handleClick={handleUpdate}
+                    handleClick={handleUpdateBools}
                   />
                 </TableCell>
 

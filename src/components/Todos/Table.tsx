@@ -25,10 +25,18 @@ const headCells: HeadCell[] = [
 interface Props {
   data: Todo[];
   handleDelete: (guestId: string) => void;
-  handleUpdate: (todoId: string, fieldKey: string, fieldValue: boolean) => void;
+  handleUpdateBools: (
+    todoId: string,
+    fieldKey: string,
+    fieldValue: boolean
+  ) => void;
 }
 
-const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
+const CustomTable: React.FC<Props> = ({
+  data,
+  handleDelete,
+  handleUpdateBools
+}) => {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("done");
 
@@ -54,9 +62,8 @@ const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
           data={data}
           order={order}
           orderBy={orderBy}
-          showDeleteButton={true}
           handleDelete={handleDelete}
-          handleUpdate={handleUpdate}
+          handleUpdateBools={handleUpdateBools}
         />
       </Table>
     </TableContainer>

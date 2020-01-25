@@ -92,7 +92,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     return API.put(config.API.NAME, "/todos", { body });
   };
 
-  const handleUpdate = async (
+  const handleUpdateBools = async (
     todoId: string,
     fieldKey: string,
     fieldValue: boolean
@@ -122,7 +122,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
             <CustomTable
               data={todos}
               handleDelete={handleDelete}
-              handleUpdate={handleUpdate}
+              handleUpdateBools={handleUpdateBools}
             />
 
             <Box display="flex" my={2}>
