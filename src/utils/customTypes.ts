@@ -43,6 +43,15 @@ export interface Guest {
   timestamp: number;
 }
 
+export interface GuestInputs {
+  name?: string;
+  comment?: string;
+  sentSaveTheDate?: boolean;
+  sentInvite?: boolean;
+  receivedResponse?: boolean;
+  coming?: boolean;
+}
+
 export interface BudgetItem {
   PK: string;
   SK: string;
