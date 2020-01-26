@@ -22,7 +22,7 @@ export interface Todo {
 }
 
 export interface TodoInputs {
-  done?: string;
+  done?: boolean;
   title?: string;
   deadline?: string;
   responsible?: string;
