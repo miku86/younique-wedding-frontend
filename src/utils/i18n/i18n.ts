@@ -52,7 +52,8 @@ const resources = {
       verify: "Verify E-Mail Code",
       useDemoAccount: "Use Demo Account",
       save: "Save",
-      updateTodoHeading: "Update your Todo"
+      updateTodoHeading: "Update your Todo",
+      updateGuestHeading: "Update your Guest"
     }
   },
   de: {
@@ -105,7 +106,8 @@ const resources = {
       verify: "E-Mail Code bestätigen",
       useDemoAccount: "Demo Account nutzen",
       save: "Speichern",
-      updateTodoHeading: "Update dein Todo"
+      updateTodoHeading: "Update dein Todo",
+      updateGuestHeading: "Update deinen Gast"
     }
   }
 };

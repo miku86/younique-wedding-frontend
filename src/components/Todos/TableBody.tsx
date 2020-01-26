@@ -21,7 +21,7 @@ interface Props {
   data: Todo[];
   order: Order;
   orderBy: string;
-  handleDelete: (guestId: string) => void;
+  handleDelete: (todoId: string) => void;
   handleUpdateBools: (
     todoId: string,
     fieldKey: string,

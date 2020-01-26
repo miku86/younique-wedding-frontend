@@ -4,15 +4,6 @@ import { Todo, TodoInputs } from "../../utils/customTypes";
 import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
 import ExtendedTableBody from "./TableBody";
 
-interface Data {
-  done: boolean;
-  title: string;
-  deadline: string;
-  responsible: string;
-  comment: string;
-  options?: string;
-}
-
 const headCells: HeadCell[] = [
   { id: "done", sorting: true },
   { id: "title", sorting: true },
@@ -44,7 +35,7 @@ const CustomTable: React.FC<Props> = ({
   handleUpdateTexts
 }) => {
   const [order, setOrder] = useState<Order>("asc");
-  const [orderBy, setOrderBy] = useState<keyof Data>("done");
+  const [orderBy, setOrderBy] = useState<keyof TodoInputs>("done");
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,

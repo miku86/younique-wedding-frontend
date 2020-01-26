@@ -22,7 +22,7 @@ export interface Todo {
 }
 
 export interface TodoInputs {
-  done?: string;
+  done?: boolean;
   title?: string;
   deadline?: string;
   responsible?: string;
@@ -41,6 +41,15 @@ export interface Guest {
   receivedResponse: boolean;
   coming: boolean;
   timestamp: number;
+}
+
+export interface GuestInputs {
+  name?: string;
+  comment?: string;
+  sentSaveTheDate?: boolean;
+  sentInvite?: boolean;
+  receivedResponse?: boolean;
+  coming?: boolean;
 }
 
 export interface BudgetItem {
