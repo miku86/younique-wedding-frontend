@@ -1,11 +1,11 @@
 import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { API } from "aws-amplify";
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config } from "../../config";
-import { TisAuthenticated } from "../../utils/customTypes";
+import { GuestInputs, TisAuthenticated } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
@@ -30,13 +30,12 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const [guests, setGuests] = useState([]);
-  const {t}= useTranslation()
+  const { t } = useTranslation();
 
   const fetchGuests = async () => {
     setIsLoading(true);
     const guests = await API.get(config.API.NAME, "/guests", {});
     setGuests(guests);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -50,17 +49,17 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
       } catch (error) {
         alert(error);
       }
+      setIsLoading(false);
     })();
   }, [isAuthenticated]);
 
   const deleteGuest = async (guestId: string) => {
-    const body = {
-      guestId
-    };
-
     setIsLoading(true);
-    await API.del(config.API.NAME, "/guests", { body });
-    setIsLoading(false);
+    await API.del(config.API.NAME, "/guests", {
+      body: {
+        guestId
+      }
+    });
   };
 
   const handleDelete = async (guestId: string) => {
@@ -76,38 +75,46 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
     } catch (error) {
       alert(error.message);
     }
+    setIsLoading(false);
   };
 
-  const updateGuest = (
-    guestId: string,
-    fieldKey: string,
-    newFieldValue: boolean
-  ) => {
-    const body = {
-      guestId,
-      fieldKey,
-      newFieldValue
-    };
-
-    return API.put(config.API.NAME, "/guests", { body });
+  const updateGuest = (guestId: string, data: any) => {
+    setIsLoading(true);
+    API.put(config.API.NAME, "/guests", { body: { guestId, data } });
   };
 
-  const handleUpdate = async (
+  const handleUpdateBools = async (
     guestId: string,
     fieldKey: string,
     fieldValue: boolean
   ) => {
-    const newFieldValue = !fieldValue;
-
-    setIsLoading(true);
+    const data = {
+      [fieldKey]: !fieldValue
+    };
 
     try {
-      await updateGuest(guestId, fieldKey, newFieldValue);
+      await updateGuest(guestId, data);
       fetchGuests();
     } catch (error) {
       alert(error.message);
-      setIsLoading(false);
     }
+    setIsLoading(false);
+  };
+
+  const handleUpdateTexts = async (
+    event: FormEvent<HTMLFormElement>,
+    guestId: string,
+    fields: GuestInputs
+  ) => {
+    event.preventDefault();
+
+    try {
+      await updateGuest(guestId, fields);
+      fetchGuests();
+    } catch (error) {
+      alert(error.message);
+    }
+    setIsLoading(false);
   };
 
   const renderGuests = () => {
@@ -122,7 +129,8 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
             <CustomTable
               data={guests}
               handleDelete={handleDelete}
-              handleUpdate={handleUpdate}
+              handleUpdateBools={handleUpdateBools}
+              handleUpdateTexts={handleUpdateTexts}
             />
 
             <Box display="flex" my={2}>
