@@ -44,11 +44,11 @@ const Transition = React.forwardRef<unknown, TransitionProps>(
 interface Props {}
 
 const Feedbackbox: React.FC<Props> = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [feedback, setValue] = React.useState("");
+  const [feedback, setValue] = useState("");
 
   const validateForm = () => {
     return feedback.length > 0;

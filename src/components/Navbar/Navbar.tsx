@@ -55,7 +55,7 @@ const sidebarItems = [
 const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   const classes = useStyles();
   let history = useHistory();
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const { t } = useTranslation();
 
