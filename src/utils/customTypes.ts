@@ -63,3 +63,10 @@ export interface BudgetItem {
   actualCost: string;
   timestamp: number;
 }
+
+export interface BudgetItemInputs {
+  name?: string;
+  done?: boolean;
+  plannedCost?: string;
+  actualCost?: string;
+}
