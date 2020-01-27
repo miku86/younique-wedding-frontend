@@ -1,16 +1,8 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
-import React from "react";
-import { BudgetItem } from "../../utils/customTypes";
+import React, { FormEvent, useState } from "react";
+import { BudgetItem, BudgetItemInputs } from "../../utils/customTypes";
 import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
 import ExtendedTableBody from "./TableBody";
-
-export interface Data {
-  done: boolean;
-  name: string;
-  plannedCost: string;
-  actualCost: string;
-  options?: string;
-}
 
 const headCells: HeadCell[] = [
   { id: "done", sorting: true },
@@ -22,17 +14,27 @@ const headCells: HeadCell[] = [
 
 interface Props {
   data: BudgetItem[];
-  handleDelete: (guestId: string) => void;
-  handleUpdate: (
+  handleDelete: (budgetItemId: string) => void;
+  handleUpdateBools: (
     budgetItemId: string,
     fieldKey: string,
     fieldValue: boolean
   ) => void;
+  handleUpdateTexts: (
+    event: FormEvent<HTMLFormElement>,
+    budgetItemId: string,
+    fields: BudgetItemInputs
+  ) => void;
 }
 
-const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("done");
+const CustomTable: React.FC<Props> = ({
+  data,
+  handleDelete,
+  handleUpdateBools,
+  handleUpdateTexts
+}) => {
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<keyof BudgetItemInputs>("name");
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -56,9 +58,9 @@ const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
           data={data}
           order={order}
           orderBy={orderBy}
-          showDeleteButton={true}
           handleDelete={handleDelete}
-          handleUpdate={handleUpdate}
+          handleUpdateBools={handleUpdateBools}
+          handleUpdateTexts={handleUpdateTexts}
         />
       </Table>
     </TableContainer>
