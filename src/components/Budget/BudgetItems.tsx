@@ -1,11 +1,11 @@
 import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { API } from "aws-amplify";
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config } from "../../config";
-import { TisAuthenticated } from "../../utils/customTypes";
+import { BudgetItemInputs, TisAuthenticated } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
@@ -36,7 +36,6 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
     setIsLoading(true);
     const budgetItems = await API.get(config.API.NAME, "/budget", {});
     setBudgetItems(budgetItems);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -50,17 +49,17 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
       } catch (error) {
         alert(error);
       }
+      setIsLoading(false);
     })();
   }, [isAuthenticated]);
 
   const deleteBudgetItem = async (budgetItemId: string) => {
-    const body = {
-      budgetItemId
-    };
-
     setIsLoading(true);
-    await API.del(config.API.NAME, "/budget", { body });
-    setIsLoading(false);
+    await API.del(config.API.NAME, "/budget", {
+      body: {
+        budgetItemId
+      }
+    });
   };
 
   const handleDelete = async (budgetItemId: string) => {
@@ -76,20 +75,14 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
     } catch (error) {
       alert(error.message);
     }
+    setIsLoading(false);
   };
 
-  const updateBudgetItem = (
-    budgetItemId: string,
-    fieldKey: string,
-    newFieldValue: boolean
-  ) => {
-    const body = {
-      budgetItemId,
-      fieldKey,
-      newFieldValue
-    };
-
-    return API.put(config.API.NAME, "/budget", { body });
+  const updateBudgetItem = (budgetItemId: string, data: any) => {
+    setIsLoading(true);
+    return API.put(config.API.NAME, "/budget", {
+      body: { budgetItemId, data }
+    });
   };
 
   const handleUpdateBools = async (
@@ -97,17 +90,33 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
     fieldKey: string,
     fieldValue: boolean
   ) => {
-    const newFieldValue = !fieldValue;
-
-    setIsLoading(true);
+    const data = {
+      [fieldKey]: !fieldValue
+    };
 
     try {
-      await updateBudgetItem(budgetItemId, fieldKey, newFieldValue);
+      await updateBudgetItem(budgetItemId, data);
       fetchBudgetItems();
     } catch (error) {
       alert(error.message);
-      setIsLoading(false);
     }
+    setIsLoading(false);
+  };
+
+  const handleUpdateTexts = async (
+    event: FormEvent<HTMLFormElement>,
+    budgetItemId: string,
+    fields: BudgetItemInputs
+  ) => {
+    event.preventDefault();
+
+    try {
+      await updateBudgetItem(budgetItemId, fields);
+      fetchBudgetItems();
+    } catch (error) {
+      alert(error.message);
+    }
+    setIsLoading(false);
   };
 
   const renderBudgetItems = () => {
@@ -123,6 +132,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
               data={budgetItems}
               handleDelete={handleDelete}
               handleUpdateBools={handleUpdateBools}
+              handleUpdateTexts={handleUpdateTexts}
             />
 
             <Box display="flex" my={2}>
