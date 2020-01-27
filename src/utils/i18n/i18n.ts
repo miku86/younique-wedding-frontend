@@ -53,7 +53,8 @@ const resources = {
       useDemoAccount: "Use Demo Account",
       save: "Save",
       updateTodoHeading: "Update your Todo",
-      updateGuestHeading: "Update your Guest"
+      updateGuestHeading: "Update your Guest",
+      updateBudgetItemHeading: "Update your Budget Item",
     }
   },
   de: {
@@ -107,7 +108,8 @@ const resources = {
       useDemoAccount: "Demo Account nutzen",
       save: "Speichern",
       updateTodoHeading: "Update dein Todo",
-      updateGuestHeading: "Update deinen Gast"
+      updateGuestHeading: "Update deinen Gast",
+      updateBudgetItemHeading: "Update deinen Budget-Eintrag",
     }
   }
 };
