@@ -92,7 +92,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
     return API.put(config.API.NAME, "/budget", { body });
   };
 
-  const handleUpdate = async (
+  const handleUpdateBools = async (
     budgetItemId: string,
     fieldKey: string,
     fieldValue: boolean
@@ -122,7 +122,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
             <CustomTable
               data={budgetItems}
               handleDelete={handleDelete}
-              handleUpdate={handleUpdate}
+              handleUpdateBools={handleUpdateBools}
             />
 
             <Box display="flex" my={2}>

@@ -1,5 +1,5 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { BudgetItem } from "../../utils/customTypes";
 import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
 import ExtendedTableBody from "./TableBody";
@@ -23,16 +23,16 @@ const headCells: HeadCell[] = [
 interface Props {
   data: BudgetItem[];
   handleDelete: (guestId: string) => void;
-  handleUpdate: (
+  handleUpdateBools: (
     budgetItemId: string,
     fieldKey: string,
     fieldValue: boolean
   ) => void;
 }
 
-const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("done");
+const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdateBools }) => {
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<keyof Data>("done");
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -58,7 +58,7 @@ const CustomTable: React.FC<Props> = ({ data, handleDelete, handleUpdate }) => {
           orderBy={orderBy}
           showDeleteButton={true}
           handleDelete={handleDelete}
-          handleUpdate={handleUpdate}
+          handleUpdateBools={handleUpdateBools}
         />
       </Table>
     </TableContainer>
