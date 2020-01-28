@@ -14,11 +14,8 @@ const resources = {
       guests: "Guests",
       budget: "Budget",
       done: "Done",
-      notDone: "Not Done",
       coming: "Coming",
-      notComing: "Not Coming",
       bought: "Bought",
-      notBought: "Not Bought",
       email: "E-Mail",
       password: "Password",
       passwordMin: "Password (min. 8 characters)",
@@ -54,7 +51,7 @@ const resources = {
       save: "Save",
       updateTodoHeading: "Update your Todo",
       updateGuestHeading: "Update your Guest",
-      updateBudgetItemHeading: "Update your Budget Item",
+      updateBudgetItemHeading: "Update your Budget Item"
     }
   },
   de: {
@@ -69,11 +66,8 @@ const resources = {
       guests: "Gäste",
       budget: "Budget",
       done: "Erledigt",
-      notDone: "Nicht erledigt",
       coming: "Zugesagt",
-      notComing: "Nicht zugesagt",
       bought: "Gekauft",
-      notBought: "Nicht gekauft",
       email: "E-Mail",
       password: "Passwort",
       passwordMin: "Passwort (min. 8 Zeichen)",
@@ -109,7 +103,7 @@ const resources = {
       save: "Speichern",
       updateTodoHeading: "Update dein Todo",
       updateGuestHeading: "Update deinen Gast",
-      updateBudgetItemHeading: "Update deinen Budget-Eintrag",
+      updateBudgetItemHeading: "Update deinen Budget-Eintrag"
     }
   }
 };
