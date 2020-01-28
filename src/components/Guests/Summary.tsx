@@ -1,5 +1,5 @@
 import { Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
-import { CheckCircleOutline, RadioButtonUnchecked } from "@material-ui/icons";
+import { CheckCircleOutline } from "@material-ui/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Guest } from "../../utils/customTypes";
@@ -10,12 +10,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: "column",
     margin: "10px 0",
 
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up("md")]: {
       flexDirection: "row",
       justifyContent: "space-evenly",
       alignItems: "center",
-      margin: "10px 0",
-    },
+      margin: "10px 0"
+    }
   },
   card: {
     border: `1px solid ${theme.palette.primary.main}`,
@@ -28,10 +28,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       paddingBottom: "16px"
     },
 
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up("md")]: {
       width: "240px",
-      margin: "20px 0",
-    },
+      margin: "20px 0"
+    }
   },
   content: {
     display: "flex",
@@ -48,11 +48,10 @@ interface Props {
 
 const Summary: React.FC<Props> = ({ data }) => {
   const classes = useStyles();
-  const {t}= useTranslation();
+  const { t } = useTranslation();
 
   const amountItems = data.length;
   const amountDoneItems = data.filter(item => item.coming).length;
-  const amountOpenItems = data.filter(item => !item.coming).length;
 
   return (
     <div className={classes.summary}>
@@ -64,17 +63,6 @@ const Summary: React.FC<Props> = ({ data }) => {
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
             {t("coming")}
-          </Typography>
-        </CardContent>
-      </Card>
-      <Card className={classes.card}>
-        <RadioButtonUnchecked style={{ fontSize: 32 }} />
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {`${amountOpenItems} /  ${amountItems}`}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {t("notComing")}
           </Typography>
         </CardContent>
       </Card>

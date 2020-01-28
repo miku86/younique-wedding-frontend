@@ -1,5 +1,5 @@
 import { Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
-import { CheckCircleOutline, RadioButtonUnchecked } from "@material-ui/icons";
+import { CheckCircleOutline } from "@material-ui/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Todo } from "../../utils/customTypes";
@@ -51,7 +51,6 @@ const Summary: React.FC<Props> = ({ data }) => {
 
   const amountItems = data.length;
   const amountDoneItems = data.filter(item => item.done).length;
-  const amountOpenItems = data.filter(item => !item.done).length;
 
   return (
     <div className={classes.summary}>
@@ -63,17 +62,6 @@ const Summary: React.FC<Props> = ({ data }) => {
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
             {t("done")}
-          </Typography>
-        </CardContent>
-      </Card>
-      <Card className={classes.card}>
-        <RadioButtonUnchecked style={{ fontSize: 32 }} />
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {`${amountOpenItems} /  ${amountItems}`}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {t("notDone")}
           </Typography>
         </CardContent>
       </Card>
