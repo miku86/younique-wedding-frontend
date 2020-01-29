@@ -1,6 +1,11 @@
 import { makeStyles, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import budgetImage from "../static/images/budget.jpg";
+import guestsImage from "../static/images/guests.jpg";
+import dashboardImage from "../static/images/landing.jpg";
+import todosImage from "../static/images/todos.jpg";
 import Routes from "../utils/Routes";
 import Feedbackbox from "./Feedback/Feedbackbox";
 import Navbar from "./Navbar/Navbar";
@@ -8,6 +13,9 @@ import LoadingSpinner from "./shared/LoadingSpinner";
 
 const useStyles = makeStyles((theme: Theme) => ({
   content: {
+    minHeight: "100vh",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
     display: "flex",
     flexDirection: "column",
     padding: "0px 20px",
@@ -25,6 +33,7 @@ const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const classes = useStyles();
+  let history = useHistory();
 
   useEffect(() => {
     (async () => {
@@ -38,6 +47,19 @@ const App: React.FC = () => {
     })();
   }, []);
 
+  const renderImage = (path: string) => {
+    switch (path) {
+      case "/":
+        return dashboardImage;
+      case "/todos":
+        return todosImage;
+      case "/guests":
+        return guestsImage;
+      case "/budget":
+        return budgetImage;
+    }
+  };
+
   return isAuthenticating ? (
     <LoadingSpinner />
   ) : (
@@ -46,7 +68,12 @@ const App: React.FC = () => {
         isAuthenticated={isAuthenticated}
         setIsAuthenticated={setIsAuthenticated}
       />
-      <div className={classes.content}>
+      <div
+        className={classes.content}
+        style={{
+          backgroundImage: `url(${renderImage(history.location.pathname)})`
+        }}
+      >
         <Routes appProps={{ isAuthenticated, setIsAuthenticated }} />
         {isAuthenticated && <Feedbackbox />}
       </div>
