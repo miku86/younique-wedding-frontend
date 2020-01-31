@@ -10,11 +10,32 @@ export function stableSort<T>(array: T[], cmp: (a: T, b: T) => number) {
   return stabilizedThis.map(el => el[0]);
 }
 
+const hasNumber = (myString: any) => /\d/.test(myString);
+const isString = (value: any) => typeof value === "string";
+
 function desc<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
+  /*
+    we want to sort ignoring lowercase or uppercase
+    therefore if the value is a string and has no numbers in it,
+    we make it lowercase, else we do nothing
+  */
+  let lowercaseA = a[orderBy];
+  let lowercaseB = b[orderBy];
+
+  if (
+    isString(a[orderBy]) &&
+    !hasNumber(a[orderBy]) &&
+    isString(b[orderBy]) &&
+    !hasNumber(b[orderBy])
+  ) {
+    lowercaseA = (a[orderBy] as any).toLowerCase();
+    lowercaseB = (b[orderBy] as any).toLowerCase();
+  }
+
+  if (lowercaseB < lowercaseA) {
     return -1;
   }
-  if (b[orderBy] > a[orderBy]) {
+  if (lowercaseB > lowercaseA) {
     return 1;
   }
   return 0;
