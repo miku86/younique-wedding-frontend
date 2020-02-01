@@ -1,4 +1,4 @@
-import { AppBar, Button, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Button, Divider, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Euro, FormatListBulleted, Home, Person } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -6,6 +6,7 @@ import { Auth } from "aws-amplify";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink, useHistory } from "react-router-dom";
+import logo from "../../static/images/logo.png";
 import { TisAuthenticated, TsetIsAuthenticated } from "../../utils/customTypes";
 
 interface Props {
@@ -19,6 +20,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1
   },
+
+  toolbar: theme.mixins.toolbar,
+  logoContainer: {
+    display: "flex",
+    alignItems: "center"
+  },
+  logo: {
+    width: "100%"
+  },
+
   menuButton: {
     marginRight: theme.spacing(2)
   },
@@ -103,6 +114,11 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
         onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}
       >
+        <div className={`${classes.toolbar} ${classes.logoContainer}`}>
+          <img src={logo} alt="logo" className={classes.logo} />
+        </div>
+
+        <Divider />
         <List className={classes.sideList}>
           {sidebarItems.map(({ id, text, path, icon }) => (
             <Link
