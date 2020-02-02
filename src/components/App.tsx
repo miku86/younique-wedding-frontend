@@ -12,8 +12,13 @@ import Navbar from "./Navbar/Navbar";
 import LoadingSpinner from "./shared/LoadingSpinner";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  content: {
+  root: {
     minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column"
+  },
+  content: {
+    flexGrow: 1,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     display: "flex",
@@ -63,7 +68,7 @@ const App: React.FC = () => {
   return isAuthenticating ? (
     <LoadingSpinner />
   ) : (
-    <>
+    <div className={classes.root}>
       <Navbar
         isAuthenticated={isAuthenticated}
         setIsAuthenticated={setIsAuthenticated}
@@ -77,7 +82,7 @@ const App: React.FC = () => {
         <Routes appProps={{ isAuthenticated, setIsAuthenticated }} />
         {isAuthenticated && <Feedbackbox />}
       </div>
-    </>
+    </div>
   );
 };
 
