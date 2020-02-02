@@ -1,6 +1,6 @@
 import { makeStyles, Theme } from "@material-ui/core";
 import React from "react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   landing: {
@@ -25,8 +25,8 @@ const Landing: React.FC<Props> = () => {
 
   return (
     <div className={classes.landing}>
-      <h1>{t("siteTitle")}</h1>
-      <p>{t("sitePitch")}</p>
+      <h1 data-testid="landing-title">{t("siteTitle")}</h1>
+      <p data-testid="landing-pitch">{t("sitePitch")}</p>
     </div>
   );
 };
