@@ -105,6 +105,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
           disabled={!validateForm()}
           isLoading={isLoading}
           type="submit"
+          data-testid="login-submit"
         >
           {t("login")}
         </LoadingButton>
