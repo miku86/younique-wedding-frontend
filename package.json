@@ -32,7 +32,10 @@
     "test:e2e:gui": "cypress open"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "plugin:cypress/recommended"
+    ]
   },
   "browserslist": {
     "production": [
@@ -48,6 +51,7 @@
   },
   "devDependencies": {
     "cypress": "^3.8.3",
+    "eslint-plugin-cypress": "^2.8.1",
     "source-map-explorer": "2.2.2"
   }
 }
