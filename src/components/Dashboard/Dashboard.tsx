@@ -79,7 +79,7 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
       }
 
       try {
-        fetchDashboardData();
+        await fetchDashboardData();
       } catch (error) {
         alert(error);
       }

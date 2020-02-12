@@ -75,7 +75,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const updateTodo = (todoId: string, data: any) => {
@@ -98,7 +97,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const handleUpdateTexts = async (
@@ -114,7 +112,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const renderTodos = () => {

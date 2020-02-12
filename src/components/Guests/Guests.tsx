@@ -36,6 +36,7 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
     setIsLoading(true);
     const guests = await API.get(config.API.NAME, "/guests", {});
     setGuests(guests);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -45,11 +46,10 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
       }
 
       try {
-        fetchGuests();
+        await fetchGuests();
       } catch (error) {
         alert(error);
       }
-      setIsLoading(false);
     })();
   }, [isAuthenticated]);
 
@@ -71,11 +71,10 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await deleteGuest(guestId);
-      fetchGuests();
+      await fetchGuests();
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const updateGuest = (guestId: string, data: any) => {
@@ -94,11 +93,10 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await updateGuest(guestId, data);
-      fetchGuests();
+      await fetchGuests();
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const handleUpdateTexts = async (
@@ -110,11 +108,10 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await updateGuest(guestId, fields);
-      fetchGuests();
+      await fetchGuests();
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const renderGuests = () => {

@@ -36,6 +36,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
     setIsLoading(true);
     const budgetItems = await API.get(config.API.NAME, "/budget", {});
     setBudgetItems(budgetItems);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -45,11 +46,10 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
       }
 
       try {
-        fetchBudgetItems();
+        await fetchBudgetItems();
       } catch (error) {
         alert(error);
       }
-      setIsLoading(false);
     })();
   }, [isAuthenticated]);
 
@@ -71,11 +71,10 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await deleteBudgetItem(budgetItemId);
-      fetchBudgetItems();
+      await fetchBudgetItems();
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const updateBudgetItem = (budgetItemId: string, data: any) => {
@@ -96,11 +95,10 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await updateBudgetItem(budgetItemId, data);
-      fetchBudgetItems();
+      await fetchBudgetItems();
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const handleUpdateTexts = async (
@@ -112,11 +110,10 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await updateBudgetItem(budgetItemId, fields);
-      fetchBudgetItems();
+      await fetchBudgetItems();
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const renderBudgetItems = () => {
