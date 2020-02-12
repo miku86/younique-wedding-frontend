@@ -191,8 +191,9 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
         </Typography>
 
         {isAuthenticated ? (
-          <div>
+          <>
             <IconButton
+              edge="end"
               color="inherit"
               aria-controls="account-menu"
               aria-haspopup="true"
@@ -209,7 +210,7 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
             >
               <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
             </Menu>
-          </div>
+          </>
         ) : (
           <>
             <Button color="inherit" component={RouterLink} to="/signup">
