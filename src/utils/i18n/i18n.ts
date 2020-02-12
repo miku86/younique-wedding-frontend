@@ -53,7 +53,8 @@ const resources = {
       updateGuestHeading: "Update your Guest",
       updateBudgetItemHeading: "Update your Budget Item",
       settings: "Settings",
-      availableBudget: "Available Budget"
+      availableBudget: "Available Budget",
+      newEntry: "New Entry"
     }
   },
   de: {
@@ -107,7 +108,8 @@ const resources = {
       updateGuestHeading: "Update deinen Gast",
       updateBudgetItemHeading: "Update deinen Budget-Eintrag",
       settings: "Einstellungen",
-      availableBudget: "Verfügbares Budget"
+      availableBudget: "Verfügbares Budget",
+      newEntry: "Neuer Eintrag"
     }
   }
 };

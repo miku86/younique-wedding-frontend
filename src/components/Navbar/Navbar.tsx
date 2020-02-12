@@ -147,19 +147,22 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   };
 
   const renderSiteTitle = () => {
-    const path = history.location.pathname;
+    const path = history.location.pathname.split("/");
+    const lastPath = path[path.length - 1];
 
-    switch (path) {
-      case "/":
+    switch (lastPath) {
+      case "":
         return t("dashboard");
-      case "/todos":
+      case "todos":
         return t("todos");
-      case "/guests":
+      case "guests":
         return t("guests");
-      case "/budget":
+      case "budget":
         return t("budget");
-      case "/settings":
+      case "settings":
         return t("settings");
+      case "new":
+        return t("newEntry");
       default:
         return t("");
     }
