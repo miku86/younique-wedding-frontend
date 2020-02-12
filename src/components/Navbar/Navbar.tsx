@@ -208,7 +208,7 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem color="inherit" component={RouterLink} to="#">
+              <MenuItem color="inherit" component={RouterLink} to="/settings">
               {t("settings")}
               </MenuItem>
               <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
