@@ -158,6 +158,8 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
         return t("guests");
       case "/budget":
         return t("budget");
+      case "/settings":
+        return t("settings");
       default:
         return t("");
     }
