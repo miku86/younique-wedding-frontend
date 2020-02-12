@@ -36,6 +36,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
     setIsLoading(true);
     const todos = await API.get(config.API.NAME, "/todos", {});
     setTodos(todos);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -45,11 +46,10 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       }
 
       try {
-        fetchTodos();
+        await fetchTodos();
       } catch (error) {
         alert(error);
       }
-      setIsLoading(false);
     })();
   }, [isAuthenticated]);
 
@@ -71,7 +71,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await deleteTodo(todoId);
-      fetchTodos();
+      await fetchTodos();
     } catch (error) {
       alert(error.message);
     }
@@ -94,7 +94,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await updateTodo(todoId, data);
-      fetchTodos();
+      await fetchTodos();
     } catch (error) {
       alert(error.message);
     }
@@ -110,7 +110,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await updateTodo(todoId, fields);
-      fetchTodos();
+      await fetchTodos();
     } catch (error) {
       alert(error.message);
     }
