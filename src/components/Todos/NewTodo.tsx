@@ -16,6 +16,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     justifyContent: "center"
   },
+  card: {
+    borderRadius: "6px",
+    backgroundColor: "#FFF",
+    padding: "50px",
+    boxShadow:
+      "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)"
+  },
   form: {
     display: "flex",
     flexDirection: "column",
@@ -75,56 +82,58 @@ const NewTodo: React.FC<Props> = () => {
 
   return (
     <div className={classes.root}>
-      <form onSubmit={handleSubmit} className={classes.form}>
-        <TextField
-          label={t("title")}
-          id="title"
-          value={fields.title}
-          onChange={handleFieldsChange}
-          variant="outlined"
-          fullWidth
-          autoFocus
-          required
-        />
-        <TextField
-          label={t("deadline")}
-          id="deadline"
-          value={fields.deadline}
-          type="date"
-          onChange={handleFieldsChange}
-          variant="outlined"
-          fullWidth
-          InputLabelProps={{
-            shrink: true
-          }}
-        />
-        <TextField
-          label={t("responsible")}
-          id="responsible"
-          value={fields.responsible}
-          onChange={handleFieldsChange}
-          variant="outlined"
-          fullWidth
-        />
-        <TextField
-          label={t("comment")}
-          id="comment"
-          value={fields.comment}
-          onChange={handleFieldsChange}
-          variant="outlined"
-          fullWidth
-        />
-        <LoadingButton
-          variant="contained"
-          color="primary"
-          fullWidth
-          disabled={!validateForm()}
-          isLoading={isLoading}
-          type="submit"
-        >
-          {t("add")}
-        </LoadingButton>
-      </form>
+      <div className={classes.card}>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <TextField
+            label={t("title")}
+            id="title"
+            value={fields.title}
+            onChange={handleFieldsChange}
+            variant="outlined"
+            fullWidth
+            autoFocus
+            required
+          />
+          <TextField
+            label={t("deadline")}
+            id="deadline"
+            value={fields.deadline}
+            type="date"
+            onChange={handleFieldsChange}
+            variant="outlined"
+            fullWidth
+            InputLabelProps={{
+              shrink: true
+            }}
+          />
+          <TextField
+            label={t("responsible")}
+            id="responsible"
+            value={fields.responsible}
+            onChange={handleFieldsChange}
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            label={t("comment")}
+            id="comment"
+            value={fields.comment}
+            onChange={handleFieldsChange}
+            variant="outlined"
+            fullWidth
+          />
+          <LoadingButton
+            variant="contained"
+            color="primary"
+            fullWidth
+            disabled={!validateForm()}
+            isLoading={isLoading}
+            type="submit"
+          >
+            {t("add")}
+          </LoadingButton>
+        </form>
+      </div>
     </div>
   );
 };
