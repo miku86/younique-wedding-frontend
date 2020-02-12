@@ -51,7 +51,10 @@ const resources = {
       save: "Save",
       updateTodoHeading: "Update your Todo",
       updateGuestHeading: "Update your Guest",
-      updateBudgetItemHeading: "Update your Budget Item"
+      updateBudgetItemHeading: "Update your Budget Item",
+      settings: "Settings",
+      availableBudget: "Available Budget",
+      newEntry: "New Entry"
     }
   },
   de: {
@@ -103,7 +106,10 @@ const resources = {
       save: "Speichern",
       updateTodoHeading: "Update dein Todo",
       updateGuestHeading: "Update deinen Gast",
-      updateBudgetItemHeading: "Update deinen Budget-Eintrag"
+      updateBudgetItemHeading: "Update deinen Budget-Eintrag",
+      settings: "Einstellungen",
+      availableBudget: "Verfügbares Budget",
+      newEntry: "Neuer Eintrag"
     }
   }
 };

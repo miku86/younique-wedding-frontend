@@ -4,7 +4,7 @@ import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { config } from "../../config";
-import { TodoInputs } from "../../utils/customTypes";
+import { SettingsInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
@@ -20,8 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: "6px",
     backgroundColor: "#FFF",
     padding: "50px",
-    boxShadow:
-      "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)"
+    boxShadow: "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)"
   },
   form: {
     display: "flex",
@@ -34,36 +33,24 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const NewTodo: React.FC<Props> = () => {
+const Settings: React.FC<Props> = () => {
   const classes = useStyles();
   let history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
-    title: "",
-    deadline: "",
-    responsible: "",
-    comment: ""
+    availableBudget: 0
   });
   const { t } = useTranslation();
 
   const validateForm = () => {
-    return fields.title.length > 0;
+    return fields.availableBudget > 0;
   };
 
-  const createTodo = ({
-    title,
-    deadline,
-    responsible,
-    comment
-  }: TodoInputs) => {
-    const body = {
-      title,
-      deadline,
-      responsible,
-      comment
-    };
-
-    return API.post(config.API.NAME, "/todos", { body });
+  const updateSettings = (data: SettingsInputs) => {
+    setIsLoading(true);
+    return API.put(config.API.NAME, "/settings", {
+      body: { data }
+    });
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -72,12 +59,12 @@ const NewTodo: React.FC<Props> = () => {
     setIsLoading(true);
 
     try {
-      await createTodo(fields);
-      history.push("/todos");
+      await updateSettings(fields);
+      history.push("/");
     } catch (error) {
       alert(error.message);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -85,39 +72,10 @@ const NewTodo: React.FC<Props> = () => {
       <div className={classes.card}>
         <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
-            label={t("title")}
-            id="title"
-            value={fields.title}
-            onChange={handleFieldsChange}
-            variant="outlined"
-            fullWidth
-            autoFocus
-            required
-          />
-          <TextField
-            label={t("deadline")}
-            id="deadline"
-            value={fields.deadline}
-            type="date"
-            onChange={handleFieldsChange}
-            variant="outlined"
-            fullWidth
-            InputLabelProps={{
-              shrink: true
-            }}
-          />
-          <TextField
-            label={t("responsible")}
-            id="responsible"
-            value={fields.responsible}
-            onChange={handleFieldsChange}
-            variant="outlined"
-            fullWidth
-          />
-          <TextField
-            label={t("comment")}
-            id="comment"
-            value={fields.comment}
+            label={t("availableBudget")}
+            id="availableBudget"
+            type="number"
+            value={fields.availableBudget}
             onChange={handleFieldsChange}
             variant="outlined"
             fullWidth
@@ -130,7 +88,7 @@ const NewTodo: React.FC<Props> = () => {
             isLoading={isLoading}
             type="submit"
           >
-            {t("add")}
+            {t("save")}
           </LoadingButton>
         </form>
       </div>
@@ -138,4 +96,4 @@ const NewTodo: React.FC<Props> = () => {
   );
 };
 
-export default NewTodo;
+export default Settings;

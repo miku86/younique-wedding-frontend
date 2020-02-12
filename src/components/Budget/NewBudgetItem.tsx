@@ -4,22 +4,23 @@ import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { config } from "../../config";
+import { BudgetItemInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
 interface Props {}
-
-interface BudgetItemInputs {
-  name: string;
-  plannedCost: number;
-  actualCost: number;
-}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: "60px 0",
     display: "flex",
     justifyContent: "center"
+  },
+  card: {
+    borderRadius: "6px",
+    backgroundColor: "#FFF",
+    padding: "50px",
+    boxShadow: "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)"
   },
   form: {
     display: "flex",
@@ -77,46 +78,48 @@ const NewBudgetItem: React.FC<Props> = () => {
 
   return (
     <div className={classes.root}>
-      <form onSubmit={handleSubmit} className={classes.form}>
-        <TextField
-          label={t("name")}
-          id="name"
-          value={fields.name}
-          onChange={handleFieldsChange}
-          variant="outlined"
-          fullWidth
-          autoFocus
-          required
-        />
-        <TextField
-          label={t("plannedCost")}
-          id="plannedCost"
-          type="number"
-          value={fields.plannedCost}
-          onChange={handleFieldsChange}
-          variant="outlined"
-          fullWidth
-        />
-        <TextField
-          label={t("actualCost")}
-          id="actualCost"
-          type="number"
-          value={fields.actualCost}
-          onChange={handleFieldsChange}
-          variant="outlined"
-          fullWidth
-        />
-        <LoadingButton
-          variant="contained"
-          color="primary"
-          fullWidth
-          disabled={!validateForm()}
-          isLoading={isLoading}
-          type="submit"
-        >
-          {t("add")}
-        </LoadingButton>
-      </form>
+      <div className={classes.card}>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <TextField
+            label={t("name")}
+            id="name"
+            value={fields.name}
+            onChange={handleFieldsChange}
+            variant="outlined"
+            fullWidth
+            autoFocus
+            required
+          />
+          <TextField
+            label={t("plannedCost")}
+            id="plannedCost"
+            type="number"
+            value={fields.plannedCost}
+            onChange={handleFieldsChange}
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            label={t("actualCost")}
+            id="actualCost"
+            type="number"
+            value={fields.actualCost}
+            onChange={handleFieldsChange}
+            variant="outlined"
+            fullWidth
+          />
+          <LoadingButton
+            variant="contained"
+            color="primary"
+            fullWidth
+            disabled={!validateForm()}
+            isLoading={isLoading}
+            type="submit"
+          >
+            {t("add")}
+          </LoadingButton>
+        </form>
+      </div>
     </div>
   );
 };

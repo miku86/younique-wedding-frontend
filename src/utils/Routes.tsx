@@ -7,6 +7,7 @@ import Guests from "../components/Guests/Guests";
 import NewGuest from "../components/Guests/NewGuest";
 import Login from "../components/Login/Login";
 import NotFound from "../components/NotFound/NotFound";
+import Settings from "../components/Settings/Settings";
 import AuthRoute from "../components/shared/AuthRoute";
 import CustomRoute from "../components/shared/CustomRoute";
 import UnauthRoute from "../components/shared/UnauthRoute";
@@ -38,6 +39,12 @@ const Routes: React.FC<Props> = ({ appProps }) => {
         path="/signup"
         exact={true}
         component={Signup}
+        appProps={appProps}
+      />
+      <AuthRoute
+        path="/settings"
+        exact={true}
+        component={Settings}
         appProps={appProps}
       />
       <AuthRoute

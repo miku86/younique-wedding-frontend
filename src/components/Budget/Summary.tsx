@@ -1,5 +1,4 @@
-import { Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
-import { CheckCircleOutline } from "@material-ui/icons";
+import { Box, Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { BudgetItem } from "../../utils/customTypes";
@@ -43,26 +42,40 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 interface Props {
   data: BudgetItem[];
+  availableBudget: number;
 }
 
-const Summary: React.FC<Props> = ({ data }) => {
+const Summary: React.FC<Props> = ({ data, availableBudget }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const amountItems = data.length;
-  const amountDoneItems = data.filter(item => item.done).length;
+  console.log(data);
+
+  const formatter = new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
+
+  const actualCosts = data.reduce((total, currentItem) => {
+    return total + Number(currentItem.actualCost);
+  }, 0);
 
   return (
     <div className={classes.summary}>
       <Card className={classes.card}>
-        <CheckCircleOutline style={{ fontSize: 32, color: "#e33371" }} />
         <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5" className={classes.text}>
-            {`${amountDoneItems} /  ${amountItems}`}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {t("bought")}
-          </Typography>
+          <Box textAlign="center">
+            <Typography component="h5" variant="h5" className={classes.text}>
+              {`${formatter.format(
+                availableBudget - actualCosts
+              )} /  ${formatter.format(availableBudget)}`}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
+              {t("availableBudget")}
+            </Typography>
+          </Box>
         </CardContent>
       </Card>
     </div>

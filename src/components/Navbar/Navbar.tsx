@@ -1,6 +1,6 @@
-import { AppBar, Button, Divider, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Button, Divider, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Menu, MenuItem, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { Euro, FormatListBulleted, Home, Person } from "@material-ui/icons";
+import { AccountCircle, Euro, FormatListBulleted, Home, Person } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Auth } from "aws-amplify";
 import React, { useState } from "react";
@@ -69,6 +69,7 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const { t } = useTranslation();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const toggleDrawer = (open: boolean) => (event: ToggleEvent) => {
     if (
@@ -83,6 +84,7 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
 
   const handleLogout = async () => {
     await Auth.signOut();
+    setAnchorEl(null);
     setIsAuthenticated(false);
     history.push("/login");
   };
@@ -145,20 +147,33 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   };
 
   const renderSiteTitle = () => {
-    const path = history.location.pathname;
+    const path = history.location.pathname.split("/");
+    const lastPath = path[path.length - 1];
 
-    switch (path) {
-      case "/":
+    switch (lastPath) {
+      case "":
         return t("dashboard");
-      case "/todos":
+      case "todos":
         return t("todos");
-      case "/guests":
+      case "guests":
         return t("guests");
-      case "/budget":
+      case "budget":
         return t("budget");
+      case "settings":
+        return t("settings");
+      case "new":
+        return t("newEntry");
       default:
         return t("");
     }
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -181,9 +196,29 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
         </Typography>
 
         {isAuthenticated ? (
-          <Button color="inherit" onClick={handleLogout}>
-            {t("logout")}
-          </Button>
+          <>
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-controls="account-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="account-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem color="inherit" component={RouterLink} to="/settings">
+                {t("settings")}
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
+            </Menu>
+          </>
         ) : (
           <>
             <Button color="inherit" component={RouterLink} to="/signup">

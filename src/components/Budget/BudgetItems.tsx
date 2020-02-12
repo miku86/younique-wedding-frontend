@@ -30,12 +30,14 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const [budgetItems, setBudgetItems] = useState([]);
+  const [availableBudget, setAvailableBudget] = useState(0);
   const { t } = useTranslation();
 
   const fetchBudgetItems = async () => {
     setIsLoading(true);
     const budgetItems = await API.get(config.API.NAME, "/budget", {});
     setBudgetItems(budgetItems);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -45,11 +47,31 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
       }
 
       try {
-        fetchBudgetItems();
+        await fetchBudgetItems();
       } catch (error) {
         alert(error);
       }
-      setIsLoading(false);
+    })();
+  }, [isAuthenticated]);
+
+  const fetchAvailableBudget = async () => {
+    setIsLoading(true);
+    const [result] = await API.get(config.API.NAME, "/settings", {});
+    setAvailableBudget(Number(result.availableBudget));
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    (async () => {
+      if (!isAuthenticated) {
+        return;
+      }
+
+      try {
+        await fetchAvailableBudget();
+      } catch (error) {
+        alert(error);
+      }
     })();
   }, [isAuthenticated]);
 
@@ -71,11 +93,10 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await deleteBudgetItem(budgetItemId);
-      fetchBudgetItems();
+      await fetchBudgetItems();
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const updateBudgetItem = (budgetItemId: string, data: any) => {
@@ -96,11 +117,10 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await updateBudgetItem(budgetItemId, data);
-      fetchBudgetItems();
+      await fetchBudgetItems();
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const handleUpdateTexts = async (
@@ -112,11 +132,10 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await updateBudgetItem(budgetItemId, fields);
-      fetchBudgetItems();
+      await fetchBudgetItems();
     } catch (error) {
       alert(error.message);
     }
-    setIsLoading(false);
   };
 
   const renderBudgetItems = () => {
@@ -126,7 +145,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
           <LoadingSpinner />
         ) : (
           <>
-            <Summary data={budgetItems} />
+            <Summary data={budgetItems} availableBudget={availableBudget} />
 
             <CustomTable
               data={budgetItems}
