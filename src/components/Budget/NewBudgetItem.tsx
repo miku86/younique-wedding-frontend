@@ -4,16 +4,11 @@ import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { config } from "../../config";
+import { BudgetItemInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
 interface Props {}
-
-interface BudgetItemInputs {
-  name: string;
-  plannedCost: number;
-  actualCost: number;
-}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
