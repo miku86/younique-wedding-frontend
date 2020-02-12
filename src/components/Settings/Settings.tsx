@@ -47,7 +47,7 @@ const Settings: React.FC<Props> = () => {
     return fields.availableBudget > 0;
   };
 
-  const createBudgetItem = ({ availableBudget }: SettingsInputs) => {
+  const updateSettings = ({ availableBudget }: SettingsInputs) => {
     const body = {
       availableBudget
     };
@@ -61,7 +61,7 @@ const Settings: React.FC<Props> = () => {
     setIsLoading(true);
 
     try {
-      await createBudgetItem(fields);
+      await updateSettings(fields);
       history.push("/");
     } catch (error) {
       alert(error.message);
