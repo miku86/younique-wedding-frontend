@@ -30,6 +30,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const [budgetItems, setBudgetItems] = useState([]);
+  const [availableBudget, setAvailableBudget] = useState(0);
   const { t } = useTranslation();
 
   const fetchBudgetItems = async () => {
@@ -47,6 +48,27 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
 
       try {
         await fetchBudgetItems();
+      } catch (error) {
+        alert(error);
+      }
+    })();
+  }, [isAuthenticated]);
+
+  const fetchAvailableBudget = async () => {
+    setIsLoading(true);
+    const [result] = await API.get(config.API.NAME, "/settings", {});
+    setAvailableBudget(Number(result.availableBudget));
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    (async () => {
+      if (!isAuthenticated) {
+        return;
+      }
+
+      try {
+        await fetchAvailableBudget();
       } catch (error) {
         alert(error);
       }
@@ -123,7 +145,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
           <LoadingSpinner />
         ) : (
           <>
-            <Summary data={budgetItems} />
+            <Summary data={budgetItems} availableBudget={availableBudget} />
 
             <CustomTable
               data={budgetItems}
