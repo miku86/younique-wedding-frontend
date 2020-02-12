@@ -20,8 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: "6px",
     backgroundColor: "#FFF",
     padding: "50px",
-    boxShadow:
-      "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)"
+    boxShadow: "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)"
   },
   form: {
     display: "flex",
@@ -47,12 +46,11 @@ const Settings: React.FC<Props> = () => {
     return fields.availableBudget > 0;
   };
 
-  const updateSettings = ({ availableBudget }: SettingsInputs) => {
-    const body = {
-      availableBudget
-    };
-
-    return API.post(config.API.NAME, "/", { body });
+  const updateSettings = (data: SettingsInputs) => {
+    setIsLoading(true);
+    return API.put(config.API.NAME, "/settings", {
+      body: { data }
+    });
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -65,8 +63,8 @@ const Settings: React.FC<Props> = () => {
       history.push("/");
     } catch (error) {
       alert(error.message);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   return (
