@@ -70,3 +70,7 @@ export interface BudgetItemInputs {
   plannedCost?: string;
   actualCost?: string;
 }
+
+export interface SettingsInputs {
+  availableBudget?: number;
+}

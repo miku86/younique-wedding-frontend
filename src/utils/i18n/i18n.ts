@@ -52,7 +52,8 @@ const resources = {
       updateTodoHeading: "Update your Todo",
       updateGuestHeading: "Update your Guest",
       updateBudgetItemHeading: "Update your Budget Item",
-      settings: "Settings"
+      settings: "Settings",
+      availableBudget: "Available Budget"
     }
   },
   de: {
@@ -105,7 +106,8 @@ const resources = {
       updateTodoHeading: "Update dein Todo",
       updateGuestHeading: "Update deinen Gast",
       updateBudgetItemHeading: "Update deinen Budget-Eintrag",
-      settings: "Einstellungen"
+      settings: "Einstellungen",
+      availableBudget: "Verfügbares Budget"
     }
   }
 };
