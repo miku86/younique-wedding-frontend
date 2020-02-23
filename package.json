@@ -52,6 +52,6 @@
   "devDependencies": {
     "cypress": "3.8.3",
     "eslint-plugin-cypress": "2.10.3",
-    "source-map-explorer": "2.2.2"
+    "source-map-explorer": "2.3.1"
   }
 }
