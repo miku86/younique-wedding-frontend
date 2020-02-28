@@ -21,7 +21,7 @@
     "react-router-dom": "5.1.2",
     "react-scripts": "3.4.0",
     "typeface-roboto": "0.0.75",
-    "typescript": "3.8.2"
+    "typescript": "3.8.3"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
