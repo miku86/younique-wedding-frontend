@@ -10,12 +10,13 @@ import Routes from "../utils/Routes";
 import Feedbackbox from "./Feedback/Feedbackbox";
 import Navbar from "./Navbar/Navbar";
 import LoadingSpinner from "./shared/LoadingSpinner";
+import ErrorBoundary from "./shared/ErrorBoundary";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     minHeight: "100vh",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   content: {
     flexGrow: 1,
@@ -26,12 +27,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: "0px 20px",
 
     "& h1": {
-      fontWeight: "600"
+      fontWeight: "600",
     },
     "& p": {
-      color: "#666"
-    }
-  }
+      color: "#666",
+    },
+  },
 }));
 
 const App: React.FC = () => {
@@ -68,21 +69,23 @@ const App: React.FC = () => {
   return isAuthenticating ? (
     <LoadingSpinner />
   ) : (
-    <div className={classes.root}>
-      <Navbar
-        isAuthenticated={isAuthenticated}
-        setIsAuthenticated={setIsAuthenticated}
-      />
-      <div
-        className={classes.content}
-        style={{
-          backgroundImage: `url(${renderImage(history.location.pathname)})`
-        }}
-      >
-        <Routes appProps={{ isAuthenticated, setIsAuthenticated }} />
-        {isAuthenticated && <Feedbackbox />}
+    <ErrorBoundary>
+      <div className={classes.root}>
+        <Navbar
+          isAuthenticated={isAuthenticated}
+          setIsAuthenticated={setIsAuthenticated}
+        />
+        <div
+          className={classes.content}
+          style={{
+            backgroundImage: `url(${renderImage(history.location.pathname)})`,
+          }}
+        >
+          <Routes appProps={{ isAuthenticated, setIsAuthenticated }} />
+          {isAuthenticated && <Feedbackbox />}
+        </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 };
 

@@ -8,6 +8,7 @@ import App from "./components/App";
 import { config } from "./config";
 import "./index.css";
 import './utils/i18n/i18n';
+import { initSentry } from "./utils/error";
 
 Amplify.configure({
   Auth: {
@@ -38,6 +39,8 @@ const customTheme = createMuiTheme({
     }
   }
 });
+
+initSentry();
 
 ReactDOM.render(
   <BrowserRouter>
