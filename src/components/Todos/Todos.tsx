@@ -28,15 +28,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Todos: React.FC<Props> = ({ isAuthenticated }) => {
   const classes = useStyles();
-  const [isLoading, setIsLoading] = useState(false);
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(null);
   const { t } = useTranslation();
 
   const fetchTodos = async () => {
-    setIsLoading(true);
     const todos = await API.get(config.API.NAME, "/todos", {});
     setTodos(todos);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -54,7 +51,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
   }, [isAuthenticated]);
 
   const deleteTodo = async (todoId: string) => {
-    setIsLoading(true);
     await API.del(config.API.NAME, "/todos", {
       body: {
         todoId
@@ -78,7 +74,6 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
   };
 
   const updateTodo = (todoId: string, data: any) => {
-    setIsLoading(true);
     API.put(config.API.NAME, "/todos", { body: { todoId, data } });
   };
 
@@ -117,14 +112,14 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
   const renderTodos = () => {
     return (
       <div className={classes.todos}>
-        {isLoading ? (
+        {todos === null ? (
           <LoadingSpinner />
         ) : (
           <>
-            <Summary data={todos} />
+            <Summary data={todos || []} />
 
             <CustomTable
-              data={todos}
+              data={todos || []}
               handleDelete={handleDelete}
               handleUpdateBools={handleUpdateBools}
               handleUpdateTexts={handleUpdateTexts}
