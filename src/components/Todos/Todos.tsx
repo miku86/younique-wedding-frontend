@@ -10,6 +10,7 @@ import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
 import CustomTable from "./Table";
+import { onError } from "../../utils/error";
 
 interface Props {
   isAuthenticated: TisAuthenticated;
@@ -45,7 +46,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       try {
         await fetchTodos();
       } catch (error) {
-        alert(error);
+        onError(error);
       }
     })();
   }, [isAuthenticated]);
@@ -69,7 +70,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       await deleteTodo(todoId);
       await fetchTodos();
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
   };
 
@@ -90,7 +91,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       await updateTodo(todoId, data);
       await fetchTodos();
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
   };
 
@@ -105,7 +106,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       await updateTodo(todoId, fields);
       await fetchTodos();
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
   };
 
