@@ -12,6 +12,7 @@ import Navbar from "./Navbar/Navbar";
 import LoadingSpinner from "./shared/LoadingSpinner";
 import ErrorBoundary from "./shared/ErrorBoundary";
 import { onError } from "../utils/error";
+import { AppContext } from "../utils/context";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticating, setIsAuthenticating] = useState<boolean | null>(null);
   const classes = useStyles();
   let history = useHistory();
 
@@ -71,21 +72,20 @@ const App: React.FC = () => {
     <LoadingSpinner />
   ) : (
     <ErrorBoundary>
-      <div className={classes.root}>
-        <Navbar
-          isAuthenticated={isAuthenticated}
-          setIsAuthenticated={setIsAuthenticated}
-        />
-        <div
-          className={classes.content}
-          style={{
-            backgroundImage: `url(${renderImage(history.location.pathname)})`,
-          }}
-        >
-          <Routes appProps={{ isAuthenticated, setIsAuthenticated }} />
-          {isAuthenticated && <Feedbackbox />}
+      <AppContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+        <div className={classes.root}>
+          <Navbar />
+          <div
+            className={classes.content}
+            style={{
+              backgroundImage: `url(${renderImage(history.location.pathname)})`,
+            }}
+          >
+            <Routes />
+            {isAuthenticated && <Feedbackbox />}
+          </div>
         </div>
-      </div>
+      </AppContext.Provider>
     </ErrorBoundary>
   );
 };

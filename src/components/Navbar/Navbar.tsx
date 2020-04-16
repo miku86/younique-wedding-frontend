@@ -7,12 +7,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import logo from "../../static/images/logo.png";
-import { TisAuthenticated, TsetIsAuthenticated } from "../../utils/customTypes";
-
-interface Props {
-  isAuthenticated: TisAuthenticated;
-  setIsAuthenticated: TsetIsAuthenticated;
-}
+import { useAppContext } from "../../utils/context";
 
 type ToggleEvent = any;
 
@@ -63,9 +58,10 @@ const sidebarItems = [
   { id: 4, text: "budget", path: "/budget", icon: "Euro" }
 ];
 
-const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
+const Navbar: React.FC = () => {
   const classes = useStyles();
   let history = useHistory();
+  const { isAuthenticated, setIsAuthenticated } = useAppContext();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const { t } = useTranslation();
@@ -85,7 +81,7 @@ const Navbar: React.FC<Props> = ({ isAuthenticated, setIsAuthenticated }) => {
   const handleLogout = async () => {
     await Auth.signOut();
     setAnchorEl(null);
-    setIsAuthenticated(false);
+    setIsAuthenticated!(false);
     history.push("/login");
   };
 

@@ -1,28 +1,24 @@
-import React, { ReactType } from "react";
-import { Redirect, Route } from "react-router-dom";
-import { IappProps } from "../../utils/customTypes";
+import React from "react";
+import { Redirect, Route, useLocation } from "react-router-dom";
+import { useAppContext } from "../../utils/context";
 
 interface Props {
   path: string;
   exact: boolean;
-  component: ReactType;
-  appProps: IappProps;
 }
 
-const AuthRoute: React.FC<Props> = ({ component: C, appProps, ...rest }) => {
+const AuthRoute: React.FC<Props> = ({ children, ...rest }) => {
+  const { isAuthenticated } = useAppContext();
+  const { pathname, search } = useLocation();
+
   return (
-    <Route
-      {...rest}
-      render={props =>
-        appProps.isAuthenticated ? (
-          <C {...props} {...appProps} />
-        ) : (
-          <Redirect
-            to={`/login?redirect=${props.location.pathname}${props.location.search}`}
-          />
-        )
-      }
-    />
+    <Route {...rest}>
+      {isAuthenticated ? (
+        children
+      ) : (
+        <Redirect to={`/login?redirect=${pathname}${search}`} />
+      )}
+    </Route>
   );
 };
 

@@ -12,13 +12,12 @@ import { config } from "../../config";
 import budgetImage from "../../static/images/budget.jpg";
 import guestsImage from "../../static/images/guests.jpg";
 import todosImage from "../../static/images/todos.jpg";
-import { TisAuthenticated } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import { onError } from "../../utils/error";
+import { useAppContext } from "../../utils/context";
 
 interface Props {
-  isAuthenticated: TisAuthenticated;
 }
 
 interface DashboardData {
@@ -60,8 +59,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
+const Dashboard: React.FC<Props> = () => {
   const classes = useStyles();
+  const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const [dashboardData, setDashboardData] = useState<DashboardData>({});
   const { t } = useTranslation();

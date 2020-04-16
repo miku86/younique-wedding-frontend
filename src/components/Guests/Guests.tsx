@@ -5,15 +5,15 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config } from "../../config";
-import { GuestInputs, TisAuthenticated } from "../../utils/customTypes";
+import { GuestInputs } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
 import CustomTable from "./Table";
 import { onError } from "../../utils/error";
+import { useAppContext } from "../../utils/context";
 
 interface Props {
-  isAuthenticated: TisAuthenticated;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -27,8 +27,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Guests: React.FC<Props> = ({ isAuthenticated }) => {
+const Guests: React.FC<Props> = () => {
   const classes = useStyles();
+  const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const [guests, setGuests] = useState([]);
   const { t } = useTranslation();

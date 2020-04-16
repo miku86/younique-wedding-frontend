@@ -3,13 +3,12 @@ import { Auth } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 import { onError } from "../../utils/error";
+import { useAppContext } from "../../utils/context";
 
 interface Props {
-  setIsAuthenticated: TsetIsAuthenticated;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -29,9 +28,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
+const Signup: React.FC<Props> = () => {
   const classes = useStyles();
   let history = useHistory();
+  const { setIsAuthenticated } = useAppContext();
   const [newUser, setNewUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
@@ -76,7 +76,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
     try {
       await Auth.confirmSignUp(fields.email, fields.confirmationCode);
       await Auth.signIn(fields.email, fields.password);
-      setIsAuthenticated(true);
+      setIsAuthenticated!(true);
       history.push("/");
     } catch (error) {
       onError(error);

@@ -5,15 +5,15 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config } from "../../config";
-import { TisAuthenticated, TodoInputs } from "../../utils/customTypes";
+import { TodoInputs } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
 import CustomTable from "./Table";
 import { onError } from "../../utils/error";
+import { useAppContext } from "../../utils/context";
 
 interface Props {
-  isAuthenticated: TisAuthenticated;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -27,14 +27,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const Todos: React.FC<Props> = ({ isAuthenticated }) => {
+const Todos: React.FC<Props> = () => {
   const classes = useStyles();
+  const {isAuthenticated} = useAppContext();
   const [todos, setTodos] = useState(null);
   const { t } = useTranslation();
 
   const fetchTodos = async () => {
     const todos = await API.get(config.API.NAME, "/todos", {});
     setTodos(todos);
+  };
+
+  const deleteTodo = (todoId: string) => {
+    return API.del(config.API.NAME, "/todos", {
+      body: {
+        todoId
+      }
+    });
+  };
+
+  const updateTodo = (todoId: string, data: any) => {
+    return API.put(config.API.NAME, "/todos", { body: { todoId, data } });
   };
 
   useEffect(() => {
@@ -44,20 +57,13 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
       }
 
       try {
-        await fetchTodos();
+        fetchTodos();
       } catch (error) {
         onError(error);
       }
     })();
   }, [isAuthenticated]);
 
-  const deleteTodo = async (todoId: string) => {
-    await API.del(config.API.NAME, "/todos", {
-      body: {
-        todoId
-      }
-    });
-  };
 
   const handleDelete = async (todoId: string) => {
     const confirmed = window.confirm(t("deleteQuestion"));
@@ -68,14 +74,10 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await deleteTodo(todoId);
-      await fetchTodos();
+      fetchTodos();
     } catch (error) {
       onError(error);
     }
-  };
-
-  const updateTodo = (todoId: string, data: any) => {
-    API.put(config.API.NAME, "/todos", { body: { todoId, data } });
   };
 
   const handleUpdateBools = async (
@@ -89,7 +91,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await updateTodo(todoId, data);
-      await fetchTodos();
+      fetchTodos();
     } catch (error) {
       onError(error);
     }
@@ -104,7 +106,7 @@ const Todos: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await updateTodo(todoId, fields);
-      await fetchTodos();
+      fetchTodos();
     } catch (error) {
       onError(error);
     }

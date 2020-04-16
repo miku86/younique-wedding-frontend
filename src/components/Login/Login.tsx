@@ -3,20 +3,18 @@ import { Auth } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { demoUser } from "../../config";
-import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 import { onError } from "../../utils/error";
+import { useAppContext } from "../../utils/context";
 
-interface Props {
-  setIsAuthenticated: TsetIsAuthenticated;
-}
+interface Props {}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: "60px 0",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   form: {
     display: "flex",
@@ -24,21 +22,22 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
-      width: 260
-    }
+      width: 260,
+    },
   },
   demoButton: {
     marginTop: 100,
-    color: "rgba(0, 0, 0, 0.5)"
-  }
+    color: "rgba(0, 0, 0, 0.5)",
+  },
 }));
 
-const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
+const Login: React.FC<Props> = () => {
   const classes = useStyles();
+  const { setIsAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
     email: "",
-    password: ""
+    password: "",
   });
   const { t } = useTranslation();
 
@@ -53,7 +52,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
 
     try {
       await Auth.signIn(fields.email, fields.password);
-      setIsAuthenticated(true);
+      setIsAuthenticated!(true);
     } catch (error) {
       onError(error);
       setIsLoading(false);
@@ -67,7 +66,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
 
     try {
       await Auth.signIn(demoUser.email, demoUser.password);
-      setIsAuthenticated(true);
+      setIsAuthenticated!(true);
     } catch (error) {
       onError(error);
       setIsLoading(false);

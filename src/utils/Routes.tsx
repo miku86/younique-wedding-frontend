@@ -14,76 +14,45 @@ import UnauthRoute from "../components/shared/UnauthRoute";
 import Signup from "../components/Signup/Signup";
 import NewTodo from "../components/Todos/NewTodo";
 import Todos from "../components/Todos/Todos";
-import { IappProps } from "./customTypes";
 
-interface Props {
-  appProps: IappProps;
-}
+interface Props {}
 
-const Routes: React.FC<Props> = ({ appProps }) => {
+const Routes: React.FC<Props> = () => {
   return (
     <Switch>
-      <CustomRoute
-        path="/"
-        exact={true}
-        component={Dashboard}
-        appProps={appProps}
-      />
-      <UnauthRoute
-        path="/login"
-        exact={true}
-        component={Login}
-        appProps={appProps}
-      />
-      <UnauthRoute
-        path="/signup"
-        exact={true}
-        component={Signup}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/settings"
-        exact={true}
-        component={Settings}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/todos"
-        exact={true}
-        component={Todos}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/todos/new"
-        exact={true}
-        component={NewTodo}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/guests"
-        exact={true}
-        component={Guests}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/guests/new"
-        exact={true}
-        component={NewGuest}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/budget"
-        exact={true}
-        component={BudgetItems}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/budget/new"
-        exact={true}
-        component={NewBudgetItem}
-        appProps={appProps}
-      />
-      <Route component={NotFound} />
+      <CustomRoute path="/" exact={true}>
+        <Dashboard />
+      </CustomRoute>
+      <UnauthRoute path="/login" exact={true}>
+        <Login />
+      </UnauthRoute>
+      <UnauthRoute path="/signup" exact={true}>
+        <Signup />
+      </UnauthRoute>
+      <AuthRoute path="/settings" exact={true}>
+        <Settings />
+      </AuthRoute>
+      <AuthRoute path="/todos" exact={true}>
+        <Todos />
+      </AuthRoute>
+      <AuthRoute path="/todos/new" exact={true}>
+        <NewTodo />
+      </AuthRoute>
+      <AuthRoute path="/guests" exact={true}>
+        <Guests />
+      </AuthRoute>
+      <AuthRoute path="/guests/new" exact={true}>
+        <NewGuest />
+      </AuthRoute>
+      <AuthRoute path="/budget" exact={true}>
+        <BudgetItems />
+      </AuthRoute>
+      <AuthRoute path="/budget/new" exact={true}>
+        <NewBudgetItem />
+      </AuthRoute>
+      <Route>
+        <NotFound />
+      </Route>
     </Switch>
   );
 };
