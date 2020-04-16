@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { config } from "../../config";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
+import { onError } from "../../utils/error";
 
 interface Props {}
 
@@ -69,7 +70,7 @@ const NewGuest: React.FC<Props> = () => {
       await createGuest(fields);
       history.push("/guests");
     } catch (error) {
-      alert(error.message);
+      onError(error);
       setIsLoading(false);
     }
   };

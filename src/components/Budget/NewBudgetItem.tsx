@@ -7,6 +7,7 @@ import { config } from "../../config";
 import { BudgetItemInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
+import { onError } from "../../utils/error";
 
 interface Props {}
 
@@ -71,7 +72,7 @@ const NewBudgetItem: React.FC<Props> = () => {
       await createBudgetItem(fields);
       history.push("/budget");
     } catch (error) {
-      alert(error.message);
+      onError(error);
       setIsLoading(false);
     }
   };

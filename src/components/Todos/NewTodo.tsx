@@ -7,6 +7,7 @@ import { config } from "../../config";
 import { TodoInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
+import { onError } from "../../utils/error";
 
 interface Props {}
 
@@ -75,7 +76,7 @@ const NewTodo: React.FC<Props> = () => {
       await createTodo(fields);
       history.push("/todos");
     } catch (error) {
-      alert(error.message);
+      onError(error);
       setIsLoading(false);
     }
   };

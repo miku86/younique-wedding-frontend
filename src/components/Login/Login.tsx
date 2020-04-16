@@ -6,6 +6,7 @@ import { demoUser } from "../../config";
 import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
+import { onError } from "../../utils/error";
 
 interface Props {
   setIsAuthenticated: TsetIsAuthenticated;
@@ -54,7 +55,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
       await Auth.signIn(fields.email, fields.password);
       setIsAuthenticated(true);
     } catch (error) {
-      alert(error.message);
+      onError(error);
       setIsLoading(false);
     }
   };
@@ -68,7 +69,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
       await Auth.signIn(demoUser.email, demoUser.password);
       setIsAuthenticated(true);
     } catch (error) {
-      alert(error.message);
+      onError(error);
       setIsLoading(false);
     }
   };

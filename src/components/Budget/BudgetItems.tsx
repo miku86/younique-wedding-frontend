@@ -10,6 +10,7 @@ import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
 import CustomTable from "./Table";
+import { onError } from "../../utils/error";
 
 interface Props {
   isAuthenticated: TisAuthenticated;
@@ -49,7 +50,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
       try {
         await fetchBudgetItems();
       } catch (error) {
-        alert(error);
+        onError(error);
       }
     })();
   }, [isAuthenticated]);
@@ -70,7 +71,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
       try {
         await fetchAvailableBudget();
       } catch (error) {
-        alert(error);
+        onError(error);
       }
     })();
   }, [isAuthenticated]);
@@ -95,7 +96,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
       await deleteBudgetItem(budgetItemId);
       await fetchBudgetItems();
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
   };
 
@@ -119,7 +120,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
       await updateBudgetItem(budgetItemId, data);
       await fetchBudgetItems();
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
   };
 
@@ -134,7 +135,7 @@ const BudgetItems: React.FC<Props> = ({ isAuthenticated }) => {
       await updateBudgetItem(budgetItemId, fields);
       await fetchBudgetItems();
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
   };
 

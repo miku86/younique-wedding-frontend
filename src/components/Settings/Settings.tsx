@@ -7,6 +7,7 @@ import { config } from "../../config";
 import { SettingsInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
+import { onError } from "../../utils/error";
 
 interface Props {}
 
@@ -62,7 +63,7 @@ const Settings: React.FC<Props> = () => {
       await updateSettings(fields);
       history.push("/");
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
     setIsLoading(false);
   };

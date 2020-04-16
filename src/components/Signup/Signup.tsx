@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
+import { onError } from "../../utils/error";
 
 interface Props {
   setIsAuthenticated: TsetIsAuthenticated;
@@ -60,7 +61,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
       });
       setNewUser(newUser);
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
     setIsLoading(false);
   };
@@ -78,7 +79,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
       setIsAuthenticated(true);
       history.push("/");
     } catch (error) {
-      alert(error.message);
+      onError(error);
       setIsLoading(false);
     }
   };

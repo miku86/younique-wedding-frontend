@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { config } from "../../config";
 import LoadingButton from "../shared/LoadingButton";
 import { feedbackChoices } from "./data";
+import { onError } from "../../utils/error";
 
 const useStyles = makeStyles((theme: Theme) => ({
   feedbackbox: {
@@ -79,7 +80,7 @@ const Feedbackbox: React.FC<Props> = () => {
       });
       response.MessageId && handleClose();
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
   };
 

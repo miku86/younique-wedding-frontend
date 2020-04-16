@@ -15,6 +15,7 @@ import todosImage from "../../static/images/todos.jpg";
 import { TisAuthenticated } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import { onError } from "../../utils/error";
 
 interface Props {
   isAuthenticated: TisAuthenticated;
@@ -81,7 +82,7 @@ const Dashboard: React.FC<Props> = ({ isAuthenticated }) => {
       try {
         await fetchDashboardData();
       } catch (error) {
-        alert(error);
+        onError(error);
       }
     })();
   }, [isAuthenticated]);

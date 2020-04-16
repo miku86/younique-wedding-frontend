@@ -11,6 +11,7 @@ import Feedbackbox from "./Feedback/Feedbackbox";
 import Navbar from "./Navbar/Navbar";
 import LoadingSpinner from "./shared/LoadingSpinner";
 import ErrorBoundary from "./shared/ErrorBoundary";
+import { onError } from "../utils/error";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -47,7 +48,7 @@ const App: React.FC = () => {
         await Auth.currentSession();
         setIsAuthenticated(true);
       } catch (error) {
-        console.log(error);
+        onError(error);
       }
       setIsAuthenticating(false);
     })();
