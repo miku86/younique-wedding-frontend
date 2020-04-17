@@ -62,14 +62,7 @@ const Dashboard: React.FC<Props> = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAppContext();
   const { t } = useTranslation();
-  const [
-    {
-      data,
-      isLoading,
-      isError,
-    },
-    doFetch,
-  ] = useApi(API.DASHBOARD, {});
+  const [{ data, isLoading, isError }, doFetch] = useApi(API.DASHBOARD, {});
 
   useEffect(() => {
     (async () => {

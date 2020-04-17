@@ -32,14 +32,7 @@ const Guests: React.FC<Props> = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAppContext();
   const { t } = useTranslation();
-  const [
-    {
-      data,
-      isLoading,
-      isError,
-    },
-    doFetch,
-  ] = useApi(API.GUESTS, []);
+  const [{ data, isLoading, isError }, doFetch] = useApi(API.GUESTS, []);
 
   useEffect(() => {
     (async () => {

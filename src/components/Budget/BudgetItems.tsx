@@ -32,14 +32,7 @@ const BudgetItems: React.FC<Props> = () => {
   const { isAuthenticated } = useAppContext();
   const [availableBudget, setAvailableBudget] = useState(0);
   const { t } = useTranslation();
-  const [
-    {
-      data,
-      isLoading,
-      isError,
-    },
-    doFetch,
-  ] = useApi(API.TODOS, []);
+  const [{ data, isLoading, isError }, doFetch] = useApi(API.TODOS, []);
 
   useEffect(() => {
     (async () => {
@@ -142,10 +135,7 @@ const BudgetItems: React.FC<Props> = () => {
           <LoadingSpinner />
         ) : (
           <>
-            <Summary
-              data={data || []}
-              availableBudget={availableBudget}
-            />
+            <Summary data={data || []} availableBudget={availableBudget} />
 
             <CustomTable
               data={data || []}
