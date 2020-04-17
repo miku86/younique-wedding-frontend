@@ -34,12 +34,12 @@ const Guests: React.FC<Props> = () => {
   const { t } = useTranslation();
   const [
     {
-      data: { guests },
+      data,
       isLoading,
       isError,
     },
     doFetch,
-  ] = useApi(API.GUESTS, { guests: [] });
+  ] = useApi(API.GUESTS, []);
 
   useEffect(() => {
     (async () => {
@@ -56,7 +56,7 @@ const Guests: React.FC<Props> = () => {
   }, [doFetch, isAuthenticated]);
 
   const deleteGuest = async (guestId: string) => {
-    await AMPLIFY.del(config.API.NAME, API.GUESTS, {
+    return AMPLIFY.del(config.API.NAME, API.GUESTS, {
       body: {
         guestId,
       },
@@ -121,10 +121,10 @@ const Guests: React.FC<Props> = () => {
           <LoadingSpinner />
         ) : (
           <>
-            <Summary data={guests || []} />
+            <Summary data={data || []} />
 
             <CustomTable
-              data={guests || []}
+              data={data || []}
               handleDelete={handleDelete}
               handleUpdateBools={handleUpdateBools}
               handleUpdateTexts={handleUpdateTexts}

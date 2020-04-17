@@ -64,12 +64,12 @@ const Dashboard: React.FC<Props> = () => {
   const { t } = useTranslation();
   const [
     {
-      data: { dashboardData },
+      data,
       isLoading,
       isError,
     },
     doFetch,
-  ] = useApi(API.DASHBOARD, { dashboardData: [] });
+  ] = useApi(API.DASHBOARD, {});
 
   useEffect(() => {
     (async () => {
@@ -86,7 +86,6 @@ const Dashboard: React.FC<Props> = () => {
   }, [doFetch, isAuthenticated]);
 
   const renderDashboard = () => {
-    console.log(dashboardData);
     return (
       <div className={classes.dashboard}>
         {isLoading ? (
@@ -106,7 +105,7 @@ const Dashboard: React.FC<Props> = () => {
                       color="textSecondary"
                       component="p"
                     >
-                      {`${dashboardData?.todos?.amountDoneItems} /  ${dashboardData?.todos?.amountItems}`}
+                      {`${data?.todos?.amountDoneItems} /  ${data?.todos?.amountItems}`}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -132,7 +131,7 @@ const Dashboard: React.FC<Props> = () => {
                       color="textSecondary"
                       component="p"
                     >
-                      {`${dashboardData?.guests?.amountDoneItems} /  ${dashboardData?.guests?.amountItems}`}
+                      {`${data?.guests?.amountDoneItems} /  ${data?.guests?.amountItems}`}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -158,7 +157,7 @@ const Dashboard: React.FC<Props> = () => {
                       color="textSecondary"
                       component="p"
                     >
-                      {`${dashboardData?.budget?.amountDoneItems} /  ${dashboardData?.budget?.amountItems}`}
+                      {`${data?.budget?.amountDoneItems} /  ${data?.budget?.amountItems}`}
                     </Typography>
                     <Typography
                       variant="body2"

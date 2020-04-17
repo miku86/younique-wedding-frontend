@@ -33,12 +33,12 @@ const Todos: React.FC<Props> = () => {
   const { t } = useTranslation();
   const [
     {
-      data: { todos },
+      data,
       isLoading,
       isError,
     },
     doFetch,
-  ] = useApi(API.TODOS, { todos: [] });
+  ] = useApi(API.TODOS, []);
 
   useEffect(() => {
     (async () => {
@@ -120,10 +120,10 @@ const Todos: React.FC<Props> = () => {
           <LoadingSpinner />
         ) : (
           <>
-            <Summary data={todos || []} />
+            <Summary data={data || []} />
 
             <CustomTable
-              data={todos || []}
+              data={data || []}
               handleDelete={handleDelete}
               handleUpdateBools={handleUpdateBools}
               handleUpdateTexts={handleUpdateTexts}

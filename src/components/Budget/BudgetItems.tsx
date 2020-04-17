@@ -34,12 +34,12 @@ const BudgetItems: React.FC<Props> = () => {
   const { t } = useTranslation();
   const [
     {
-      data: { budgetItems },
+      data,
       isLoading,
       isError,
     },
     doFetch,
-  ] = useApi(API.TODOS, { budgetItems: [] });
+  ] = useApi(API.TODOS, []);
 
   useEffect(() => {
     (async () => {
@@ -143,12 +143,12 @@ const BudgetItems: React.FC<Props> = () => {
         ) : (
           <>
             <Summary
-              data={budgetItems || []}
+              data={data || []}
               availableBudget={availableBudget}
             />
 
             <CustomTable
-              data={budgetItems || []}
+              data={data || []}
               handleDelete={handleDelete}
               handleUpdateBools={handleUpdateBools}
               handleUpdateTexts={handleUpdateTexts}
