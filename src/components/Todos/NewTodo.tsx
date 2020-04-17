@@ -3,7 +3,7 @@ import { API } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { config } from "../../config";
+import { config, PATH } from "../../config";
 import { TodoInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
@@ -47,6 +47,7 @@ const NewTodo: React.FC<Props> = () => {
   });
   const { t } = useTranslation();
 
+
   const validateForm = () => {
     return fields.title.length > 0;
   };
@@ -64,7 +65,7 @@ const NewTodo: React.FC<Props> = () => {
       comment
     };
 
-    return API.post(config.API.NAME, "/todos", { body });
+    return API.post(config.API.NAME, PATH.TODOS, { body });
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {

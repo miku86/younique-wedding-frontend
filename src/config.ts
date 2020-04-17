@@ -32,6 +32,10 @@ const prod = {
   }
 };
 
+export const PATH = {
+  TODOS: "/todos"
+}
+
 export const config = process.env.REACT_APP_STAGE === "prod" ? prod : dev;
 
 export const demoUser = {
