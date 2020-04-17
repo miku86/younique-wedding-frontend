@@ -13,6 +13,7 @@ import LoadingSpinner from "./shared/LoadingSpinner";
 import ErrorBoundary from "./shared/ErrorBoundary";
 import { onError } from "../utils/error";
 import { AppContext } from "../utils/context";
+import { ROUTE } from "../config";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -59,11 +60,11 @@ const App: React.FC = () => {
     switch (path) {
       case "/":
         return dashboardImage;
-      case "/todos":
+      case ROUTE.TODOS:
         return todosImage;
-      case "/guests":
+      case ROUTE.GUESTS:
         return guestsImage;
-      case "/budget":
+      case "ROUTE.BUDGET":
         return budgetImage;
     }
   };

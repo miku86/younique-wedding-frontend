@@ -32,8 +32,22 @@ const prod = {
   }
 };
 
-export const PATH = {
-  TODOS: "/todos"
+export const API = {
+  TODOS: "/todos",
+  GUESTS: "/guests",
+  BUDGET: "/budget",
+  SETTINGS: "/settings",
+  LOGIN: "/login",
+  SIGNUP: "/signup"
+}
+
+export const ROUTE = {
+  TODOS: "/todos",
+  GUESTS: "/guests",
+  BUDGET: "/budget",
+  SETTINGS: "/settings",
+  LOGIN: "/login",
+  SIGNUP: "/signup"
 }
 
 export const config = process.env.REACT_APP_STAGE === "prod" ? prod : dev;

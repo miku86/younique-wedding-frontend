@@ -4,11 +4,11 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import { API } from "aws-amplify";
+import { API as AMPLIFY } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import { config } from "../../config";
+import { config, ROUTE } from "../../config";
 import budgetImage from "../../static/images/budget.jpg";
 import guestsImage from "../../static/images/guests.jpg";
 import todosImage from "../../static/images/todos.jpg";
@@ -68,7 +68,7 @@ const Dashboard: React.FC<Props> = () => {
 
   const fetchDashboardData = async () => {
     setIsLoading(true);
-    const data = await API.get(config.API.NAME, "/dashboard", {});
+    const data = await AMPLIFY.get(config.API.NAME, "/dashboard", {});
     setDashboardData(data);
     setIsLoading(false);
   };
@@ -95,7 +95,7 @@ const Dashboard: React.FC<Props> = () => {
         ) : (
           <>
             <Card className={classes.card}>
-              <Link component={RouterLink} to="/todos">
+              <Link component={RouterLink} to={ROUTE.TODOS}>
                 <CardActionArea>
                   <CardMedia className={classes.media} image={todosImage} />
                   <CardContent>
@@ -121,7 +121,7 @@ const Dashboard: React.FC<Props> = () => {
               </Link>
             </Card>
             <Card className={classes.card}>
-              <Link component={RouterLink} to="/guests">
+              <Link component={RouterLink} to={ROUTE.GUESTS}>
                 <CardActionArea>
                   <CardMedia className={classes.media} image={guestsImage} />
                   <CardContent>
@@ -147,7 +147,7 @@ const Dashboard: React.FC<Props> = () => {
               </Link>
             </Card>
             <Card className={classes.card}>
-              <Link component={RouterLink} to="/budget">
+              <Link component={RouterLink} to={ROUTE.BUDGET}>
                 <CardActionArea>
                   <CardMedia className={classes.media} image={budgetImage} />
                   <CardContent>

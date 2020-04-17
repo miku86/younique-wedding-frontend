@@ -1,10 +1,10 @@
 import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-import { API } from "aws-amplify";
+import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import { config } from "../../config";
+import { config, ROUTE, API } from "../../config";
 import { BudgetItemInputs } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -37,7 +37,7 @@ const BudgetItems: React.FC<Props> = () => {
 
   const fetchBudgetItems = async () => {
     setIsLoading(true);
-    const budgetItems = await API.get(config.API.NAME, "/budget", {});
+    const budgetItems = await AMPLIFY.get(config.API.NAME, "API.BUDGET", {});
     setBudgetItems(budgetItems);
     setIsLoading(false);
   };
@@ -58,7 +58,7 @@ const BudgetItems: React.FC<Props> = () => {
 
   const fetchAvailableBudget = async () => {
     setIsLoading(true);
-    const [result] = await API.get(config.API.NAME, "/settings", {});
+    const [result] = await AMPLIFY.get(config.API.NAME, API.SETTINGS, {});
     setAvailableBudget(Number(result.availableBudget));
     setIsLoading(false);
   };
@@ -79,7 +79,7 @@ const BudgetItems: React.FC<Props> = () => {
 
   const deleteBudgetItem = async (budgetItemId: string) => {
     setIsLoading(true);
-    await API.del(config.API.NAME, "/budget", {
+    await AMPLIFY.del(config.API.NAME, "API.BUDGET", {
       body: {
         budgetItemId
       }
@@ -103,7 +103,7 @@ const BudgetItems: React.FC<Props> = () => {
 
   const updateBudgetItem = (budgetItemId: string, data: any) => {
     setIsLoading(true);
-    return API.put(config.API.NAME, "/budget", {
+    return AMPLIFY.put(config.API.NAME, "API.BUDGET", {
       body: { budgetItemId, data }
     });
   };
@@ -162,7 +162,7 @@ const BudgetItems: React.FC<Props> = () => {
                   color="inherit"
                   underline="none"
                   component={RouterLink}
-                  to="/budget/new"
+                  to={`${ROUTE.BUDGET}/new`}
                 >
                   <Fab color="primary" aria-label="add">
                     <Add />

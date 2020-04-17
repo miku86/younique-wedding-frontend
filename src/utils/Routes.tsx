@@ -14,6 +14,7 @@ import UnauthRoute from "../components/shared/UnauthRoute";
 import Signup from "../components/Signup/Signup";
 import NewTodo from "../components/Todos/NewTodo";
 import Todos from "../components/Todos/Todos";
+import { ROUTE } from "../config";
 
 interface Props {}
 
@@ -23,31 +24,31 @@ const Routes: React.FC<Props> = () => {
       <CustomRoute path="/" exact={true}>
         <Dashboard />
       </CustomRoute>
-      <UnauthRoute path="/login" exact={true}>
+      <UnauthRoute path={ROUTE.LOGIN} exact={true}>
         <Login />
       </UnauthRoute>
-      <UnauthRoute path="/signup" exact={true}>
+      <UnauthRoute path={ROUTE.SIGNUP} exact={true}>
         <Signup />
       </UnauthRoute>
-      <AuthRoute path="/settings" exact={true}>
+      <AuthRoute path={ROUTE.SETTINGS} exact={true}>
         <Settings />
       </AuthRoute>
-      <AuthRoute path="/todos" exact={true}>
+      <AuthRoute path={ROUTE.TODOS} exact={true}>
         <Todos />
       </AuthRoute>
-      <AuthRoute path="/todos/new" exact={true}>
+      <AuthRoute path={`${ROUTE.TODOS}/new`} exact={true}>
         <NewTodo />
       </AuthRoute>
-      <AuthRoute path="/guests" exact={true}>
+      <AuthRoute path={ROUTE.GUESTS} exact={true}>
         <Guests />
       </AuthRoute>
-      <AuthRoute path="/guests/new" exact={true}>
+      <AuthRoute path={`${ROUTE.GUESTS}/new`} exact={true}>
         <NewGuest />
       </AuthRoute>
-      <AuthRoute path="/budget" exact={true}>
+      <AuthRoute path={ROUTE.BUDGET} exact={true}>
         <BudgetItems />
       </AuthRoute>
-      <AuthRoute path="/budget/new" exact={true}>
+      <AuthRoute path={`${ROUTE.BUDGET}/new`} exact={true}>
         <NewBudgetItem />
       </AuthRoute>
       <Route>

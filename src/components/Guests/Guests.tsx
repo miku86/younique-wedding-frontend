@@ -1,10 +1,10 @@
 import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-import { API } from "aws-amplify";
+import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import { config } from "../../config";
+import { config, API, ROUTE } from "../../config";
 import { GuestInputs } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -36,7 +36,7 @@ const Guests: React.FC<Props> = () => {
 
   const fetchGuests = async () => {
     setIsLoading(true);
-    const guests = await API.get(config.API.NAME, "/guests", {});
+    const guests = await AMPLIFY.get(config.API.NAME, API.GUESTS, {});
     setGuests(guests);
     setIsLoading(false);
   };
@@ -57,7 +57,7 @@ const Guests: React.FC<Props> = () => {
 
   const deleteGuest = async (guestId: string) => {
     setIsLoading(true);
-    await API.del(config.API.NAME, "/guests", {
+    await AMPLIFY.del(config.API.NAME, API.GUESTS, {
       body: {
         guestId
       }
@@ -81,7 +81,7 @@ const Guests: React.FC<Props> = () => {
 
   const updateGuest = (guestId: string, data: any) => {
     setIsLoading(true);
-    API.put(config.API.NAME, "/guests", { body: { guestId, data } });
+    AMPLIFY.put(config.API.NAME, API.GUESTS, { body: { guestId, data } });
   };
 
   const handleUpdateBools = async (
@@ -138,7 +138,7 @@ const Guests: React.FC<Props> = () => {
                   color="inherit"
                   underline="none"
                   component={RouterLink}
-                  to="/guests/new"
+                  to={`${ROUTE.GUESTS}/new`}
                 >
                   <Fab color="primary" aria-label="add">
                     <Add />

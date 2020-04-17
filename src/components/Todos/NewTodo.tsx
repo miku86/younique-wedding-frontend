@@ -1,9 +1,9 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
-import { API } from "aws-amplify";
+import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { config, PATH } from "../../config";
+import { config, API, ROUTE } from "../../config";
 import { TodoInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
@@ -65,7 +65,7 @@ const NewTodo: React.FC<Props> = () => {
       comment
     };
 
-    return API.post(config.API.NAME, PATH.TODOS, { body });
+    return AMPLIFY.post(config.API.NAME, API.TODOS, { body });
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -75,7 +75,7 @@ const NewTodo: React.FC<Props> = () => {
 
     try {
       await createTodo(fields);
-      history.push("/todos");
+      history.push(ROUTE.TODOS);
     } catch (error) {
       onError(error);
       setIsLoading(false);

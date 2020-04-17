@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, FormControlLabel, makeStyles, Radio, RadioGroup, Slide, Theme } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
-import { API } from "aws-amplify";
+import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { config } from "../../config";
@@ -75,7 +75,7 @@ const Feedbackbox: React.FC<Props> = () => {
     };
 
     try {
-      const response = await API.post(config.API.NAME, "/sendFeedbackEmail", {
+      const response = await AMPLIFY.post(config.API.NAME, "/sendFeedbackEmail", {
         body
       });
       response.MessageId && handleClose();

@@ -1,9 +1,9 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
-import { API } from "aws-amplify";
+import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { config } from "../../config";
+import { config, API } from "../../config";
 import { SettingsInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
@@ -49,7 +49,7 @@ const Settings: React.FC<Props> = () => {
 
   const updateSettings = (data: SettingsInputs) => {
     setIsLoading(true);
-    return API.put(config.API.NAME, "/settings", {
+    return AMPLIFY.put(config.API.NAME, API.SETTINGS, {
       body: { data }
     });
   };

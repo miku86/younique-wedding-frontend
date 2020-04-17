@@ -1,9 +1,9 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
-import { API } from "aws-amplify";
+import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { config } from "../../config";
+import { config, ROUTE } from "../../config";
 import { BudgetItemInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
@@ -60,7 +60,7 @@ const NewBudgetItem: React.FC<Props> = () => {
       actualCost
     };
 
-    return API.post(config.API.NAME, "/budget", { body });
+    return AMPLIFY.post(config.API.NAME, "API.BUDGET", { body });
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -70,7 +70,7 @@ const NewBudgetItem: React.FC<Props> = () => {
 
     try {
       await createBudgetItem(fields);
-      history.push("/budget");
+      history.push(ROUTE.BUDGET);
     } catch (error) {
       onError(error);
       setIsLoading(false);

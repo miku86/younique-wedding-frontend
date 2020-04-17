@@ -1,10 +1,10 @@
 import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-import { API } from "aws-amplify";
+import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import { config, PATH } from "../../config";
+import { config, API, ROUTE } from "../../config";
 import { TodoInputs } from "../../utils/customTypes";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -34,12 +34,12 @@ const Todos: React.FC<Props> = () => {
   const { t } = useTranslation();
 
   const fetchTodos = async () => {
-    const todos = await API.get(config.API.NAME, PATH.TODOS, {});
+    const todos = await AMPLIFY.get(config.API.NAME, API.TODOS, {});
     setTodos(todos);
   };
 
   const deleteTodo = (todoId: string) => {
-    return API.del(config.API.NAME, PATH.TODOS, {
+    return AMPLIFY.del(config.API.NAME, API.TODOS, {
       body: {
         todoId
       }
@@ -47,7 +47,7 @@ const Todos: React.FC<Props> = () => {
   };
 
   const updateTodo = (todoId: string, data: any) => {
-    return API.put(config.API.NAME, PATH.TODOS, { body: { todoId, data } });
+    return AMPLIFY.put(config.API.NAME, API.TODOS, { body: { todoId, data } });
   };
 
   useEffect(() => {
@@ -134,7 +134,7 @@ const Todos: React.FC<Props> = () => {
                   color="inherit"
                   underline="none"
                   component={RouterLink}
-                  to="/todos/new"
+                  to={`${ROUTE.TODOS}/new`}
                 >
                   <Fab color="primary" aria-label="add">
                     <Add />

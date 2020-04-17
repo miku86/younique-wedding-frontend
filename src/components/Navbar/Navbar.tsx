@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import logo from "../../static/images/logo.png";
 import { useAppContext } from "../../utils/context";
+import { ROUTE } from "../../config";
 
 type ToggleEvent = any;
 
@@ -53,9 +54,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const sidebarItems = [
   { id: 1, text: "Dashboard", path: "/", icon: "Home" },
-  { id: 2, text: "todos", path: "/todos", icon: "FormatListBulleted" },
-  { id: 3, text: "guests", path: "/guests", icon: "Person" },
-  { id: 4, text: "budget", path: "/budget", icon: "Euro" }
+  { id: 2, text: "todos", path: ROUTE.TODOS, icon: "FormatListBulleted" },
+  { id: 3, text: "guests", path: ROUTE.GUESTS, icon: "Person" },
+  { id: 4, text: "budget", path: ROUTE.BUDGET, icon: "Euro" }
 ];
 
 const Navbar: React.FC = () => {
@@ -82,7 +83,7 @@ const Navbar: React.FC = () => {
     await Auth.signOut();
     setAnchorEl(null);
     setIsAuthenticated!(false);
-    history.push("/login");
+    history.push(ROUTE.LOGIN);
   };
 
   const renderIcon = (icon: string) => {
@@ -144,16 +145,16 @@ const Navbar: React.FC = () => {
 
   const renderSiteTitle = () => {
     const path = history.location.pathname.split("/");
-    const lastPath = path[path.length - 1];
+    const lastPath = "/" + path[path.length - 1];
 
     switch (lastPath) {
       case "":
         return t("dashboard");
-      case "todos":
+      case ROUTE.TODOS:
         return t("todos");
-      case "guests":
+      case ROUTE.GUESTS:
         return t("guests");
-      case "budget":
+      case ROUTE.BUDGET:
         return t("budget");
       case "settings":
         return t("settings");
@@ -209,7 +210,7 @@ const Navbar: React.FC = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem color="inherit" component={RouterLink} to="/settings">
+              <MenuItem color="inherit" component={RouterLink} to={ROUTE.SETTINGS}>
                 {t("settings")}
               </MenuItem>
               <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
@@ -217,10 +218,10 @@ const Navbar: React.FC = () => {
           </>
         ) : (
           <>
-            <Button color="inherit" component={RouterLink} to="/signup">
+            <Button color="inherit" component={RouterLink} to={ROUTE.SIGNUP}>
               {t("signup")}
             </Button>
-            <Button color="inherit" component={RouterLink} to="/login">
+            <Button color="inherit" component={RouterLink} to={ROUTE.LOGIN}>
               {t("login")}
             </Button>
           </>
