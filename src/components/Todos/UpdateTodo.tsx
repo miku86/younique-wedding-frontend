@@ -1,4 +1,13 @@
-import { Button, Dialog, DialogContent, DialogTitle, makeStyles, Slide, TextField, Theme } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  makeStyles,
+  Slide,
+  TextField,
+  Theme,
+} from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,22 +17,22 @@ import LoadingButton from "../shared/LoadingButton";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
-    cursor: "pointer"
+    cursor: "pointer",
   },
   updateButton: {
-    cursor: "pointer"
+    cursor: "pointer",
   },
   content: {
-    padding: 20
+    padding: 20,
   },
   form: {
     display: "flex",
     flexDirection: "column",
 
     "& .MuiTextField-root": {
-      marginBottom: theme.spacing(3)
-    }
-  }
+      marginBottom: theme.spacing(3),
+    },
+  },
 }));
 
 const Transition = React.forwardRef<unknown, TransitionProps>(
@@ -47,7 +56,7 @@ const UpdateTodo: React.FC<Props> = ({
   item,
   open,
   handleClose,
-  handleSubmit
+  handleSubmit,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -56,7 +65,7 @@ const UpdateTodo: React.FC<Props> = ({
     title: item.title,
     deadline: item.deadline,
     responsible: item.responsible,
-    comment: item.comment
+    comment: item.comment,
   });
 
   const validateForm = () => {
@@ -74,7 +83,7 @@ const UpdateTodo: React.FC<Props> = ({
         <DialogTitle> {t("updateTodoHeading")}</DialogTitle>
         <DialogContent>
           <form
-            onSubmit={event => handleSubmit(event, item.todoId, fields)}
+            onSubmit={(event) => handleSubmit(event, item.todoId, fields)}
             className={classes.form}
           >
             <TextField
@@ -96,7 +105,7 @@ const UpdateTodo: React.FC<Props> = ({
               variant="outlined"
               fullWidth
               InputLabelProps={{
-                shrink: true
+                shrink: true,
               }}
             />
             <TextField

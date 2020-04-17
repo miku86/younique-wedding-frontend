@@ -1,4 +1,16 @@
-import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, FormControlLabel, makeStyles, Radio, RadioGroup, Slide, Theme } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControlLabel,
+  makeStyles,
+  Radio,
+  RadioGroup,
+  Slide,
+  Theme,
+} from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
@@ -19,11 +31,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up("md")]: {
       position: "fixed",
       bottom: 20,
-      right: 20
-    }
+      right: 20,
+    },
   },
   content: {
-    padding: 20
+    padding: 20,
   },
   form: {
     display: "flex",
@@ -31,9 +43,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
-      width: 200
-    }
-  }
+      width: 200,
+    },
+  },
 }));
 
 const Transition = React.forwardRef<unknown, TransitionProps>(
@@ -71,13 +83,17 @@ const Feedbackbox: React.FC<Props> = () => {
     event.preventDefault();
 
     const body = {
-      feedback
+      feedback,
     };
 
     try {
-      const response = await AMPLIFY.post(config.API.NAME, "/sendFeedbackEmail", {
-        body
-      });
+      const response = await AMPLIFY.post(
+        config.API.NAME,
+        "/sendFeedbackEmail",
+        {
+          body,
+        }
+      );
       response.MessageId && handleClose();
     } catch (error) {
       onError(error);
@@ -107,7 +123,7 @@ const Feedbackbox: React.FC<Props> = () => {
                 onChange={handleChange}
               >
                 {feedbackChoices.length &&
-                  feedbackChoices.map(choice => (
+                  feedbackChoices.map((choice) => (
                     <FormControlLabel
                       key={choice.value}
                       control={<Radio />}

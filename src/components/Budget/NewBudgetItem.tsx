@@ -15,13 +15,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: "60px 0",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   card: {
     borderRadius: "6px",
     backgroundColor: "#FFF",
     padding: "50px",
-    boxShadow: "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)"
+    boxShadow:
+      "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)",
   },
   form: {
     display: "flex",
@@ -29,9 +30,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
-      width: 200
-    }
-  }
+      width: 200,
+    },
+  },
 }));
 
 const NewBudgetItem: React.FC<Props> = () => {
@@ -41,7 +42,7 @@ const NewBudgetItem: React.FC<Props> = () => {
   const [fields, handleFieldsChange] = useFormFields({
     name: "",
     plannedCost: 0,
-    actualCost: 0
+    actualCost: 0,
   });
   const { t } = useTranslation();
 
@@ -52,12 +53,12 @@ const NewBudgetItem: React.FC<Props> = () => {
   const createBudgetItem = ({
     name,
     plannedCost,
-    actualCost
+    actualCost,
   }: BudgetItemInputs) => {
     const body = {
       name,
       plannedCost,
-      actualCost
+      actualCost,
     };
 
     return AMPLIFY.post(config.API.NAME, "API.BUDGET", { body });

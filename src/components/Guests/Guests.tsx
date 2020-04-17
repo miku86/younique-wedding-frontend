@@ -39,7 +39,7 @@ const Guests: React.FC<Props> = () => {
       isError,
     },
     doFetch,
-  ] = useApi(API.TODOS, { guests: [] });
+  ] = useApi(API.GUESTS, { guests: [] });
 
   useEffect(() => {
     (async () => {
@@ -121,10 +121,10 @@ const Guests: React.FC<Props> = () => {
           <LoadingSpinner />
         ) : (
           <>
-            <Summary data={guests} />
+            <Summary data={guests || []} />
 
             <CustomTable
-              data={guests}
+              data={guests || []}
               handleDelete={handleDelete}
               handleUpdateBools={handleUpdateBools}
               handleUpdateTexts={handleUpdateTexts}

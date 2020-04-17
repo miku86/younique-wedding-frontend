@@ -8,14 +8,13 @@ import LoadingButton from "../shared/LoadingButton";
 import { onError } from "../../utils/error";
 import { useAppContext } from "../../utils/context";
 
-interface Props {
-}
+interface Props {}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: "60px 0",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   form: {
     display: "flex",
@@ -23,9 +22,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
-      width: 260
-    }
-  }
+      width: 260,
+    },
+  },
 }));
 
 const Signup: React.FC<Props> = () => {
@@ -37,7 +36,7 @@ const Signup: React.FC<Props> = () => {
   const [fields, handleFieldsChange] = useFormFields({
     email: "",
     password: "",
-    confirmationCode: ""
+    confirmationCode: "",
   });
   const { t } = useTranslation();
 
@@ -57,7 +56,7 @@ const Signup: React.FC<Props> = () => {
     try {
       const newUser = await Auth.signUp({
         username: fields.email,
-        password: fields.password
+        password: fields.password,
       });
       setNewUser(newUser);
     } catch (error) {

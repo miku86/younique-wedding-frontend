@@ -1,4 +1,10 @@
-import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/core";
+import {
+  makeStyles,
+  TableBody,
+  TableCell,
+  TableRow,
+  Theme,
+} from "@material-ui/core";
 import { Create, Delete } from "@material-ui/icons";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,11 +16,11 @@ import UpdateTodo from "./UpdateTodo";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
-    cursor: "pointer"
+    cursor: "pointer",
   },
   updateButton: {
-    cursor: "pointer"
-  }
+    cursor: "pointer",
+  },
 }));
 
 interface Props {
@@ -40,7 +46,7 @@ const ExtendedTableBody: React.FC<Props> = ({
   orderBy,
   handleDelete,
   handleUpdateBools,
-  handleUpdateTexts
+  handleUpdateTexts,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();

@@ -5,5 +5,5 @@ export const feedbackChoices = [
   { value: "onlineFair" },
   { value: "afterWedding" },
   { value: "theDay" },
-  { value: "ideas" }
+  { value: "ideas" },
 ];

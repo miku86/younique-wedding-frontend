@@ -3,8 +3,8 @@ import React from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
   spinner: {
-    marginRight: "8px"
-  }
+    marginRight: "8px",
+  },
 }));
 
 interface Props {

@@ -8,13 +8,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center",
 
     "& h1": {
-      fontWeight: "600"
+      fontWeight: "600",
     },
 
     "& p": {
-      color: "#999"
-    }
-  }
+      color: "#999",
+    },
+  },
 }));
 
 interface Props {}

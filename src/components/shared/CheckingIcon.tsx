@@ -12,7 +12,7 @@ const CheckingIcon: React.FC<Props> = ({
   itemId,
   fieldKey,
   fieldValue,
-  handleClick
+  handleClick,
 }) => {
   return (
     <div onClick={() => handleClick(itemId, fieldKey, fieldValue)}>

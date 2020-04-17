@@ -9,7 +9,7 @@ const headCells: HeadCell[] = [
   { id: "name", sorting: true },
   { id: "plannedCost", sorting: true },
   { id: "actualCost", sorting: true },
-  { id: "options", sorting: false }
+  { id: "options", sorting: false },
 ];
 
 interface Props {
@@ -31,7 +31,7 @@ const CustomTable: React.FC<Props> = ({
   data,
   handleDelete,
   handleUpdateBools,
-  handleUpdateTexts
+  handleUpdateTexts,
 }) => {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof BudgetItemInputs>("name");

@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: "60px 0",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   card: {
     borderRadius: "6px",
     backgroundColor: "#FFF",
     padding: "50px",
     boxShadow:
-      "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)"
+      "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)",
   },
   form: {
     display: "flex",
@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
-      width: 200
-    }
-  }
+      width: 200,
+    },
+  },
 }));
 
 const NewTodo: React.FC<Props> = () => {
@@ -43,10 +43,9 @@ const NewTodo: React.FC<Props> = () => {
     title: "",
     deadline: "",
     responsible: "",
-    comment: ""
+    comment: "",
   });
   const { t } = useTranslation();
-
 
   const validateForm = () => {
     return fields.title.length > 0;
@@ -56,13 +55,13 @@ const NewTodo: React.FC<Props> = () => {
     title,
     deadline,
     responsible,
-    comment
+    comment,
   }: TodoInputs) => {
     const body = {
       title,
       deadline,
       responsible,
-      comment
+      comment,
     };
 
     return AMPLIFY.post(config.API.NAME, API.TODOS, { body });
@@ -105,7 +104,7 @@ const NewTodo: React.FC<Props> = () => {
             variant="outlined"
             fullWidth
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
           />
           <TextField

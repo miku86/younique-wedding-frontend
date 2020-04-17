@@ -54,8 +54,8 @@ const resources = {
       updateBudgetItemHeading: "Update your Budget Item",
       settings: "Settings",
       availableBudget: "Available Budget",
-      newEntry: "New Entry"
-    }
+      newEntry: "New Entry",
+    },
   },
   de: {
     translation: {
@@ -109,9 +109,9 @@ const resources = {
       updateBudgetItemHeading: "Update deinen Budget-Eintrag",
       settings: "Einstellungen",
       availableBudget: "Verfügbares Budget",
-      newEntry: "Neuer Eintrag"
-    }
-  }
+      newEntry: "Neuer Eintrag",
+    },
+  },
 };
 
 i18n.use(initReactI18next).init({
@@ -119,8 +119,8 @@ i18n.use(initReactI18next).init({
   lng: "de",
   keySeparator: false,
   interpolation: {
-    escapeValue: false
-  }
+    escapeValue: false,
+  },
 });
 
 export default i18n;

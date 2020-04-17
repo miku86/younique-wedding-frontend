@@ -1,4 +1,11 @@
-import { Box, Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
+import {
+  Box,
+  Card,
+  CardContent,
+  makeStyles,
+  Theme,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { BudgetItem } from "../../utils/customTypes";
@@ -13,8 +20,8 @@ const useStyles = makeStyles((theme: Theme) => ({
       flexDirection: "row",
       justifyContent: "space-evenly",
       alignItems: "center",
-      margin: "10px 0"
-    }
+      margin: "10px 0",
+    },
   },
   card: {
     border: `1px solid ${theme.palette.primary.main}`,
@@ -24,21 +31,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: "10px 0",
 
     "& .MuiCardContent-root:last-child": {
-      paddingBottom: "16px"
+      paddingBottom: "16px",
     },
 
     [theme.breakpoints.up("md")]: {
       width: "240px",
-      margin: "20px 0"
-    }
+      margin: "20px 0",
+    },
   },
   content: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   text: {
-    color: theme.palette.primary.main
-  }
+    color: theme.palette.primary.main,
+  },
 }));
 interface Props {
   data: BudgetItem[];
@@ -55,7 +62,7 @@ const Summary: React.FC<Props> = ({ data, availableBudget }) => {
     style: "currency",
     currency: "EUR",
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0
+    maximumFractionDigits: 0,
   });
 
   const actualCosts = data.reduce((total, currentItem) => {

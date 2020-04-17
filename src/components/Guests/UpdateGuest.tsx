@@ -1,4 +1,13 @@
-import { Button, Dialog, DialogContent, DialogTitle, makeStyles, Slide, TextField, Theme } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  makeStyles,
+  Slide,
+  TextField,
+  Theme,
+} from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,22 +17,22 @@ import LoadingButton from "../shared/LoadingButton";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
-    cursor: "pointer"
+    cursor: "pointer",
   },
   updateButton: {
-    cursor: "pointer"
+    cursor: "pointer",
   },
   content: {
-    padding: 20
+    padding: 20,
   },
   form: {
     display: "flex",
     flexDirection: "column",
 
     "& .MuiTextField-root": {
-      marginBottom: theme.spacing(3)
-    }
-  }
+      marginBottom: theme.spacing(3),
+    },
+  },
 }));
 
 const Transition = React.forwardRef<unknown, TransitionProps>(
@@ -47,7 +56,7 @@ const UpdateGuest: React.FC<Props> = ({
   item,
   open,
   handleClose,
-  handleSubmit
+  handleSubmit,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -76,7 +85,7 @@ const UpdateGuest: React.FC<Props> = ({
         <DialogTitle> {t("updateGuestHeading")}</DialogTitle>
         <DialogContent>
           <form
-            onSubmit={event => handleSubmit(event, item.guestId, fields)}
+            onSubmit={(event) => handleSubmit(event, item.guestId, fields)}
             className={classes.form}
           >
             <TextField

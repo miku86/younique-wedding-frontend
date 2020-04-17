@@ -6,13 +6,13 @@ interface Props {}
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     paddingTop: "100px",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 }));
 
 const NotFound: React.FC<Props> = () => {
   const classes = useStyles();
-  
+
   return (
     <div className={classes.root}>
       <h3>Sorry, page not found!</h3>

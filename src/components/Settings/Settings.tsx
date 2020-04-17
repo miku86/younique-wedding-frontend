@@ -15,13 +15,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: "60px 0",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   card: {
     borderRadius: "6px",
     backgroundColor: "#FFF",
     padding: "50px",
-    boxShadow: "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)"
+    boxShadow:
+      "0 7px 14px 0 rgba(60,66,87, 0.2) , 0 3px 6px 0 rgba(0,0,0, 0.2)",
   },
   form: {
     display: "flex",
@@ -29,9 +30,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
-      width: 200
-    }
-  }
+      width: 200,
+    },
+  },
 }));
 
 const Settings: React.FC<Props> = () => {
@@ -39,7 +40,7 @@ const Settings: React.FC<Props> = () => {
   let history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
-    availableBudget: 0
+    availableBudget: 0,
   });
   const { t } = useTranslation();
 
@@ -50,7 +51,7 @@ const Settings: React.FC<Props> = () => {
   const updateSettings = (data: SettingsInputs) => {
     setIsLoading(true);
     return AMPLIFY.put(config.API.NAME, API.SETTINGS, {
-      body: { data }
+      body: { data },
     });
   };
 

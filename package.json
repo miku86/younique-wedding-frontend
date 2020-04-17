@@ -26,6 +26,9 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "fix": "npm run fix:prettier && npm run fix:eslint",
+    "fix:prettier": "prettier --write 'src/**/*.{ts,tsx}'",
+    "fix:eslint": "eslint --fix 'src/**/*.{ts,tsx}'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

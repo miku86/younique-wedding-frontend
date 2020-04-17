@@ -40,7 +40,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAuthenticating, setIsAuthenticating] = useState<boolean | null>(null);
+  const [isAuthenticating, setIsAuthenticating] = useState<boolean | null>(
+    null
+  );
   const classes = useStyles();
   let history = useHistory();
 

@@ -1,4 +1,11 @@
-import { makeStyles, TableCell, TableHead, TableRow, TableSortLabel, Theme } from "@material-ui/core";
+import {
+  makeStyles,
+  TableCell,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+  Theme,
+} from "@material-ui/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -7,8 +14,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.primary.main,
 
     "& th": {
-      color: "white"
-    }
+      color: "white",
+    },
   },
   visuallyHidden: {
     border: 0,
@@ -19,8 +26,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: 0,
     position: "absolute",
     top: 20,
-    width: 1
-  }
+    width: 1,
+  },
 }));
 
 export interface HeadCell {
@@ -41,7 +48,7 @@ const ExtendedTableHead: React.FC<Props> = ({
   order,
   orderBy,
   onRequestSort,
-  headCells
+  headCells,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -55,7 +62,7 @@ const ExtendedTableHead: React.FC<Props> = ({
   return (
     <TableHead className={classes.head}>
       <TableRow>
-        {headCells.map(headCell => {
+        {headCells.map((headCell) => {
           return headCell.sorting ? (
             <TableCell
               key={headCell.id}

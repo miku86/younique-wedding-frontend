@@ -1,6 +1,26 @@
-import { AppBar, Button, Divider, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Menu, MenuItem, Toolbar, Typography } from "@material-ui/core";
+import {
+  AppBar,
+  Button,
+  Divider,
+  Drawer,
+  IconButton,
+  Link,
+  List,
+  ListItem,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { AccountCircle, Euro, FormatListBulleted, Home, Person } from "@material-ui/icons";
+import {
+  AccountCircle,
+  Euro,
+  FormatListBulleted,
+  Home,
+  Person,
+} from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Auth } from "aws-amplify";
 import React, { useState } from "react";
@@ -14,20 +34,20 @@ type ToggleEvent = any;
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
 
   toolbar: theme.mixins.toolbar,
   logoContainer: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
   logo: {
-    width: "100%"
+    width: "100%",
   },
 
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -35,28 +55,28 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center",
 
     "&:hover": {
-      textDecoration: "none"
-    }
+      textDecoration: "none",
+    },
   },
   list: {
-    width: 250
+    width: 250,
   },
   sideList: {
-    padding: "0"
+    padding: "0",
   },
   sideItem: {
     fontSize: "1.5rem",
     paddingTop: "20px",
     paddingBottom: "20px",
-    borderBottom: "1px solid hsl(0, 24%, 89%)"
-  }
+    borderBottom: "1px solid hsl(0, 24%, 89%)",
+  },
 }));
 
 const sidebarItems = [
   { id: 1, text: "Dashboard", path: "/", icon: "Home" },
   { id: 2, text: "todos", path: ROUTE.TODOS, icon: "FormatListBulleted" },
   { id: 3, text: "guests", path: ROUTE.GUESTS, icon: "Person" },
-  { id: 4, text: "budget", path: ROUTE.BUDGET, icon: "Euro" }
+  { id: 4, text: "budget", path: ROUTE.BUDGET, icon: "Euro" },
 ];
 
 const Navbar: React.FC = () => {
@@ -210,7 +230,11 @@ const Navbar: React.FC = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem color="inherit" component={RouterLink} to={ROUTE.SETTINGS}>
+              <MenuItem
+                color="inherit"
+                component={RouterLink}
+                to={ROUTE.SETTINGS}
+              >
                 {t("settings")}
               </MenuItem>
               <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
