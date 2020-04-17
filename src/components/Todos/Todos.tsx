@@ -1,7 +1,7 @@
 import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { API as AMPLIFY } from "aws-amplify";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config, API, ROUTE } from "../../config";
@@ -12,43 +12,33 @@ import Summary from "./Summary";
 import CustomTable from "./Table";
 import { onError } from "../../utils/error";
 import { useAppContext } from "../../utils/context";
+import { useApi } from "../../utils/hooks/useApi";
 
-interface Props {
-}
+interface Props {}
 
 const useStyles = makeStyles((theme: Theme) => ({
   todos: {
     "& h1": {
-      fontWeight: "600"
+      fontWeight: "600",
     },
     "& p": {
-      color: "#666"
-    }
-  }
+      color: "#666",
+    },
+  },
 }));
 
 const Todos: React.FC<Props> = () => {
   const classes = useStyles();
-  const {isAuthenticated} = useAppContext();
-  const [todos, setTodos] = useState(null);
+  const { isAuthenticated } = useAppContext();
   const { t } = useTranslation();
-
-  const fetchTodos = async () => {
-    const todos = await AMPLIFY.get(config.API.NAME, API.TODOS, {});
-    setTodos(todos);
-  };
-
-  const deleteTodo = (todoId: string) => {
-    return AMPLIFY.del(config.API.NAME, API.TODOS, {
-      body: {
-        todoId
-      }
-    });
-  };
-
-  const updateTodo = (todoId: string, data: any) => {
-    return AMPLIFY.put(config.API.NAME, API.TODOS, { body: { todoId, data } });
-  };
+  const [
+    {
+      data: { todos },
+      isLoading,
+      isError,
+    },
+    doFetch,
+  ] = useApi(API.TODOS, { todos: [] });
 
   useEffect(() => {
     (async () => {
@@ -57,13 +47,24 @@ const Todos: React.FC<Props> = () => {
       }
 
       try {
-        fetchTodos();
+        doFetch(API.TODOS);
       } catch (error) {
         onError(error);
       }
     })();
-  }, [isAuthenticated]);
+  }, [doFetch, isAuthenticated]);
 
+  const deleteTodo = (todoId: string) => {
+    return AMPLIFY.del(config.API.NAME, API.TODOS, {
+      body: {
+        todoId,
+      },
+    });
+  };
+
+  const updateTodo = (todoId: string, data: any) => {
+    return AMPLIFY.put(config.API.NAME, API.TODOS, { body: { todoId, data } });
+  };
 
   const handleDelete = async (todoId: string) => {
     const confirmed = window.confirm(t("deleteQuestion"));
@@ -74,7 +75,7 @@ const Todos: React.FC<Props> = () => {
 
     try {
       await deleteTodo(todoId);
-      fetchTodos();
+      doFetch(API.TODOS);
     } catch (error) {
       onError(error);
     }
@@ -86,12 +87,12 @@ const Todos: React.FC<Props> = () => {
     fieldValue: boolean
   ) => {
     const data = {
-      [fieldKey]: !fieldValue
+      [fieldKey]: !fieldValue,
     };
 
     try {
       await updateTodo(todoId, data);
-      fetchTodos();
+      doFetch(API.TODOS);
     } catch (error) {
       onError(error);
     }
@@ -106,7 +107,7 @@ const Todos: React.FC<Props> = () => {
 
     try {
       await updateTodo(todoId, fields);
-      fetchTodos();
+      doFetch(API.TODOS);
     } catch (error) {
       onError(error);
     }
@@ -115,7 +116,7 @@ const Todos: React.FC<Props> = () => {
   const renderTodos = () => {
     return (
       <div className={classes.todos}>
-        {todos === null ? (
+        {isLoading ? (
           <LoadingSpinner />
         ) : (
           <>

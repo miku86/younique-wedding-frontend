@@ -4,11 +4,10 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import { API as AMPLIFY } from "aws-amplify";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import { config, ROUTE } from "../../config";
+import { API, ROUTE } from "../../config";
 import budgetImage from "../../static/images/budget.jpg";
 import guestsImage from "../../static/images/guests.jpg";
 import todosImage from "../../static/images/todos.jpg";
@@ -16,9 +15,9 @@ import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import { onError } from "../../utils/error";
 import { useAppContext } from "../../utils/context";
+import { useApi } from "../../utils/hooks/useApi";
 
-interface Props {
-}
+interface Props {}
 
 interface DashboardData {
   [key: string]: any;
@@ -32,18 +31,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "center",
 
     "& h1": {
-      fontWeight: "600"
+      fontWeight: "600",
     },
     "& p": {
-      color: "#666"
+      color: "#666",
     },
 
     [theme.breakpoints.up("md")]: {
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
       justifyItems: "center",
-      gridGap: "10px"
-    }
+      gridGap: "10px",
+    },
   },
   card: {
     width: "100%",
@@ -51,27 +50,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: "20px 0",
 
     "& a:hover": {
-      textDecoration: "none"
-    }
+      textDecoration: "none",
+    },
   },
   media: {
-    height: 140
-  }
+    height: 140,
+  },
 }));
 
 const Dashboard: React.FC<Props> = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAppContext();
-  const [isLoading, setIsLoading] = useState(false);
-  const [dashboardData, setDashboardData] = useState<DashboardData>({});
   const { t } = useTranslation();
-
-  const fetchDashboardData = async () => {
-    setIsLoading(true);
-    const data = await AMPLIFY.get(config.API.NAME, "/dashboard", {});
-    setDashboardData(data);
-    setIsLoading(false);
-  };
+  const [
+    {
+      data: { dashboardData },
+      isLoading,
+      isError,
+    },
+    doFetch,
+  ] = useApi(API.DASHBOARD, { dashboardData: [] });
 
   useEffect(() => {
     (async () => {
@@ -80,14 +78,15 @@ const Dashboard: React.FC<Props> = () => {
       }
 
       try {
-        await fetchDashboardData();
+        doFetch(API.DASHBOARD);
       } catch (error) {
         onError(error);
       }
     })();
-  }, [isAuthenticated]);
+  }, [doFetch, isAuthenticated]);
 
   const renderDashboard = () => {
+    console.log(dashboardData);
     return (
       <div className={classes.dashboard}>
         {isLoading ? (

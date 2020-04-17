@@ -1,7 +1,8 @@
 import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { API as AMPLIFY } from "aws-amplify";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect } from "react";
+
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { config, API, ROUTE } from "../../config";
@@ -12,34 +13,33 @@ import Summary from "./Summary";
 import CustomTable from "./Table";
 import { onError } from "../../utils/error";
 import { useAppContext } from "../../utils/context";
+import { useApi } from "../../utils/hooks/useApi";
 
-interface Props {
-}
+interface Props {}
 
 const useStyles = makeStyles((theme: Theme) => ({
   guests: {
     "& h1": {
-      fontWeight: "600"
+      fontWeight: "600",
     },
     "& p": {
-      color: "#666"
-    }
-  }
+      color: "#666",
+    },
+  },
 }));
 
 const Guests: React.FC<Props> = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAppContext();
-  const [isLoading, setIsLoading] = useState(false);
-  const [guests, setGuests] = useState([]);
   const { t } = useTranslation();
-
-  const fetchGuests = async () => {
-    setIsLoading(true);
-    const guests = await AMPLIFY.get(config.API.NAME, API.GUESTS, {});
-    setGuests(guests);
-    setIsLoading(false);
-  };
+  const [
+    {
+      data: { guests },
+      isLoading,
+      isError,
+    },
+    doFetch,
+  ] = useApi(API.TODOS, { guests: [] });
 
   useEffect(() => {
     (async () => {
@@ -48,20 +48,23 @@ const Guests: React.FC<Props> = () => {
       }
 
       try {
-        await fetchGuests();
+        doFetch(API.GUESTS);
       } catch (error) {
         onError(error);
       }
     })();
-  }, [isAuthenticated]);
+  }, [doFetch, isAuthenticated]);
 
   const deleteGuest = async (guestId: string) => {
-    setIsLoading(true);
     await AMPLIFY.del(config.API.NAME, API.GUESTS, {
       body: {
-        guestId
-      }
+        guestId,
+      },
     });
+  };
+
+  const updateGuest = (guestId: string, data: any) => {
+    AMPLIFY.put(config.API.NAME, API.GUESTS, { body: { guestId, data } });
   };
 
   const handleDelete = async (guestId: string) => {
@@ -73,15 +76,10 @@ const Guests: React.FC<Props> = () => {
 
     try {
       await deleteGuest(guestId);
-      await fetchGuests();
+      doFetch(API.GUESTS);
     } catch (error) {
       onError(error);
     }
-  };
-
-  const updateGuest = (guestId: string, data: any) => {
-    setIsLoading(true);
-    AMPLIFY.put(config.API.NAME, API.GUESTS, { body: { guestId, data } });
   };
 
   const handleUpdateBools = async (
@@ -90,12 +88,12 @@ const Guests: React.FC<Props> = () => {
     fieldValue: boolean
   ) => {
     const data = {
-      [fieldKey]: !fieldValue
+      [fieldKey]: !fieldValue,
     };
 
     try {
       await updateGuest(guestId, data);
-      await fetchGuests();
+      doFetch(API.GUESTS);
     } catch (error) {
       onError(error);
     }
@@ -110,7 +108,7 @@ const Guests: React.FC<Props> = () => {
 
     try {
       await updateGuest(guestId, fields);
-      await fetchGuests();
+      doFetch(API.GUESTS);
     } catch (error) {
       onError(error);
     }
