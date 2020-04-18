@@ -74,3 +74,15 @@ export interface BudgetItemInputs {
 export interface SettingsInputs {
   availableBudget?: number;
 }
+
+export interface HeadCell {
+  id: string;
+  sorting: boolean;
+}
+
+export type Order = "asc" | "desc";
+
+export type OrderBy =
+  | keyof TodoInputs
+  | keyof GuestInputs
+  | keyof BudgetItemInputs;
