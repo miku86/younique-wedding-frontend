@@ -3,13 +3,13 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { config, API, ROUTE } from "../../config";
+import { API, config, ROUTE } from "../../config";
 import { TodoInputs } from "../../utils/customTypes";
+import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
-import { onError } from "../../utils/error";
 
-interface Props {}
+interface Props { }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const NewTodo: React.FC<Props> = () => {
+const TodoNew: React.FC<Props> = () => {
   const classes = useStyles();
   let history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -139,4 +139,4 @@ const NewTodo: React.FC<Props> = () => {
   );
 };
 
-export default NewTodo;
+export default TodoNew;

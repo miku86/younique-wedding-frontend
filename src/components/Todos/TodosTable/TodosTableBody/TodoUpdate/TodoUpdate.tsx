@@ -1,19 +1,10 @@
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  makeStyles,
-  Slide,
-  TextField,
-  Theme,
-} from "@material-ui/core";
+import { Button, Dialog, DialogContent, DialogTitle, makeStyles, Slide, TextField, Theme } from "@material-ui/core";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Todo, TodoInputs } from "../../utils/customTypes";
-import { useFormFields } from "../../utils/hooks";
-import LoadingButton from "../shared/LoadingButton";
+import { Todo, TodoInputs } from "../../../../../utils/customTypes";
+import { useFormFields } from "../../../../../utils/hooks";
+import LoadingButton from "../../../../shared/LoadingButton";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
@@ -52,7 +43,7 @@ interface Props {
   ) => void;
 }
 
-const UpdateTodo: React.FC<Props> = ({
+const TodoUpdate: React.FC<Props> = ({
   item,
   open,
   handleClose,
@@ -146,4 +137,4 @@ const UpdateTodo: React.FC<Props> = ({
   );
 };
 
-export default UpdateTodo;
+export default TodoUpdate;

@@ -12,11 +12,11 @@ import AuthRoute from "../components/shared/AuthRoute";
 import CustomRoute from "../components/shared/CustomRoute";
 import UnauthRoute from "../components/shared/UnauthRoute";
 import Signup from "../components/Signup/Signup";
-import NewTodo from "../components/Todos/NewTodo";
-import Todos from "../components/Todos/Todos";
+import TodoNew from "../components/TodoNew/TodoNew";
+import Todos from "../components/Todos";
 import { ROUTE } from "../config";
 
-interface Props {}
+interface Props { }
 
 const Routes: React.FC<Props> = () => {
   return (
@@ -37,7 +37,7 @@ const Routes: React.FC<Props> = () => {
         <Todos />
       </AuthRoute>
       <AuthRoute path={`${ROUTE.TODOS}/new`} exact={true}>
-        <NewTodo />
+        <TodoNew />
       </AuthRoute>
       <AuthRoute path={ROUTE.GUESTS} exact={true}>
         <Guests />
