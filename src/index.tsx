@@ -38,9 +38,9 @@ const customTheme = createMuiTheme({
       main: "#ff4081",
     },
   },
-  /*   custom: {
-      drawerWidth: 200
-    } */
+  custom: {
+    drawerWidth: 180
+  }
 });
 
 initSentry();

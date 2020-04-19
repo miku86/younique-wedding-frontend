@@ -5,15 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from "react-router-dom";
 import { ROUTE } from '../../../config';
 
-const drawerWidth = 180;
-
 const useStyles = makeStyles((theme: Theme) => ({
   drawer: {
-    width: drawerWidth,
+    width: theme.custom.drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: theme.custom.drawerWidth,
     backgroundColor: theme.palette.primary.main
   },
   drawerHeader: {

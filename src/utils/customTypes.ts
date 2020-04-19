@@ -1,3 +1,4 @@
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { Dispatch, SetStateAction } from "react";
 
 export type TisAuthenticated = boolean;
@@ -86,3 +87,17 @@ export type OrderBy =
   | keyof TodoInputs
   | keyof GuestInputs
   | keyof BudgetItemInputs;
+
+
+declare module '@material-ui/core/styles/createMuiTheme' {
+  interface Theme {
+    custom: {
+      drawerWidth: string | number
+    }
+  }
+  interface ThemeOptions {
+    custom: {
+      drawerWidth: string | number
+    }
+  }
+}

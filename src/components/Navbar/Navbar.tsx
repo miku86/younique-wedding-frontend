@@ -16,8 +16,6 @@ import { ROUTE } from '../../config';
 import { useAppContext } from '../../utils/context';
 import PersistentDrawer from './PersistentDrawer';
 
-const drawerWidth = 180;
-
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
@@ -30,8 +28,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     }),
   },
   appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+    width: `calc(100% - ${theme.custom.drawerWidth}px)`,
+    marginLeft: theme.custom.drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -58,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth,
+    marginLeft: -theme.custom.drawerWidth,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
