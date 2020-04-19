@@ -1,34 +1,14 @@
-import {
-  AppBar,
-  Button,
-  Divider,
-  Drawer,
-  IconButton,
-  Link,
-  List,
-  ListItem,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
+import { AppBar, Button, Divider, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Menu, MenuItem, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import {
-  AccountCircle,
-  Euro,
-  FormatListBulleted,
-  Home,
-  Person,
-} from "@material-ui/icons";
+import { AccountCircle, Euro, FormatListBulleted, Home, Person } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Auth } from "aws-amplify";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink, useHistory } from "react-router-dom";
+import { ROUTE } from "../../config";
 import logo from "../../static/images/logo.png";
 import { useAppContext } from "../../utils/context";
-import { ROUTE } from "../../config";
 
 type ToggleEvent = any;
 
