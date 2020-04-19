@@ -13,10 +13,6 @@ import { useAppContext } from "../../utils/context";
 type ToggleEvent = any;
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-
   toolbar: theme.mixins.toolbar,
   logoContainer: {
     display: "flex",
@@ -25,7 +21,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   logo: {
     width: "100%",
   },
-
   menuButton: {
     marginRight: theme.spacing(2),
   },
