@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from "react-router-dom";
 import { ROUTE } from '../../../config';
 
-const drawerWidth = 200;
+const drawerWidth = 180;
 
 const useStyles = makeStyles((theme: Theme) => ({
   drawer: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: "0",
   },
   sideItem: {
-    fontSize: "1.25rem",
+    fontSize: "1rem",
     color: '#FFF',
     paddingTop: "10px",
     paddingBottom: "10px",

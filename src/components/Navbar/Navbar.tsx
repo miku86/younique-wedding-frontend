@@ -16,11 +16,12 @@ import { ROUTE } from '../../config';
 import { useAppContext } from '../../utils/context';
 import PersistentDrawer from './PersistentDrawer';
 
-const drawerWidth = 200;
+const drawerWidth = 180;
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
+    flexGrow: 1
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -45,14 +46,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
-    padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    display: "flex",
+    flexDirection: "column",
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
