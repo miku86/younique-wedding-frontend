@@ -40,6 +40,4 @@ export const onError = (error: any) => {
   }
 
   logError(error, errorInfo);
-
-  alert(message);
 };
