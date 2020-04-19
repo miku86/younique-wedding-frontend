@@ -1,24 +1,11 @@
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  FormControlLabel,
-  makeStyles,
-  Radio,
-  RadioGroup,
-  Slide,
-  Theme,
-} from "@material-ui/core";
-import { TransitionProps } from "@material-ui/core/transitions/transition";
+import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, FormControlLabel, makeStyles, Radio, RadioGroup, Theme } from "@material-ui/core";
 import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { config } from "../../config";
+import { onError } from "../../utils/error";
 import LoadingButton from "../shared/LoadingButton";
 import { feedbackChoices } from "./data";
-import { onError } from "../../utils/error";
 
 const useStyles = makeStyles((theme: Theme) => ({
   feedbackbox: {
@@ -48,13 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Transition = React.forwardRef<unknown, TransitionProps>(
-  function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  }
-);
-
-interface Props {}
+interface Props { }
 
 const Feedbackbox: React.FC<Props> = () => {
   const [open, setOpen] = useState(false);
@@ -107,7 +88,6 @@ const Feedbackbox: React.FC<Props> = () => {
       </Button>
       <Dialog
         open={open}
-        TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
       >

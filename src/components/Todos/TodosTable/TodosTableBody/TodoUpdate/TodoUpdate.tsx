@@ -1,5 +1,4 @@
-import { Button, Dialog, DialogContent, DialogTitle, makeStyles, Slide, TextField, Theme } from "@material-ui/core";
-import { TransitionProps } from "@material-ui/core/transitions/transition";
+import { Button, Dialog, DialogContent, DialogTitle, makeStyles, TextField, Theme } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Todo, TodoInputs } from "../../../../../utils/customTypes";
@@ -25,12 +24,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }));
-
-const Transition = React.forwardRef<unknown, TransitionProps>(
-  function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  }
-);
 
 interface Props {
   item: Todo;
@@ -66,7 +59,6 @@ const TodoUpdate: React.FC<Props> = ({
   return (
     <Dialog
       open={open}
-      TransitionComponent={Transition}
       keepMounted
       onClose={handleClose}
     >
