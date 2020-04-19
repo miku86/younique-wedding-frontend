@@ -26,6 +26,7 @@
     "@types/react-dom": "16.9.6",
     "@types/react-router-dom": "5.1.4",
     "aws-amplify": "2.3.0",
+    "clsx": "^1.1.0",
     "i18next": "19.4.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",

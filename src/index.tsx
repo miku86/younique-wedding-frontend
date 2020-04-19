@@ -7,8 +7,8 @@ import "typeface-roboto";
 import App from "./components/App";
 import { config } from "./config";
 import "./index.css";
-import "./utils/i18n/i18n";
 import { initSentry } from "./utils/error";
+import "./utils/i18n/i18n";
 
 Amplify.configure({
   Auth: {
@@ -35,9 +35,12 @@ Amplify.configure({
 const customTheme = createMuiTheme({
   palette: {
     primary: {
-      main: "#e33371",
+      main: "#ff4081",
     },
   },
+  /*   custom: {
+      drawerWidth: 200
+    } */
 });
 
 initSentry();

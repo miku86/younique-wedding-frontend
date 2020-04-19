@@ -11,7 +11,7 @@ import { AppContext } from "../utils/context";
 import { onError } from "../utils/error";
 import Routes from "../utils/Routes";
 import Feedbackbox from "./Feedback/Feedbackbox";
-import Navbar from "./Navbar/Navbar";
+import Navbar from "./Navbar";
 import ErrorBoundary from "./shared/ErrorBoundary";
 import LoadingSpinner from "./shared/LoadingSpinner";
 
@@ -77,16 +77,17 @@ const App: React.FC = () => {
       <ErrorBoundary>
         <AppContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
           <div className={classes.root}>
-            <Navbar />
-            <div
-              className={classes.content}
-              style={{
-                backgroundImage: `url(${renderImage(history.location.pathname)})`,
-              }}
-            >
-              <Routes />
-              {isAuthenticated && <Feedbackbox />}
-            </div>
+            <Navbar>
+              <div
+                className={classes.content}
+                style={{
+                  backgroundImage: `url(${renderImage(history.location.pathname)})`,
+                }}
+              >
+                <Routes />
+                {isAuthenticated && <Feedbackbox />}
+              </div>
+            </Navbar>
           </div>
         </AppContext.Provider>
       </ErrorBoundary>

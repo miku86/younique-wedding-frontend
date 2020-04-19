@@ -1,28 +1,70 @@
-import { AppBar, Button, Divider, Drawer, IconButton, Link, List, ListItem, ListItemIcon, Menu, MenuItem, Toolbar, Typography } from "@material-ui/core";
-import { makeStyles, Theme } from "@material-ui/core/styles";
-import { AccountCircle, Euro, FormatListBulleted, Home, Person } from "@material-ui/icons";
+import { Button, Menu, MenuItem } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { AccountCircle } from '@material-ui/icons';
 import MenuIcon from "@material-ui/icons/Menu";
-import { Auth } from "aws-amplify";
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Auth } from 'aws-amplify';
+import clsx from 'clsx';
+import React, { ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useHistory } from "react-router-dom";
-import { ROUTE } from "../../config";
-import logo from "../../static/images/logo.png";
-import { useAppContext } from "../../utils/context";
+import { ROUTE } from '../../config';
+import { useAppContext } from '../../utils/context';
+import PersistentDrawer from './PersistentDrawer';
 
-type ToggleEvent = any;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme: Theme) => ({
-  toolbar: theme.mixins.toolbar,
-  logoContainer: {
-    display: "flex",
-    alignItems: "center",
+  root: {
+    display: 'flex',
   },
-  logo: {
-    width: "100%",
+  appBar: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  hide: {
+    display: 'none',
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
   },
   title: {
     flexGrow: 1,
@@ -32,113 +74,19 @@ const useStyles = makeStyles((theme: Theme) => ({
       textDecoration: "none",
     },
   },
-  paper: {
-    backgroundColor: theme.palette.primary.main
-  },
-  list: {
-    width: 250,
-  },
-  sideList: {
-    padding: "0",
-  },
-  sideItem: {
-    fontSize: "1.5rem",
-    paddingTop: "20px",
-    paddingBottom: "20px",
-    borderBottom: "1px solid hsl(0, 24%, 89%)",
-  },
 }));
 
-const sidebarItems = [
-  { id: 1, text: "Dashboard", path: "/", icon: "Home" },
-  { id: 2, text: "todos", path: ROUTE.TODOS, icon: "FormatListBulleted" },
-  { id: 3, text: "guests", path: ROUTE.GUESTS, icon: "Person" },
-  { id: 4, text: "budget", path: ROUTE.BUDGET, icon: "Euro" },
-];
+interface Props {
+  children: ReactNode;
+}
 
-const Navbar: React.FC = () => {
+const Navbar = ({ children }: Props) => {
   const classes = useStyles();
   let history = useHistory();
-  const { isAuthenticated, setIsAuthenticated } = useAppContext();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(1);
   const { t } = useTranslation();
+  const { isAuthenticated, setIsAuthenticated } = useAppContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const toggleDrawer = (open: boolean) => (event: ToggleEvent) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setIsSidebarOpen(open);
-  };
-
-  const handleLogout = async () => {
-    await Auth.signOut();
-    setAnchorEl(null);
-    setIsAuthenticated!(false);
-    history.push(ROUTE.LOGIN);
-  };
-
-  const renderIcon = (icon: string) => {
-    switch (icon) {
-      case "Home":
-        return <Home />;
-      case "FormatListBulleted":
-        return <FormatListBulleted />;
-      case "Person":
-        return <Person />;
-      case "Euro":
-        return <Euro />;
-      default:
-        return <Home />;
-    }
-  };
-
-  const handleListItemClick = (index: number) => {
-    setSelectedIndex(index);
-  };
-
-  const SideList = () => {
-    return (
-      <div
-        className={classes.list}
-        role="presentation"
-        onClick={toggleDrawer(false)}
-        onKeyDown={toggleDrawer(false)}
-      >
-        <div className={`${classes.toolbar} ${classes.logoContainer}`}>
-          <img src={logo} alt="logo" className={classes.logo} />
-        </div>
-
-        <Divider />
-        <List className={classes.sideList}>
-          {sidebarItems.map(({ id, text, path, icon }) => (
-            <Link
-              color="inherit"
-              underline="none"
-              component={RouterLink}
-              to={path}
-              key={text}
-            >
-              <ListItem
-                button
-                className={classes.sideItem}
-                selected={selectedIndex === id}
-                onClick={() => handleListItemClick(id)}
-              >
-                <ListItemIcon>{renderIcon(icon)}</ListItemIcon>
-                {t(text)}
-              </ListItem>
-            </Link>
-          ))}
-        </List>
-      </div>
-    );
-  };
+  const [drawerOpen, setDrawerOpen] = useState(true);
 
   const renderSiteTitle = () => {
     const path = history.location.pathname.split("/");
@@ -162,74 +110,86 @@ const Navbar: React.FC = () => {
     }
   };
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
+  const handleLogout = async () => {
+    await Auth.signOut();
     setAnchorEl(null);
+    setIsAuthenticated!(false);
+    history.push(ROUTE.LOGIN);
   };
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-          onClick={toggleDrawer(true)}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Drawer classes={{ paper: classes.paper }} open={isSidebarOpen} onClose={toggleDrawer(false)}>
-          <SideList />
-        </Drawer>
-        <Typography color="inherit" className={classes.title}>
-          {isAuthenticated && renderSiteTitle()}
-        </Typography>
-
-        {isAuthenticated ? (
-          <>
-            <IconButton
-              edge="end"
-              color="inherit"
-              aria-controls="account-menu"
-              aria-haspopup="true"
-              onClick={handleClick}
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="account-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: drawerOpen,
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => setDrawerOpen(true)}
+            edge="start"
+            className={clsx(classes.menuButton, drawerOpen && classes.hide)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography color="inherit" className={classes.title}>
+            {isAuthenticated && renderSiteTitle()}
+          </Typography>
+          {isAuthenticated ? (
+            <>
+              <IconButton
+                edge="end"
                 color="inherit"
-                component={RouterLink}
-                to={ROUTE.SETTINGS}
+                aria-controls="account-menu"
+                aria-haspopup="true"
+                onClick={(event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget)}
               >
-                {t("settings")}
-              </MenuItem>
-              <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
-            </Menu>
-          </>
-        ) : (
-          <>
-            <Button color="inherit" component={RouterLink} to={ROUTE.SIGNUP}>
-              {t("signup")}
-            </Button>
-            <Button color="inherit" component={RouterLink} to={ROUTE.LOGIN}>
-              {t("login")}
-            </Button>
-          </>
-        )}
-      </Toolbar>
-    </AppBar>
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="account-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={() => setAnchorEl(null)}
+              >
+                <MenuItem
+                  color="inherit"
+                  component={RouterLink}
+                  to={ROUTE.SETTINGS}
+                >
+                  {t("settings")}
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>{t("logout")}</MenuItem>
+              </Menu>
+            </>
+          ) : (
+              <>
+                <Button color="inherit" component={RouterLink} to={ROUTE.SIGNUP}>
+                  {t("signup")}
+                </Button>
+                <Button color="inherit" component={RouterLink} to={ROUTE.LOGIN}>
+                  {t("login")}
+                </Button>
+              </>
+            )}
+        </Toolbar>
+      </AppBar>
+      <PersistentDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: drawerOpen,
+        })}
+      >
+        <div className={classes.drawerHeader} />
+        {children}
+      </main>
+    </div >
   );
-};
+}
 
-export default Navbar;
+export default Navbar
