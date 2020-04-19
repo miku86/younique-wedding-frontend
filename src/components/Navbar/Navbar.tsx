@@ -28,10 +28,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     fontSize: "1.25rem",
     textAlign: "center",
-
     "&:hover": {
       textDecoration: "none",
     },
+  },
+  paper: {
+    backgroundColor: theme.palette.primary.main
   },
   list: {
     width: 250,
@@ -100,7 +102,7 @@ const Navbar: React.FC = () => {
     setSelectedIndex(index);
   };
 
-  const sideList = () => {
+  const SideList = () => {
     return (
       <div
         className={classes.list}
@@ -180,8 +182,8 @@ const Navbar: React.FC = () => {
         >
           <MenuIcon />
         </IconButton>
-        <Drawer open={isSidebarOpen} onClose={toggleDrawer(false)}>
-          {sideList()}
+        <Drawer classes={{ paper: classes.paper }} open={isSidebarOpen} onClose={toggleDrawer(false)}>
+          <SideList />
         </Drawer>
         <Typography color="inherit" className={classes.title}>
           {isAuthenticated && renderSiteTitle()}
