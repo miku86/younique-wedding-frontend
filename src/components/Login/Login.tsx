@@ -3,12 +3,12 @@ import { Auth } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { demoUser } from "../../config";
+import { useAppContext } from "../../utils/context";
+import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
-import { onError } from "../../utils/error";
-import { useAppContext } from "../../utils/context";
 
-interface Props {}
+interface Props { }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -74,7 +74,7 @@ const Login: React.FC<Props> = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid="page-login">
       <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
           label={t("email")}
