@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import BudgetItems from "../components/Budget/BudgetItems";
 import NewBudgetItem from "../components/Budget/NewBudgetItem";
-import Dashboard from "../components/Dashboard/Dashboard";
+import Dashboard from "../components/Dashboard";
 import Guests from "../components/Guests/Guests";
 import NewGuest from "../components/Guests/NewGuest";
 import Login from "../components/Login/Login";
