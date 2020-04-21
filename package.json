@@ -7,6 +7,7 @@
     "fix:eslint": "eslint --fix 'src/**/*.{ts,tsx}'",
     "start": "react-scripts start",
     "build": "CI=false react-scripts build",
+    "test": "npm run test:e2e:cli:server && npm run test:unit:coverage",
     "test:unit": "react-scripts test",
     "test:unit:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
     "test:e2e:cli": "cypress run",
