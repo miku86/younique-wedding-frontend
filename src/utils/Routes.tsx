@@ -36,19 +36,19 @@ const Routes: React.FC<Props> = () => {
       <AuthRoute path={ROUTE.TODOS} exact={true}>
         <Todos />
       </AuthRoute>
-      <AuthRoute path={`${ROUTE.TODOS}/new`} exact={true}>
+      <AuthRoute path={`${ROUTE.TODOSNEW}`} exact={true}>
         <TodoNew />
       </AuthRoute>
       <AuthRoute path={ROUTE.GUESTS} exact={true}>
         <Guests />
       </AuthRoute>
-      <AuthRoute path={`${ROUTE.GUESTS}/new`} exact={true}>
+      <AuthRoute path={`${ROUTE.GUESTSNEW}`} exact={true}>
         <NewGuest />
       </AuthRoute>
       <AuthRoute path={ROUTE.BUDGET} exact={true}>
         <BudgetItems />
       </AuthRoute>
-      <AuthRoute path={`${ROUTE.BUDGET}/new`} exact={true}>
+      <AuthRoute path={`${ROUTE.BUDGETNEW}`} exact={true}>
         <NewBudgetItem />
       </AuthRoute>
       <Route>

@@ -44,8 +44,11 @@ export const API = {
 
 export const ROUTE = {
   TODOS: "/todos",
+  TODOSNEW: "/todos/new",
   GUESTS: "/guests",
+  GUESTSNEW: "/guests/new",
   BUDGET: "/budget",
+  BUDGETNEW: "/budget/new",
   SETTINGS: "/settings",
   LOGIN: "/login",
   SIGNUP: "/signup",
