@@ -22,12 +22,13 @@ const TodosTable = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete }
   };
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} data-testid="todos-table">
       <Table size="medium">
         <TodosTableHeader
           order={order}
           orderBy={orderBy}
           handleRequestSort={handleRequestSort}
+
         />
         <TodosTableBody
           data={data}
@@ -36,6 +37,7 @@ const TodosTable = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete }
           handleDelete={handleDelete}
           order={order}
           orderBy={orderBy}
+
         />
       </Table>
     </TableContainer>
