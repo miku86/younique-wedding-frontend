@@ -6,7 +6,7 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "fix:eslint": "eslint --fix 'src/**/*.{ts,tsx}'",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false react-scripts build",
     "test:unit": "react-scripts test",
     "test:unit:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
     "test:e2e:cli": "cypress run",
