@@ -115,6 +115,7 @@ const Login: React.FC<Props> = () => {
           fullWidth
           onClick={handleUseDemo}
           className={classes.demoButton}
+          data-testid="demo-account"
         >
           {t("useDemoAccount")}
         </Button>

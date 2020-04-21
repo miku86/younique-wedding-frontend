@@ -25,7 +25,7 @@ describe('routing', () => {
     });
   });
 
-  it('should show correct page for unauthed pages', () => {
+  it('should show correct page for unauthed user', () => {
     const filteredPaths = validPaths.filter(path => dontRedirects.includes(path));
     filteredPaths.forEach((path) => {
       cy.visit(`${path}`);
@@ -37,9 +37,22 @@ describe('routing', () => {
     const randomPaths = createRandomPaths();
     const filteredRandomPaths = randomPaths.filter(path => !validPaths.includes(path));
     filteredRandomPaths.forEach((path) => {
-      cy.visit(`/${path}`);
+      cy.visit(`${path}`);
       cy.url().should('eq', `${baseUrl}${path}`);
       cy.get('[data-testid="page-404"]');
+    });
+  });
+
+  it('should show correct page for authed user', () => {
+    cy.visit('/login');
+    cy.get('[data-testid="demo-account"]')
+      .click();
+    cy.url().should('eq', `${baseUrl}/`);
+
+    const filteredPaths = validPaths.filter(path => !dontRedirects.includes(path));
+    filteredPaths.forEach((path) => {
+      cy.visit(`${path}`);
+      cy.url().should('eq', `${baseUrl}${path}`);
     });
   });
 });
