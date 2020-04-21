@@ -41,7 +41,7 @@ const Feedbackbox: React.FC<Props> = () => {
   const [open, setOpen] = useState(false);
   const classes = useStyles();
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [feedback, setValue] = useState("");
 
   const validateForm = () => {

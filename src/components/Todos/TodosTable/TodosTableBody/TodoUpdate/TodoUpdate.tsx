@@ -44,7 +44,7 @@ const TodoUpdate: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
     title: item.title,
     deadline: item.deadline,

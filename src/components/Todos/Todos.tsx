@@ -29,7 +29,7 @@ const Todos: React.FC<Props> = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAppContext();
   const { t } = useTranslation();
-  const [{ data, isLoading, isError }, doFetch] = useApi(API.TODOS, []);
+  const [{ data, isLoading }, doFetch] = useApi(API.TODOS, []);
 
   useEffect(() => {
     (async () => {

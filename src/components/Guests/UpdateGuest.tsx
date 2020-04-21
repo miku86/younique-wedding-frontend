@@ -44,7 +44,7 @@ const UpdateGuest: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
     name: item.name,
     comment: item.comment,
