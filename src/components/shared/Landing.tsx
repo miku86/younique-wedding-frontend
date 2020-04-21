@@ -17,14 +17,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface Props {}
+interface Props { }
 
 const Landing: React.FC<Props> = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
-    <div className={classes.landing}>
+    <div className={classes.landing} data-testid="page-landing">
       <h1 data-testid="landing-title">{t("siteTitle")}</h1>
       <p data-testid="landing-pitch">{t("sitePitch")}</p>
     </div>

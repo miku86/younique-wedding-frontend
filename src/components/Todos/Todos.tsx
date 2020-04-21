@@ -102,7 +102,7 @@ const Todos: React.FC<Props> = () => {
     const amountDoneItems = data.filter((item: Todo) => item.done).length;
 
     return (
-      <div className={classes.todos}>
+      <div className={classes.todos} data-testid="page-todos">
         {isLoading ? (
           <LoadingSpinner />
         ) : (
