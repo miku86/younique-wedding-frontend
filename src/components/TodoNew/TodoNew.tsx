@@ -9,8 +9,6 @@ import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
-interface Props { }
-
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: "60px 0",
@@ -34,6 +32,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }));
+
+interface Props { }
 
 const TodoNew: React.FC<Props> = () => {
   const classes = useStyles();
@@ -82,9 +82,9 @@ const TodoNew: React.FC<Props> = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid="page-todo-new">
       <div className={classes.card}>
-        <form onSubmit={handleSubmit} className={classes.form}>
+        <form onSubmit={handleSubmit} className={classes.form} data-testid="todo-new-form">
           <TextField
             label={t("title")}
             id="title"
@@ -94,6 +94,7 @@ const TodoNew: React.FC<Props> = () => {
             fullWidth
             autoFocus
             required
+            data-testid="todo-new-title"
           />
           <TextField
             label={t("deadline")}
@@ -106,6 +107,7 @@ const TodoNew: React.FC<Props> = () => {
             InputLabelProps={{
               shrink: true,
             }}
+            data-testid="todo-new-deadline"
           />
           <TextField
             label={t("responsible")}
@@ -114,6 +116,7 @@ const TodoNew: React.FC<Props> = () => {
             onChange={handleFieldsChange}
             variant="outlined"
             fullWidth
+            data-testid="todo-new-responsible"
           />
           <TextField
             label={t("comment")}
@@ -122,6 +125,7 @@ const TodoNew: React.FC<Props> = () => {
             onChange={handleFieldsChange}
             variant="outlined"
             fullWidth
+            data-testid="todo-new-comment"
           />
           <LoadingButton
             variant="contained"
@@ -130,6 +134,7 @@ const TodoNew: React.FC<Props> = () => {
             disabled={!validateForm()}
             isLoading={isLoading}
             type="submit"
+            data-testid="todo-new-add"
           >
             {t("add")}
           </LoadingButton>
