@@ -7,7 +7,7 @@ describe("component", () => {
     const props = {
       order: "asc",
       orderBy: "name",
-      handleRequestSort: () => { }
+      handleRequestSort: jest.fn()
     }
 
     const { getByTestId } = renderWithRouter(<TodosTableHeader {...props} />);
