@@ -41,14 +41,14 @@ const TodosTableBody = ({ data, handleUpdateBools, handleUpdateTexts, handleDele
   };
 
   return (
-    <TableBody>
+    <TableBody data-testid="todos-table-body">
       {data.length ? (
         stableSort(data, getSorting(order, orderBy)).map((item: any, index) => {
           const labelId = `${index}`;
 
           return (
             <TableRow hover role="checkbox" tabIndex={-1} key={item.SK}>
-              <TableCell align="center">
+              <TableCell align="center" data-testid="todos-table-body-done">
                 <CheckingIcon
                   itemId={item.todoId}
                   fieldKey="done"
@@ -56,20 +56,22 @@ const TodosTableBody = ({ data, handleUpdateBools, handleUpdateTexts, handleDele
                   handleClick={handleUpdateBools}
                 />
               </TableCell>
-              <TableCell id={labelId} scope="item" align="center">
+              <TableCell id={labelId} scope="item" align="center" data-testid="todos-table-body-title">
                 {item.title}
               </TableCell>
-              <TableCell align="center">{item.deadline}</TableCell>
-              <TableCell align="center">{item.responsible}</TableCell>
-              <TableCell align="center">{item.comment}</TableCell>
+              <TableCell align="center" data-testid="todos-table-body-deadline">{item.deadline}</TableCell>
+              <TableCell align="center" data-testid="todos-table-body-responsible">{item.responsible}</TableCell>
+              <TableCell align="center" data-testid="todos-table-body-comment">{item.comment}</TableCell>
               <TableCell align="center">
                 <Create
                   className={classes.updateButton}
                   onClick={() => handleOpenUpdateDialog(item)}
+                  data-testid="todos-table-body-update"
                 />
                 <Delete
                   className={classes.deleteButton}
                   onClick={() => handleDelete(item.todoId)}
+                  data-testid="todos-table-body-delete"
                 />
               </TableCell>
             </TableRow>
@@ -77,7 +79,7 @@ const TodosTableBody = ({ data, handleUpdateBools, handleUpdateTexts, handleDele
         })
       ) : (
           <TableRow>
-            <TableCell align="left">{t("noEntries")}</TableCell>
+            <TableCell align="left" data-testid="todos-table-body-no-entries">{t("noEntries")}</TableCell>
           </TableRow>
         )}
       {openUpdateDialog && (
