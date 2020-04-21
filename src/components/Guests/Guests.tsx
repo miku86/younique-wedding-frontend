@@ -2,20 +2,19 @@ import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect } from "react";
-
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import { config, API, ROUTE } from "../../config";
+import { API, config, ROUTE } from "../../config";
+import { useAppContext } from "../../utils/context";
 import { GuestInputs } from "../../utils/customTypes";
-import Landing from "../shared/Landing";
+import { onError } from "../../utils/error";
+import { useApi } from "../../utils/hooks/useApi";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
 import CustomTable from "./Table";
-import { onError } from "../../utils/error";
-import { useAppContext } from "../../utils/context";
-import { useApi } from "../../utils/hooks/useApi";
 
-interface Props {}
+
+interface Props { }
 
 const useStyles = makeStyles((theme: Theme) => ({
   guests: {
@@ -107,12 +106,11 @@ const Guests: React.FC<Props> = () => {
     }
   };
 
-  const renderGuests = () => {
-    return (
-      <div className={classes.guests}>
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
+  return (
+    <div className={classes.guests}>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
           <>
             <Summary data={data || []} />
 
@@ -139,11 +137,8 @@ const Guests: React.FC<Props> = () => {
             </Box>
           </>
         )}
-      </div>
-    );
-  };
-
-  return <div>{isAuthenticated ? renderGuests() : <Landing />}</div>;
+    </div>
+  );
 };
 
 export default Guests;

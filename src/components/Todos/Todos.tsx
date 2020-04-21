@@ -7,7 +7,6 @@ import { useAppContext } from "../../utils/context";
 import { Todo, TodoInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useApi } from "../../utils/hooks/useApi";
-import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import TodoNewButton from "./TodoNewButton";
 import TodosSummary from "./TodosSummary";
@@ -97,36 +96,32 @@ const Todos: React.FC<Props> = () => {
     }
   };
 
-  const renderTodos = () => {
-    const amountItems = data.length;
-    const amountDoneItems = data.filter((item: Todo) => item.done).length;
+  const amountItems = data.length;
+  const amountDoneItems = data.filter((item: Todo) => item.done).length;
 
-    return (
-      <div className={classes.todos} data-testid="page-todos">
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
-            <>
-              <TodosSummary
-                amountItems={amountItems}
-                amountDoneItems={amountDoneItems}
-              />
+  return (
+    <div className={classes.todos} data-testid="page-todos">
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+          <>
+            <TodosSummary
+              amountItems={amountItems}
+              amountDoneItems={amountDoneItems}
+            />
 
-              <TodosTable
-                data={data}
-                handleUpdateBools={handleUpdateBools}
-                handleUpdateTexts={handleUpdateTexts}
-                handleDelete={handleDelete}
-              />
+            <TodosTable
+              data={data}
+              handleUpdateBools={handleUpdateBools}
+              handleUpdateTexts={handleUpdateTexts}
+              handleDelete={handleDelete}
+            />
 
-              <TodoNewButton />
-            </>
-          )}
-      </div>
-    );
-  };
-
-  return <div>{isAuthenticated ? renderTodos() : <Landing />}</div>;
+            <TodoNewButton />
+          </>
+        )}
+    </div>
+  );
 };
 
 export default Todos;

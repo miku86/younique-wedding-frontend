@@ -4,17 +4,16 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import { config, ROUTE, API } from "../../config";
+import { API, config, ROUTE } from "../../config";
+import { useAppContext } from "../../utils/context";
 import { BudgetItemInputs } from "../../utils/customTypes";
-import Landing from "../shared/Landing";
+import { onError } from "../../utils/error";
+import { useApi } from "../../utils/hooks/useApi";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
 import CustomTable from "./Table";
-import { onError } from "../../utils/error";
-import { useAppContext } from "../../utils/context";
-import { useApi } from "../../utils/hooks/useApi";
 
-interface Props {}
+interface Props { }
 
 const useStyles = makeStyles((theme: Theme) => ({
   budgetItems: {
@@ -128,12 +127,11 @@ const BudgetItems: React.FC<Props> = () => {
     }
   };
 
-  const renderBudgetItems = () => {
-    return (
-      <div className={classes.budgetItems}>
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
+  return (
+    <div className={classes.budgetItems}>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
           <>
             <Summary data={data || []} availableBudget={availableBudget} />
 
@@ -160,11 +158,8 @@ const BudgetItems: React.FC<Props> = () => {
             </Box>
           </>
         )}
-      </div>
-    );
-  };
-
-  return <div>{isAuthenticated ? renderBudgetItems() : <Landing />}</div>;
+    </div>
+  );
 };
 
 export default BudgetItems;
