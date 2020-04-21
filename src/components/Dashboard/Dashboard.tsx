@@ -11,11 +11,11 @@ import { API, ROUTE } from "../../config";
 import budgetImage from "../../static/images/budget.jpg";
 import guestsImage from "../../static/images/guests.jpg";
 import todosImage from "../../static/images/todos.jpg";
+import { useAppContext } from "../../utils/context";
+import { onError } from "../../utils/error";
+import { useApi } from "../../utils/hooks/useApi";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import { onError } from "../../utils/error";
-import { useAppContext } from "../../utils/context";
-import { useApi } from "../../utils/hooks/useApi";
 
 interface Props { }
 
@@ -74,98 +74,96 @@ const Dashboard: React.FC<Props> = () => {
     })();
   }, [doFetch, isAuthenticated]);
 
-  const renderDashboard = () => {
-    return (
+  return !isAuthenticated
+    ? <Landing />
+    : (
       <div className={classes.dashboard}>
         {isLoading ? (
           <LoadingSpinner />
         ) : (
-          <>
-            <Card className={classes.card}>
-              <Link component={RouterLink} to={ROUTE.TODOS}>
-                <CardActionArea>
-                  <CardMedia className={classes.media} image={todosImage} />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {t("todos")}
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {`${data?.todos?.amountDoneItems} /  ${data?.todos?.amountItems}`}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {t("done")}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Link>
-            </Card>
-            <Card className={classes.card}>
-              <Link component={RouterLink} to={ROUTE.GUESTS}>
-                <CardActionArea>
-                  <CardMedia className={classes.media} image={guestsImage} />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {t("guests")}
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {`${data?.guests?.amountDoneItems} /  ${data?.guests?.amountItems}`}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {t("coming")}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Link>
-            </Card>
-            <Card className={classes.card}>
-              <Link component={RouterLink} to={ROUTE.BUDGET}>
-                <CardActionArea>
-                  <CardMedia className={classes.media} image={budgetImage} />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {t("budget")}
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {`${data?.budget?.amountDoneItems} /  ${data?.budget?.amountItems}`}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {t("bought")}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Link>
-            </Card>
-          </>
-        )}
+            <>
+              <Card className={classes.card}>
+                <Link component={RouterLink} to={ROUTE.TODOS}>
+                  <CardActionArea>
+                    <CardMedia className={classes.media} image={todosImage} />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {t("todos")}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {`${data?.todos?.amountDoneItems} /  ${data?.todos?.amountItems}`}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {t("done")}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Link>
+              </Card>
+              <Card className={classes.card}>
+                <Link component={RouterLink} to={ROUTE.GUESTS}>
+                  <CardActionArea>
+                    <CardMedia className={classes.media} image={guestsImage} />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {t("guests")}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {`${data?.guests?.amountDoneItems} /  ${data?.guests?.amountItems}`}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {t("coming")}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Link>
+              </Card>
+              <Card className={classes.card}>
+                <Link component={RouterLink} to={ROUTE.BUDGET}>
+                  <CardActionArea>
+                    <CardMedia className={classes.media} image={budgetImage} />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {t("budget")}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {`${data?.budget?.amountDoneItems} /  ${data?.budget?.amountItems}`}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {t("bought")}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Link>
+              </Card>
+            </>
+          )}
       </div>
-    );
-  };
-
-  return <div>{isAuthenticated ? renderDashboard() : <Landing />}</div>;
+    )
 };
 
 export default Dashboard;
