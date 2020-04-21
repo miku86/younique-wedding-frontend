@@ -10,7 +10,9 @@
     "test:unit": "react-scripts test",
     "test:unit:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
     "test:e2e:cli": "cypress run",
+    "test:e2e:cli:server": "start-server-and-test start :3000 test:e2e:cli",
     "test:e2e:gui": "cypress open",
+    "test:e2e:gui:server": "start-server-and-test start :3000 test:e2e:gui",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -36,6 +38,12 @@
     "typeface-roboto": "0.0.75",
     "typescript": "3.8.3"
   },
+  "devDependencies": {
+    "cypress": "4.4.0",
+    "eslint-plugin-cypress": "2.10.3",
+    "source-map-explorer": "2.4.2",
+    "start-server-and-test": "^1.11.0"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -53,10 +61,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "cypress": "4.4.0",
-    "eslint-plugin-cypress": "2.10.3",
-    "source-map-explorer": "2.4.2"
   }
 }
