@@ -62,7 +62,7 @@ const TodoUpdate: React.FC<Props> = ({
       keepMounted
       onClose={handleClose}
     >
-      <div className={classes.content}>
+      <div className={classes.content} data-testid="todo-update-form">
         <DialogTitle> {t("updateTodoHeading")}</DialogTitle>
         <DialogContent>
           <form
@@ -78,6 +78,7 @@ const TodoUpdate: React.FC<Props> = ({
               fullWidth
               autoFocus
               required
+              data-testid="todo-update-title"
             />
             <TextField
               label={t("deadline")}
@@ -90,6 +91,7 @@ const TodoUpdate: React.FC<Props> = ({
               InputLabelProps={{
                 shrink: true,
               }}
+              data-testid="todo-update-deadline"
             />
             <TextField
               label={t("responsible")}
@@ -98,6 +100,7 @@ const TodoUpdate: React.FC<Props> = ({
               onChange={handleFieldsChange}
               variant="outlined"
               fullWidth
+              data-testid="todo-update-responsible"
             />
             <TextField
               label={t("comment")}
@@ -106,9 +109,10 @@ const TodoUpdate: React.FC<Props> = ({
               onChange={handleFieldsChange}
               variant="outlined"
               fullWidth
+              data-testid="todo-update-comment"
             />
 
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={handleClose} color="primary" data-testid="todo-update-cancel">
               {t("cancel")}
             </Button>
 
@@ -119,6 +123,7 @@ const TodoUpdate: React.FC<Props> = ({
               disabled={!validateForm()}
               isLoading={isLoading}
               type="submit"
+              data-testid="todo-update-submit"
             >
               {t("save")}
             </LoadingButton>
