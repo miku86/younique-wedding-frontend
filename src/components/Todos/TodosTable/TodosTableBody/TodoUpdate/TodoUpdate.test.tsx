@@ -1,6 +1,6 @@
 import React from "react";
-import { todoItem } from "../../../../../utils/mocks/fixture";
 import { renderWithRouter } from "../../../../../utils/testing";
+import { todoItem } from "../../../../../utils/testing/fixtures";
 import TodoUpdate from "./TodoUpdate";
 
 describe("component", () => {
