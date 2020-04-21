@@ -1,12 +1,5 @@
-import { Link, makeStyles, Theme } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
+import { makeStyles, Theme } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { Link as RouterLink } from "react-router-dom";
 import { API, ROUTE } from "../../config";
 import budgetImage from "../../static/images/budget.jpg";
 import guestsImage from "../../static/images/guests.jpg";
@@ -16,6 +9,7 @@ import { onError } from "../../utils/error";
 import { useApi } from "../../utils/hooks/useApi";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import DashboardCard from "./DashboardCard";
 
 interface Props { }
 
@@ -57,8 +51,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Dashboard: React.FC<Props> = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAppContext();
-  const { t } = useTranslation();
-  const [{ data, isLoading, isError }, doFetch] = useApi(API.DASHBOARD, {});
+  const [{ data, isLoading }, doFetch] = useApi(API.DASHBOARD, {});
 
   useEffect(() => {
     (async () => {
@@ -82,84 +75,27 @@ const Dashboard: React.FC<Props> = () => {
           <LoadingSpinner />
         ) : (
             <>
-              <Card className={classes.card}>
-                <Link component={RouterLink} to={ROUTE.TODOS}>
-                  <CardActionArea>
-                    <CardMedia className={classes.media} image={todosImage} />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {t("todos")}
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {`${data?.todos?.amountDoneItems} /  ${data?.todos?.amountItems}`}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {t("done")}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Link>
-              </Card>
-              <Card className={classes.card}>
-                <Link component={RouterLink} to={ROUTE.GUESTS}>
-                  <CardActionArea>
-                    <CardMedia className={classes.media} image={guestsImage} />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {t("guests")}
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {`${data?.guests?.amountDoneItems} /  ${data?.guests?.amountItems}`}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {t("coming")}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Link>
-              </Card>
-              <Card className={classes.card}>
-                <Link component={RouterLink} to={ROUTE.BUDGET}>
-                  <CardActionArea>
-                    <CardMedia className={classes.media} image={budgetImage} />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {t("budget")}
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {`${data?.budget?.amountDoneItems} /  ${data?.budget?.amountItems}`}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {t("bought")}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Link>
-              </Card>
+              <DashboardCard
+                link={ROUTE.TODOS}
+                image={todosImage}
+                data={data?.todos || []}
+                title="todos"
+                text="done"
+              />
+              <DashboardCard
+                link={ROUTE.GUESTS}
+                image={guestsImage}
+                data={data.guests || []}
+                title="guests"
+                text="coming"
+              />
+              <DashboardCard
+                link={ROUTE.BUDGET}
+                image={budgetImage}
+                data={data.budget || []}
+                title="budget"
+                text="bought"
+              />
             </>
           )}
       </div>

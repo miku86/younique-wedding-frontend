@@ -9,6 +9,17 @@ export interface IappProps {
   setIsAuthenticated: TsetIsAuthenticated;
 }
 
+export interface DashboardItem {
+  amountItems: number;
+  amountDoneItems: number;
+}
+
+interface DashboardData {
+  todos: DashboardItem;
+  guests: DashboardItem;
+  budget: DashboardItem;
+}
+
 export interface Todo {
   PK: string;
   SK: string;
