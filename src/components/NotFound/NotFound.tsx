@@ -16,7 +16,7 @@ const NotFound: React.FC<Props> = () => {
   const location = useLocation();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid="page-404">
       <h1>Sorry, there is no page with the address <pre>{location.pathname}</pre></h1>
     </div>
   );

@@ -2,14 +2,13 @@ import { ROUTE } from "../../src/config";
 
 const createRandomPaths = () => {
   const numberOfPaths = 10;
-  const randomPaths = [...Array(numberOfPaths)].map(
-    () => {
-      return Math.random()
-        .toString(36)
-        .replace(/[^a-z]+/g, '')
-        .substr(0, 10);
-    },
-  );
+  const randomPaths = [...Array(numberOfPaths)]
+    .map(() => Math
+      .random()
+      .toString(36)
+      .replace(/[^a-z]+/g, '')
+      .substr(0, 11))
+    .map(path => `/${path}`);
   return randomPaths;
 };
 
@@ -31,6 +30,16 @@ describe('routing', () => {
     filteredPaths.forEach((path) => {
       cy.visit(`${path}`);
       cy.url().should('eq', `${baseUrl}${path}`);
+    });
+  });
+
+  it('should lead to error page if path is not a valid path', () => {
+    const randomPaths = createRandomPaths();
+    const filteredRandomPaths = randomPaths.filter(path => !validPaths.includes(path));
+    filteredRandomPaths.forEach((path) => {
+      cy.visit(`/${path}`);
+      cy.url().should('eq', `${baseUrl}${path}`);
+      cy.get('[data-testid="page-404"]');
     });
   });
 });
