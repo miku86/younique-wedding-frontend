@@ -17,11 +17,7 @@ import { onError } from "../../utils/error";
 import { useAppContext } from "../../utils/context";
 import { useApi } from "../../utils/hooks/useApi";
 
-interface Props {}
-
-interface DashboardData {
-  [key: string]: any;
-}
+interface Props { }
 
 const useStyles = makeStyles((theme: Theme) => ({
   dashboard: {
