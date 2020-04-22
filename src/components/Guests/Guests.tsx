@@ -1,15 +1,14 @@
-import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { makeStyles, Theme } from "@material-ui/core";
 import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Link as RouterLink } from "react-router-dom";
-import { API, config, ROUTE } from "../../config";
+import { API, config } from "../../config";
 import { useAppContext } from "../../utils/context";
 import { GuestInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useApi } from "../../utils/hooks/useApi";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import GuestNewButton from "./GuestNewButton";
 import Summary from "./Summary";
 import CustomTable from "./Table";
 
@@ -121,20 +120,7 @@ const Guests: React.FC<Props> = () => {
               handleUpdateTexts={handleUpdateTexts}
             />
 
-            <Box display="flex" my={2}>
-              <Box justifyContent="flex-start">
-                <Link
-                  color="inherit"
-                  underline="none"
-                  component={RouterLink}
-                  to={`${ROUTE.GUESTS}/new`}
-                >
-                  <Fab color="primary" aria-label="add">
-                    <Add />
-                  </Fab>
-                </Link>
-              </Box>
-            </Box>
+            <GuestNewButton />
           </>
         )}
     </div>
