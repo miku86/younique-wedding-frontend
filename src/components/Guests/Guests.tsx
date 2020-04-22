@@ -10,7 +10,7 @@ import { useApi } from "../../utils/hooks/useApi";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import GuestNewButton from "./GuestNewButton";
 import GuestsSummary from "./GuestsSummary";
-import CustomTable from "./Table";
+import GuestsTable from "./GuestsTable";
 
 
 interface Props { }
@@ -109,7 +109,7 @@ const Guests: React.FC<Props> = () => {
   const amountDoneItems = data.filter((item: Guest) => item.coming).length;
 
   return (
-    <div className={classes.guests}>
+    <div className={classes.guests} data-testid="page-guests">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -118,11 +118,12 @@ const Guests: React.FC<Props> = () => {
               amountItems={amountItems}
               amountDoneItems={amountDoneItems}
             />
-            <CustomTable
-              data={data || []}
-              handleDelete={handleDelete}
+
+            <GuestsTable
+              data={data}
               handleUpdateBools={handleUpdateBools}
               handleUpdateTexts={handleUpdateTexts}
+              handleDelete={handleDelete}
             />
 
             <GuestNewButton />

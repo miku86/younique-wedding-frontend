@@ -1,18 +1,11 @@
-import {
-  makeStyles,
-  TableBody,
-  TableCell,
-  TableRow,
-  Theme,
-} from "@material-ui/core";
-import { Create, Delete } from "@material-ui/icons";
-import React, { FormEvent, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Guest, GuestInputs } from "../../utils/customTypes";
-import { getSorting, stableSort } from "../../utils/helpers";
-import CheckingIcon from "../shared/CheckingIcon";
-import { Order } from "../shared/TableHead";
-import UpdateGuest from "./UpdateGuest";
+import { makeStyles, TableBody, TableCell, TableRow, Theme } from '@material-ui/core';
+import { Create, Delete } from '@material-ui/icons';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Guest, GuestInputs, Order } from "../../../../utils/customTypes";
+import { getSorting, stableSort } from '../../../../utils/helpers';
+import CheckingIcon from '../../../shared/CheckingIcon';
+import GuestUpdate from './GuestUpdate';
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
@@ -25,35 +18,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface Props {
   data: Guest[];
+  handleUpdateBools: any;
+  handleUpdateTexts: any;
+  handleDelete: any;
   order: Order;
-  orderBy: string;
-  handleDelete: (guestId: string) => void;
-  handleUpdateBools: (
-    guestId: string,
-    fieldKey: string,
-    fieldValue: boolean
-  ) => void;
-  handleUpdateTexts: (
-    event: FormEvent<HTMLFormElement>,
-    guestId: string,
-    fields: GuestInputs
-  ) => void;
+  orderBy: keyof GuestInputs;
 }
 
-const ExtendedTableBody: React.FC<Props> = ({
-  data,
-  order,
-  orderBy,
-  handleDelete,
-  handleUpdateBools,
-  handleUpdateTexts,
-}) => {
+const GuestsTableBody = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete, order, orderBy }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [selectedItemData, setSelectedItemData] = useState<any>();
 
-  const handleClickOpen = (item: Guest) => {
+  const handleOpenUpdateDialog = (item: Guest) => {
     setSelectedItemData(item);
     setOpenUpdateDialog(true);
   };
@@ -63,17 +41,17 @@ const ExtendedTableBody: React.FC<Props> = ({
   };
 
   return (
-    <TableBody>
+    <TableBody data-testid="guests-table-body">
       {data.length ? (
-        stableSort(data, getSorting(order, orderBy)).map((item, index) => {
+        stableSort(data, getSorting(order, orderBy)).map((item: any, index) => {
           const labelId = `${index}`;
 
           return (
             <TableRow hover role="checkbox" tabIndex={-1} key={item.SK}>
-              <TableCell id={labelId} scope="item" align="center">
+              <TableCell id={labelId} scope="item" align="center" data-testid="guests-table-body-name">
                 {item.name}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" data-testid="guests-table-body-sentsavethedate">
                 <CheckingIcon
                   itemId={item.guestId}
                   fieldKey="sentSaveTheDate"
@@ -81,7 +59,7 @@ const ExtendedTableBody: React.FC<Props> = ({
                   handleClick={handleUpdateBools}
                 />
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" data-testid="guests-table-body-sentinvite">
                 <CheckingIcon
                   itemId={item.guestId}
                   fieldKey="sentInvite"
@@ -89,7 +67,7 @@ const ExtendedTableBody: React.FC<Props> = ({
                   handleClick={handleUpdateBools}
                 />
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" data-testid="guests-table-body-receivedresponse">
                 <CheckingIcon
                   itemId={item.guestId}
                   fieldKey="receivedResponse"
@@ -97,7 +75,7 @@ const ExtendedTableBody: React.FC<Props> = ({
                   handleClick={handleUpdateBools}
                 />
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="center" data-testid="guests-table-body-coming">
                 <CheckingIcon
                   itemId={item.guestId}
                   fieldKey="coming"
@@ -105,28 +83,30 @@ const ExtendedTableBody: React.FC<Props> = ({
                   handleClick={handleUpdateBools}
                 />
               </TableCell>
-              <TableCell align="center">{item.comment}</TableCell>
+              <TableCell align="center" data-testid="guests-table-body-comment">{item.comment}</TableCell>
 
               <TableCell align="center">
                 <Create
                   className={classes.updateButton}
-                  onClick={() => handleClickOpen(item)}
+                  onClick={() => handleOpenUpdateDialog(item)}
+                  data-testid="guests-table-body-update"
                 />
                 <Delete
                   className={classes.deleteButton}
                   onClick={() => handleDelete(item.guestId)}
+                  data-testid="guests-table-body-delete"
                 />
               </TableCell>
             </TableRow>
           );
         })
       ) : (
-        <TableRow>
-          <TableCell align="left">{t("noEntries")}</TableCell>
-        </TableRow>
-      )}
+          <TableRow>
+            <TableCell align="left" data-testid="guests-table-body-no-entries">{t("noEntries")}</TableCell>
+          </TableRow>
+        )}
       {openUpdateDialog && (
-        <UpdateGuest
+        <GuestUpdate
           item={selectedItemData}
           open={openUpdateDialog}
           handleClose={handleClose}
@@ -134,7 +114,7 @@ const ExtendedTableBody: React.FC<Props> = ({
         />
       )}
     </TableBody>
-  );
-};
+  )
+}
 
-export default ExtendedTableBody;
+export default GuestsTableBody

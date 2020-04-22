@@ -1,9 +1,9 @@
 import { Button, Dialog, DialogContent, DialogTitle, makeStyles, TextField, Theme } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Guest, GuestInputs } from "../../utils/customTypes";
-import { useFormFields } from "../../utils/hooks";
-import LoadingButton from "../shared/LoadingButton";
+import { Guest, GuestInputs } from "../../../../../utils/customTypes";
+import { useFormFields } from "../../../../../utils/hooks";
+import LoadingButton from "../../../../shared/LoadingButton";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
@@ -36,7 +36,7 @@ interface Props {
   ) => void;
 }
 
-const UpdateGuest: React.FC<Props> = ({
+const GuestUpdate: React.FC<Props> = ({
   item,
   open,
   handleClose,
@@ -64,7 +64,7 @@ const UpdateGuest: React.FC<Props> = ({
       keepMounted
       onClose={handleClose}
     >
-      <div className={classes.content}>
+      <div className={classes.content} data-testid="guest-update-form">
         <DialogTitle> {t("updateGuestHeading")}</DialogTitle>
         <DialogContent>
           <form
@@ -80,6 +80,7 @@ const UpdateGuest: React.FC<Props> = ({
               fullWidth
               autoFocus
               required
+              data-testid="guest-update-name"
             />
             <TextField
               label={t("comment")}
@@ -88,9 +89,10 @@ const UpdateGuest: React.FC<Props> = ({
               onChange={handleFieldsChange}
               variant="outlined"
               fullWidth
+              data-testid="guest-update-comment"
             />
 
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={handleClose} color="primary" data-testid="guest-update-cancel">
               {t("cancel")}
             </Button>
 
@@ -101,6 +103,7 @@ const UpdateGuest: React.FC<Props> = ({
               disabled={!validateForm()}
               isLoading={isLoading}
               type="submit"
+              data-testid="guest-update-submit"
             >
               {t("save")}
             </LoadingButton>
@@ -111,4 +114,4 @@ const UpdateGuest: React.FC<Props> = ({
   );
 };
 
-export default UpdateGuest;
+export default GuestUpdate;

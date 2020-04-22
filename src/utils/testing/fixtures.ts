@@ -10,3 +10,17 @@ export const todoItem = {
   timestamp: 0,
   done: false,
 }
+
+export const guestItem = {
+  PK: "0",
+  SK: "0",
+  userId: "0",
+  guestId: "0",
+  name: "0",
+  comment: "0",
+  sentSaveTheDate: false,
+  sentInvite: false,
+  receivedResponse: false,
+  coming: false,
+  timestamp: 1,
+}
