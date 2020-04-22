@@ -4,12 +4,12 @@ import React, { FormEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { API, config } from "../../config";
 import { useAppContext } from "../../utils/context";
-import { GuestInputs } from "../../utils/customTypes";
+import { Guest, GuestInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useApi } from "../../utils/hooks/useApi";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import GuestNewButton from "./GuestNewButton";
-import Summary from "./Summary";
+import GuestsSummary from "./GuestsSummary";
 import CustomTable from "./Table";
 
 
@@ -105,14 +105,19 @@ const Guests: React.FC<Props> = () => {
     }
   };
 
+  const amountItems = data.length;
+  const amountDoneItems = data.filter((item: Guest) => item.coming).length;
+
   return (
     <div className={classes.guests}>
       {isLoading ? (
         <LoadingSpinner />
       ) : (
           <>
-            <Summary data={data || []} />
-
+            <GuestsSummary
+              amountItems={amountItems}
+              amountDoneItems={amountDoneItems}
+            />
             <CustomTable
               data={data || []}
               handleDelete={handleDelete}

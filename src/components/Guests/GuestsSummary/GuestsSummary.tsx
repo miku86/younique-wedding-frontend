@@ -1,14 +1,7 @@
-import {
-  Card,
-  CardContent,
-  makeStyles,
-  Theme,
-  Typography,
-} from "@material-ui/core";
+import { Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
 import { CheckCircleOutline } from "@material-ui/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Guest } from "../../utils/customTypes";
 
 const useStyles = makeStyles((theme: Theme) => ({
   summary: {
@@ -49,18 +42,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface Props {
-  data: Guest[];
+  amountItems: number;
+  amountDoneItems: number;
 }
 
-const Summary: React.FC<Props> = ({ data }) => {
+const GuestsSummary = ({ amountItems, amountDoneItems }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const amountItems = data.length;
-  const amountDoneItems = data.filter((item) => item.coming).length;
-
   return (
-    <div className={classes.summary}>
+    <div className={classes.summary} data-testid="guests-summary">
       <Card className={classes.card}>
         <CheckCircleOutline style={{ fontSize: 32, color: "#e33371" }} />
         <CardContent className={classes.content}>
@@ -73,7 +64,7 @@ const Summary: React.FC<Props> = ({ data }) => {
         </CardContent>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default Summary;
+export default GuestsSummary
