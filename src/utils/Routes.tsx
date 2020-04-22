@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import BudgetItems from "../components/Budget/BudgetItems";
 import NewBudgetItem from "../components/Budget/NewBudgetItem";
 import Dashboard from "../components/Dashboard";
-import NewGuest from "../components/GuestNew/NewGuest";
+import NewGuest from "../components/GuestNew";
 import Guests from "../components/Guests";
 import Login from "../components/Login/Login";
 import NotFound from "../components/NotFound/NotFound";
@@ -12,7 +12,7 @@ import AuthRoute from "../components/shared/AuthRoute";
 import CustomRoute from "../components/shared/CustomRoute";
 import UnauthRoute from "../components/shared/UnauthRoute";
 import Signup from "../components/Signup/Signup";
-import TodoNew from "../components/TodoNew/TodoNew";
+import TodoNew from "../components/TodoNew";
 import Todos from "../components/Todos";
 import { ROUTE } from "../config";
 

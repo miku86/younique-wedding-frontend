@@ -3,12 +3,12 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { config, API, ROUTE } from "../../config";
+import { API, config, ROUTE } from "../../config";
+import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
-import { onError } from "../../utils/error";
 
-interface Props {}
+interface Props { }
 
 interface GuestInputs {
   name: string;
@@ -77,7 +77,7 @@ const NewGuest: React.FC<Props> = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid="page-guest-new">
       <div className={classes.card}>
         <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
@@ -89,6 +89,7 @@ const NewGuest: React.FC<Props> = () => {
             fullWidth
             autoFocus
             required
+            data-testid="guest-new-name"
           />
           <TextField
             label={t("comment")}
@@ -97,6 +98,7 @@ const NewGuest: React.FC<Props> = () => {
             onChange={handleFieldsChange}
             variant="outlined"
             fullWidth
+            data-testid="guest-new-comment"
           />
           <LoadingButton
             variant="contained"
@@ -105,6 +107,7 @@ const NewGuest: React.FC<Props> = () => {
             disabled={!validateForm()}
             isLoading={isLoading}
             type="submit"
+            data-testid="guest-new-add"
           >
             {t("add")}
           </LoadingButton>
