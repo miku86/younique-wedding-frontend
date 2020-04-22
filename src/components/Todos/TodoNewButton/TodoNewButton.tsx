@@ -16,9 +16,9 @@ const TodoNewButton = (props: Props) => {
           color="inherit"
           underline="none"
           component={RouterLink}
-          to={`${ROUTE.TODOS}/new`}
+          to={`${ROUTE.TODOSNEW}`}
         >
-          <Fab color="primary" aria-label="add" data-testid="todo-new-button" >
+          <Fab color="primary" aria-label="add" data-testid="todo-new-button">
             <Add />
           </Fab>
         </Link>
