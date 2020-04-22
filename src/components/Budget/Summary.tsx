@@ -1,11 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  makeStyles,
-  Theme,
-  Typography,
-} from "@material-ui/core";
+import { Box, Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { BudgetItem } from "../../utils/customTypes";
@@ -55,8 +48,6 @@ interface Props {
 const Summary: React.FC<Props> = ({ data, availableBudget }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-
-  console.log(data);
 
   const formatter = new Intl.NumberFormat("de-DE", {
     style: "currency",
