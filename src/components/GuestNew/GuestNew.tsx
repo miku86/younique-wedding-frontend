@@ -4,16 +4,10 @@ import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { API, config, ROUTE } from "../../config";
+import { GuestInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
-
-interface Props { }
-
-interface GuestInputs {
-  name: string;
-  comment: string;
-}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -39,7 +33,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const NewGuest: React.FC<Props> = () => {
+interface Props { }
+
+const GuestNew: React.FC<Props> = () => {
   const classes = useStyles();
   let history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -117,4 +113,4 @@ const NewGuest: React.FC<Props> = () => {
   );
 };
 
-export default NewGuest;
+export default GuestNew;
