@@ -92,7 +92,10 @@ const GuestUpdate: React.FC<Props> = ({
               data-testid="guest-update-comment"
             />
 
-            <Button onClick={handleClose} color="primary" data-testid="guest-update-cancel">
+            <Button
+              onClick={handleClose}
+              color="primary"
+              data-testid="guest-update-cancel">
               {t("cancel")}
             </Button>
 
