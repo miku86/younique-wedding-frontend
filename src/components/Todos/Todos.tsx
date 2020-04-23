@@ -8,8 +8,8 @@ import { Todo, TodoInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useApi } from "../../utils/hooks/useApi";
 import ItemNewButton from "../shared/ItemNewButton";
+import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import TodosSummary from "./TodosSummary";
 import TodosTable from "./TodosTable";
 
 interface Props { }
@@ -105,7 +105,8 @@ const Todos: React.FC<Props> = () => {
         <LoadingSpinner />
       ) : (
           <>
-            <TodosSummary
+            <ItemsSummary
+              title="done"
               amountItems={amountItems}
               amountDoneItems={amountDoneItems}
             />

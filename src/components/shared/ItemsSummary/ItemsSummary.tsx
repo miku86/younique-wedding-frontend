@@ -1,7 +1,7 @@
-import { Card, CardContent, makeStyles, Theme, Typography } from '@material-ui/core';
-import { CheckCircleOutline } from '@material-ui/icons';
+import { Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
+import { CheckCircleOutline } from "@material-ui/icons";
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   summary: {
@@ -22,12 +22,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "center",
     alignItems: "center",
     margin: "10px 0",
+
     "& .MuiCardContent-root:last-child": {
       paddingBottom: "16px",
     },
 
     [theme.breakpoints.up("md")]: {
-      width: "240px",
+      width: "280px",
       margin: "20px 0",
     },
   },
@@ -41,16 +42,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface Props {
-  amountItems: number;
-  amountDoneItems: number;
+  title: string;
+  amountItems: number | string;
+  amountDoneItems: number | string;
 }
 
-const TodosSummary = ({ amountItems, amountDoneItems }: Props) => {
+const ItemsSummary = ({ title, amountItems, amountDoneItems }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
-    <div className={classes.summary} data-testid="todos-summary">
+    <div className={classes.summary} data-testid="items-summary">
       <Card className={classes.card}>
         <CheckCircleOutline
           style={{ fontSize: 32, color: "#e33371" }}
@@ -64,7 +66,7 @@ const TodosSummary = ({ amountItems, amountDoneItems }: Props) => {
             {`${amountDoneItems} / ${amountItems}`}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {t("done")}
+            {t(title)}
           </Typography>
         </CardContent>
       </Card>
@@ -72,4 +74,4 @@ const TodosSummary = ({ amountItems, amountDoneItems }: Props) => {
   )
 }
 
-export default TodosSummary
+export default ItemsSummary

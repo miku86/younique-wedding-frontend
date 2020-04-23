@@ -4,12 +4,13 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { API, config, ROUTE } from "../../config";
 import { useAppContext } from "../../utils/context";
-import { BudgetItemInputs } from "../../utils/customTypes";
+import { BudgetItem, BudgetItemInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
+import { formatter } from "../../utils/format";
 import { useApi } from "../../utils/hooks/useApi";
 import ItemNewButton from "../shared/ItemNewButton";
+import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import Summary from "./Summary";
 import CustomTable from "./Table";
 
 interface Props { }
@@ -126,13 +127,24 @@ const BudgetItems: React.FC<Props> = () => {
     }
   };
 
+  const actualCosts = data.reduce((total: number, currentItem: BudgetItem) => {
+    return total + Number(currentItem.actualCost);
+  }, 0);
+
+  const amountItems = formatter.format(availableBudget);
+  const amountDoneItems = formatter.format(availableBudget - actualCosts);
+
   return (
     <div className={classes.budgetItems}>
       {isLoading ? (
         <LoadingSpinner />
       ) : (
           <>
-            <Summary data={data || []} availableBudget={availableBudget} />
+            <ItemsSummary
+              title="availableBudget"
+              amountItems={amountItems}
+              amountDoneItems={amountDoneItems}
+            />
 
             <CustomTable
               data={data || []}

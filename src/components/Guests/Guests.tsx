@@ -8,8 +8,8 @@ import { Guest, GuestInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useApi } from "../../utils/hooks/useApi";
 import ItemNewButton from "../shared/ItemNewButton";
+import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import GuestsSummary from "./GuestsSummary";
 import GuestsTable from "./GuestsTable";
 
 
@@ -114,7 +114,8 @@ const Guests: React.FC<Props> = () => {
         <LoadingSpinner />
       ) : (
           <>
-            <GuestsSummary
+            <ItemsSummary
+              title="coming"
               amountItems={amountItems}
               amountDoneItems={amountDoneItems}
             />
