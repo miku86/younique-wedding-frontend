@@ -1,8 +1,18 @@
 import { Paper, Table, TableContainer } from '@material-ui/core';
 import React, { useState } from 'react';
-import { Guest, GuestInputs, Order } from '../../../utils/customTypes';
+import { Guest, GuestInputs, HeadCell, Order } from '../../../utils/customTypes';
+import ItemsTableHeader from '../../shared/ItemsTableHeader';
 import GuestsTableBody from './GuestsTableBody';
-import GuestsTableHeader from './GuestsTableHeader';
+
+const headCells: HeadCell[] = [
+  { id: "name", sorting: true },
+  { id: "sentSaveTheDate", sorting: true },
+  { id: "sentInvite", sorting: true },
+  { id: "receivedResponse", sorting: true },
+  { id: "coming", sorting: true },
+  { id: "comment", sorting: false },
+  { id: "options", sorting: false },
+];
 
 interface Props {
   data: Guest[];
@@ -27,11 +37,11 @@ const GuestsTable = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete 
   return (
     <TableContainer component={Paper} data-testid="guests-table">
       <Table size="medium">
-        <GuestsTableHeader
+        <ItemsTableHeader
+          headCells={headCells}
           order={order}
           orderBy={orderBy}
           handleRequestSort={handleRequestSort}
-
         />
         <GuestsTableBody
           data={data}

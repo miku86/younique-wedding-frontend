@@ -1,17 +1,10 @@
-import {
-  makeStyles,
-  TableBody,
-  TableCell,
-  TableRow,
-  Theme,
-} from "@material-ui/core";
+import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/core";
 import { Create, Delete } from "@material-ui/icons";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { BudgetItem, BudgetItemInputs } from "../../utils/customTypes";
+import { BudgetItem, BudgetItemInputs, Order } from "../../utils/customTypes";
 import { getSorting, stableSort } from "../../utils/helpers";
 import CheckingIcon from "../shared/CheckingIcon";
-import { Order } from "../shared/TableHead";
 import UpdateBudgetItem from "./UpdateBudgetItem";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -97,10 +90,10 @@ const ExtendedTableBody: React.FC<Props> = ({
           );
         })
       ) : (
-        <TableRow>
-          <TableCell align="left">{t("noEntries")}</TableCell>
-        </TableRow>
-      )}
+          <TableRow>
+            <TableCell align="left">{t("noEntries")}</TableCell>
+          </TableRow>
+        )}
       {openUpdateDialog && (
         <UpdateBudgetItem
           item={selectedItemData}

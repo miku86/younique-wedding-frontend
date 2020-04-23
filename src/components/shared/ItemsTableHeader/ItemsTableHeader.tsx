@@ -1,7 +1,7 @@
 import { makeStyles, TableCell, TableHead, TableRow, TableSortLabel, Theme } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { HeadCell, Order, OrderBy } from '../../../../utils/customTypes';
+import { HeadCell, Order, OrderBy } from '../../../utils/customTypes';
 
 const useStyles = makeStyles((theme: Theme) => ({
   head: {
@@ -24,23 +24,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-
-const headCells: HeadCell[] = [
-  { id: "done", sorting: true },
-  { id: "title", sorting: true },
-  { id: "deadline", sorting: true },
-  { id: "responsible", sorting: true },
-  { id: "comment", sorting: true },
-  { id: "options", sorting: false },
-];
-
 interface Props {
+  headCells: HeadCell[];
   order: Order;
   orderBy: OrderBy;
   handleRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
 }
 
-const TodosTableHeader = ({ order, orderBy, handleRequestSort }: Props) => {
+const ItemsTableHeader = ({ headCells, order, orderBy, handleRequestSort }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -51,7 +42,7 @@ const TodosTableHeader = ({ order, orderBy, handleRequestSort }: Props) => {
   };
 
   return (
-    <TableHead className={classes.head} data-testid="todos-table-header">
+    <TableHead className={classes.head} data-testid="items-table-header">
       <TableRow>
         {headCells.map((headCell) => {
           return headCell.sorting ? (
@@ -86,4 +77,4 @@ const TodosTableHeader = ({ order, orderBy, handleRequestSort }: Props) => {
   )
 }
 
-export default TodosTableHeader
+export default ItemsTableHeader

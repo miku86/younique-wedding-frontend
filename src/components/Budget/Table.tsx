@@ -1,7 +1,7 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
-import { BudgetItem, BudgetItemInputs } from "../../utils/customTypes";
-import ExtendedTableHead, { HeadCell, Order } from "../shared/TableHead";
+import { BudgetItem, BudgetItemInputs, HeadCell, Order } from "../../utils/customTypes";
+import ItemsTableHeader from '../shared/ItemsTableHeader';
 import ExtendedTableBody from "./TableBody";
 
 const headCells: HeadCell[] = [
@@ -48,11 +48,11 @@ const CustomTable: React.FC<Props> = ({
   return (
     <TableContainer component={Paper}>
       <Table size="medium">
-        <ExtendedTableHead
+        <ItemsTableHeader
+          headCells={headCells}
           order={order}
           orderBy={orderBy}
-          onRequestSort={handleRequestSort}
-          headCells={headCells}
+          handleRequestSort={handleRequestSort}
         />
         <ExtendedTableBody
           data={data}
