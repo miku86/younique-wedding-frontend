@@ -2,9 +2,9 @@ import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/
 import { Create, Delete } from "@material-ui/icons";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { BudgetItem, BudgetItemInputs, Order } from "../../utils/customTypes";
-import { getSorting, stableSort } from "../../utils/helpers";
-import CheckingIcon from "../shared/CheckingIcon";
+import { BudgetItem, BudgetItemInputs, Order } from "../../../../utils/customTypes";
+import { getSorting, stableSort } from "../../../../utils/helpers";
+import CheckingIcon from "../../../shared/CheckingIcon";
 import BudgetUpdate from "./BudgetUpdate";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface Props {
   data: BudgetItem[];
   order: Order;
-  orderBy: string;
+  orderBy: keyof BudgetItemInputs;
   handleDelete: (budgetItemId: string) => void;
   handleUpdateBools: (
     budgetItemId: string,
@@ -33,7 +33,7 @@ interface Props {
   ) => void;
 }
 
-const ExtendedTableBody: React.FC<Props> = ({
+const BudgetTableBody: React.FC<Props> = ({
   data,
   order,
   orderBy,
@@ -46,7 +46,7 @@ const ExtendedTableBody: React.FC<Props> = ({
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [selectedItemData, setSelectedItemData] = useState<any>();
 
-  const handleClickOpen = (item: BudgetItem) => {
+  const handleOpenUpdateDialog = (item: BudgetItem) => {
     setSelectedItemData(item);
     setOpenUpdateDialog(true);
   };
@@ -56,14 +56,14 @@ const ExtendedTableBody: React.FC<Props> = ({
   };
 
   return (
-    <TableBody>
+    <TableBody data-testid="budget-table-body">
       {data.length ? (
         stableSort(data, getSorting(order, orderBy)).map((item, index) => {
           const labelId = `${index}`;
 
           return (
             <TableRow hover role="checkbox" tabIndex={-1} key={item.SK}>
-              <TableCell align="center">
+              <TableCell align="center" data-testid="budget-table-body-done">
                 <CheckingIcon
                   itemId={item.budgetItemId}
                   fieldKey="done"
@@ -71,19 +71,21 @@ const ExtendedTableBody: React.FC<Props> = ({
                   handleClick={handleUpdateBools}
                 />
               </TableCell>
-              <TableCell id={labelId} scope="item" align="center">
+              <TableCell id={labelId} scope="item" align="center" data-testid="budget-table-body-name">
                 {item.name}
               </TableCell>
-              <TableCell align="center">{item.plannedCost}</TableCell>
-              <TableCell align="center">{item.actualCost}</TableCell>
+              <TableCell align="center" data-testid="budget-table-body-plannedcost">{item.plannedCost}</TableCell>
+              <TableCell align="center" data-testid="budget-table-body-actualcost">{item.actualCost}</TableCell>
               <TableCell align="center">
                 <Create
                   className={classes.updateButton}
-                  onClick={() => handleClickOpen(item)}
+                  onClick={() => handleOpenUpdateDialog(item)}
+                  data-testid="budget-table-body-update"
                 />
                 <Delete
                   className={classes.deleteButton}
                   onClick={() => handleDelete(item.budgetItemId)}
+                  data-testid="budget-table-body-delete"
                 />
               </TableCell>
             </TableRow>
@@ -91,7 +93,7 @@ const ExtendedTableBody: React.FC<Props> = ({
         })
       ) : (
           <TableRow>
-            <TableCell align="left">{t("noEntries")}</TableCell>
+            <TableCell align="left" data-testid="budget-table-body-no-entries">{t("noEntries")}</TableCell>
           </TableRow>
         )}
       {openUpdateDialog && (
@@ -106,4 +108,4 @@ const ExtendedTableBody: React.FC<Props> = ({
   );
 };
 
-export default ExtendedTableBody;
+export default BudgetTableBody;

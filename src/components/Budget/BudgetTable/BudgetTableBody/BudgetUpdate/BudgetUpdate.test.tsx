@@ -1,6 +1,6 @@
 import React from "react";
-import { renderWithRouter } from "../../../utils/testing";
-import { budgetItem } from "../../../utils/testing/fixtures";
+import { renderWithRouter } from "../../../../../utils/testing";
+import { budgetItem } from "../../../../../utils/testing/fixtures";
 import BudgetUpdate from "./BudgetUpdate";
 
 describe("component", () => {

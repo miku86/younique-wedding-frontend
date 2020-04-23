@@ -1,9 +1,9 @@
 import { Button, Dialog, DialogContent, DialogTitle, makeStyles, TextField, Theme } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { BudgetItem, BudgetItemInputs } from "../../../utils/customTypes";
-import { useFormFields } from "../../../utils/hooks";
-import LoadingButton from "../../shared/LoadingButton";
+import { BudgetItem, BudgetItemInputs } from "../../../../../utils/customTypes";
+import { useFormFields } from "../../../../../utils/hooks";
+import LoadingButton from "../../../../shared/LoadingButton";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {

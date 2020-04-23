@@ -1,8 +1,8 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
-import { BudgetItem, BudgetItemInputs, HeadCell, Order } from "../../utils/customTypes";
-import ItemsTableHeader from '../shared/ItemsTableHeader';
-import ExtendedTableBody from "./TableBody";
+import { BudgetItem, BudgetItemInputs, HeadCell, Order } from "../../../utils/customTypes";
+import ItemsTableHeader from "../../shared/ItemsTableHeader";
+import BudgetTableBody from "./BudgetTableBody";
 
 const headCells: HeadCell[] = [
   { id: "done", sorting: true },
@@ -27,7 +27,7 @@ interface Props {
   ) => void;
 }
 
-const CustomTable: React.FC<Props> = ({
+const BudgetTable: React.FC<Props> = ({
   data,
   handleDelete,
   handleUpdateBools,
@@ -46,7 +46,7 @@ const CustomTable: React.FC<Props> = ({
   };
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} data-testid="budget-table">
       <Table size="medium">
         <ItemsTableHeader
           headCells={headCells}
@@ -54,17 +54,17 @@ const CustomTable: React.FC<Props> = ({
           orderBy={orderBy}
           handleRequestSort={handleRequestSort}
         />
-        <ExtendedTableBody
+        <BudgetTableBody
           data={data}
-          order={order}
-          orderBy={orderBy}
-          handleDelete={handleDelete}
           handleUpdateBools={handleUpdateBools}
           handleUpdateTexts={handleUpdateTexts}
+          handleDelete={handleDelete}
+          order={order}
+          orderBy={orderBy}
         />
       </Table>
     </TableContainer>
   );
 };
 
-export default CustomTable;
+export default BudgetTable;

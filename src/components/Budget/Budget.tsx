@@ -11,7 +11,7 @@ import { useApi } from "../../utils/hooks/useApi";
 import ItemNewButton from "../shared/ItemNewButton";
 import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import CustomTable from "./Table";
+import BudgetTable from "./BudgetTable";
 
 interface Props { }
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const BudgetItems: React.FC<Props> = () => {
+const Budget: React.FC<Props> = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAppContext();
   const [availableBudget, setAvailableBudget] = useState(0);
@@ -135,7 +135,7 @@ const BudgetItems: React.FC<Props> = () => {
   const amountDoneItems = formatter.format(availableBudget - actualCosts);
 
   return (
-    <div className={classes.budgetItems}>
+    <div className={classes.budgetItems} data-testid="page-budget">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -146,11 +146,11 @@ const BudgetItems: React.FC<Props> = () => {
               amountDoneItems={amountDoneItems}
             />
 
-            <CustomTable
-              data={data || []}
-              handleDelete={handleDelete}
+            <BudgetTable
+              data={data}
               handleUpdateBools={handleUpdateBools}
               handleUpdateTexts={handleUpdateTexts}
+              handleDelete={handleDelete}
             />
 
             <ItemNewButton link={ROUTE.BUDGETNEW} />
@@ -160,4 +160,4 @@ const BudgetItems: React.FC<Props> = () => {
   );
 };
 
-export default BudgetItems;
+export default Budget;
