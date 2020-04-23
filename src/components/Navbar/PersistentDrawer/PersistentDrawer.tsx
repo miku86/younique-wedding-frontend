@@ -1,9 +1,9 @@
-import { Divider, Drawer, IconButton, Link, List, ListItem, ListItemIcon, makeStyles, Theme } from '@material-ui/core';
-import { ChevronLeft, Euro, FormatListBulleted, Home, Person } from '@material-ui/icons';
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Divider, Drawer, IconButton, Link, List, ListItem, ListItemIcon, makeStyles, Theme } from "@material-ui/core";
+import { ChevronLeft, Euro, FormatListBulleted, Home, Person } from "@material-ui/icons";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import { ROUTE } from '../../../config';
+import { ROUTE } from "../../../config";
 
 const useStyles = makeStyles((theme: Theme) => ({
   drawer: {
@@ -15,19 +15,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.primary.main
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   sideList: {
     padding: "0",
   },
   sideItem: {
     fontSize: "1rem",
-    color: '#FFF',
+    color: "#FFF",
     paddingTop: "10px",
     paddingBottom: "10px",
   },

@@ -1,7 +1,7 @@
-import { makeStyles, TableCell, TableHead, TableRow, TableSortLabel, Theme } from '@material-ui/core';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { HeadCell, Order, OrderBy } from '../../../utils/customTypes';
+import { makeStyles, TableCell, TableHead, TableRow, TableSortLabel, Theme } from "@material-ui/core";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { HeadCell, Order, OrderBy } from "../../../utils/customTypes";
 
 const useStyles = makeStyles((theme: Theme) => ({
   head: {

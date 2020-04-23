@@ -12,7 +12,6 @@ import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import GuestsTable from "./GuestsTable";
 
-
 interface Props { }
 
 const useStyles = makeStyles((theme: Theme) => ({

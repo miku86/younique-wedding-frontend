@@ -1,8 +1,8 @@
-import { Paper, Table, TableContainer } from '@material-ui/core';
-import React, { useState } from 'react';
-import { HeadCell, Order, Todo, TodoInputs } from '../../../utils/customTypes';
-import ItemsTableHeader from '../../shared/ItemsTableHeader';
-import TodosTableBody from './TodosTableBody';
+import { Paper, Table, TableContainer } from "@material-ui/core";
+import React, { useState } from "react";
+import { HeadCell, Order, Todo, TodoInputs } from "../../../utils/customTypes";
+import ItemsTableHeader from "../../shared/ItemsTableHeader";
+import TodosTableBody from "./TodosTableBody";
 
 const headCells: HeadCell[] = [
   { id: "done", sorting: true },

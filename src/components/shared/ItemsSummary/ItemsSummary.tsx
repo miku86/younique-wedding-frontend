@@ -1,6 +1,6 @@
 import { Card, CardContent, makeStyles, Theme, Typography } from "@material-ui/core";
 import { CheckCircleOutline } from "@material-ui/icons";
-import React from 'react';
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({

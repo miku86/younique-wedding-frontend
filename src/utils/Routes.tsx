@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import BudgetItems from "../components/Budget/BudgetItems";
+import Budget from "../components/Budget";
 import BudgetNew from "../components/BudgetNew";
 import Dashboard from "../components/Dashboard";
 import NewGuest from "../components/GuestNew";
@@ -46,7 +46,7 @@ const Routes: React.FC<Props> = () => {
         <NewGuest />
       </AuthRoute>
       <AuthRoute path={ROUTE.BUDGET} exact={true}>
-        <BudgetItems />
+        <Budget />
       </AuthRoute>
       <AuthRoute path={`${ROUTE.BUDGETNEW}`} exact={true}>
         <BudgetNew />

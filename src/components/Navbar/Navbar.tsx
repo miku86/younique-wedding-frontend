@@ -1,28 +1,28 @@
-import { Button, Menu, MenuItem } from '@material-ui/core';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import IconButton from '@material-ui/core/IconButton';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { AccountCircle } from '@material-ui/icons';
+import { Button, Menu, MenuItem } from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import IconButton from "@material-ui/core/IconButton";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import { AccountCircle } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Auth } from 'aws-amplify';
-import clsx from 'clsx';
-import React, { ReactNode, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Auth } from "aws-amplify";
+import clsx from "clsx";
+import React, { ReactNode, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link as RouterLink, useHistory } from "react-router-dom";
-import { ROUTE } from '../../config';
-import { useAppContext } from '../../utils/context';
-import PersistentDrawer from './PersistentDrawer';
+import { ROUTE } from "../../config";
+import { useAppContext } from "../../utils/context";
+import PersistentDrawer from "./PersistentDrawer";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
     flexGrow: 1
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   appBarShift: {
     width: `calc(100% - ${theme.custom.drawerWidth}px)`,
     marginLeft: theme.custom.drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -39,27 +39,27 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(2),
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
     display: "flex",
     flexDirection: "column",
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -theme.custom.drawerWidth,
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),

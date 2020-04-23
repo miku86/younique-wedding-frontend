@@ -1,11 +1,11 @@
-import { makeStyles, TableBody, TableCell, TableRow, Theme } from '@material-ui/core';
-import { Create, Delete } from '@material-ui/icons';
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/core";
+import { Create, Delete } from "@material-ui/icons";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Order, Todo, TodoInputs } from "../../../../utils/customTypes";
-import { getSorting, stableSort } from '../../../../utils/helpers';
-import CheckingIcon from '../../../shared/CheckingIcon';
-import TodoUpdate from './TodoUpdate';
+import { getSorting, stableSort } from "../../../../utils/helpers";
+import CheckingIcon from "../../../shared/CheckingIcon";
+import TodoUpdate from "./TodoUpdate";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
