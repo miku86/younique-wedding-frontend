@@ -5,11 +5,9 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { API, config, ROUTE } from "../../config";
 import { BudgetItemInputs } from "../../utils/customTypes";
+import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
-import { onError } from "../../utils/error";
-
-interface Props {}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -35,7 +33,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const NewBudgetItem: React.FC<Props> = () => {
+interface Props { }
+
+const BudgetNew: React.FC<Props> = () => {
   const classes = useStyles();
   let history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -79,7 +79,7 @@ const NewBudgetItem: React.FC<Props> = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid="page-budget-new">
       <div className={classes.card}>
         <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
@@ -91,6 +91,7 @@ const NewBudgetItem: React.FC<Props> = () => {
             fullWidth
             autoFocus
             required
+            data-testid="budget-new-name"
           />
           <TextField
             label={t("plannedCost")}
@@ -100,6 +101,7 @@ const NewBudgetItem: React.FC<Props> = () => {
             onChange={handleFieldsChange}
             variant="outlined"
             fullWidth
+            data-testid="budget-new-plannedcost"
           />
           <TextField
             label={t("actualCost")}
@@ -109,6 +111,7 @@ const NewBudgetItem: React.FC<Props> = () => {
             onChange={handleFieldsChange}
             variant="outlined"
             fullWidth
+            data-testid="budget-new-actualcost"
           />
           <LoadingButton
             variant="contained"
@@ -117,6 +120,7 @@ const NewBudgetItem: React.FC<Props> = () => {
             disabled={!validateForm()}
             isLoading={isLoading}
             type="submit"
+            data-testid="budget-new-add"
           >
             {t("add")}
           </LoadingButton>
@@ -126,4 +130,4 @@ const NewBudgetItem: React.FC<Props> = () => {
   );
 };
 
-export default NewBudgetItem;
+export default BudgetNew;
