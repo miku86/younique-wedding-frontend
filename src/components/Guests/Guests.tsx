@@ -2,13 +2,13 @@ import { makeStyles, Theme } from "@material-ui/core";
 import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { API, config } from "../../config";
+import { API, config, ROUTE } from "../../config";
 import { useAppContext } from "../../utils/context";
 import { Guest, GuestInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useApi } from "../../utils/hooks/useApi";
+import ItemNewButton from "../shared/ItemNewButton";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import GuestNewButton from "./GuestNewButton";
 import GuestsSummary from "./GuestsSummary";
 import GuestsTable from "./GuestsTable";
 
@@ -126,7 +126,7 @@ const Guests: React.FC<Props> = () => {
               handleDelete={handleDelete}
             />
 
-            <GuestNewButton />
+            <ItemNewButton link={ROUTE.GUESTSNEW} />
           </>
         )}
     </div>

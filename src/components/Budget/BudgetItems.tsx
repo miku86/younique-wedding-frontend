@@ -1,14 +1,13 @@
-import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { makeStyles, Theme } from "@material-ui/core";
 import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link as RouterLink } from "react-router-dom";
 import { API, config, ROUTE } from "../../config";
 import { useAppContext } from "../../utils/context";
 import { BudgetItemInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useApi } from "../../utils/hooks/useApi";
+import ItemNewButton from "../shared/ItemNewButton";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import Summary from "./Summary";
 import CustomTable from "./Table";
@@ -142,20 +141,7 @@ const BudgetItems: React.FC<Props> = () => {
               handleUpdateTexts={handleUpdateTexts}
             />
 
-            <Box display="flex" my={2}>
-              <Box justifyContent="flex-start">
-                <Link
-                  color="inherit"
-                  underline="none"
-                  component={RouterLink}
-                  to={`${ROUTE.BUDGET}/new`}
-                >
-                  <Fab color="primary" aria-label="add">
-                    <Add />
-                  </Fab>
-                </Link>
-              </Box>
-            </Box>
+            <ItemNewButton link={ROUTE.BUDGETNEW} />
           </>
         )}
     </div>

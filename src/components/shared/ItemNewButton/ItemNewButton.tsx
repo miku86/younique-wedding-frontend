@@ -2,13 +2,12 @@ import { Box, Fab, Link } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { ROUTE } from "../../../config";
 
 interface Props {
-
+  link: string;
 }
 
-const GuestNewButton = (props: Props) => {
+const ItemNewButton = ({ link }: Props) => {
   return (
     <Box display="flex" my={2}>
       <Box justifyContent="flex-start">
@@ -16,9 +15,10 @@ const GuestNewButton = (props: Props) => {
           color="inherit"
           underline="none"
           component={RouterLink}
-          to={`${ROUTE.GUESTSNEW}`}
+          to={link}
+          data-testid="item-new-button"
         >
-          <Fab color="primary" aria-label="add" data-testid="guest-new-button">
+          <Fab color="primary" aria-label="add" >
             <Add />
           </Fab>
         </Link>
@@ -27,4 +27,4 @@ const GuestNewButton = (props: Props) => {
   )
 }
 
-export default GuestNewButton
+export default ItemNewButton
