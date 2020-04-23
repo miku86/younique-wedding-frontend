@@ -66,7 +66,7 @@ const BudgetItems: React.FC<Props> = () => {
   }, [isAuthenticated]);
 
   const deleteBudgetItem = async (budgetItemId: string) => {
-    return AMPLIFY.del(config.API.NAME, "API.BUDGET", {
+    return AMPLIFY.del(config.API.NAME, API.BUDGET, {
       body: {
         budgetItemId,
       },

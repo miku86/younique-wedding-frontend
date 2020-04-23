@@ -3,7 +3,7 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { config, ROUTE } from "../../config";
+import { API, config, ROUTE } from "../../config";
 import { BudgetItemInputs } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
@@ -61,7 +61,7 @@ const NewBudgetItem: React.FC<Props> = () => {
       actualCost,
     };
 
-    return AMPLIFY.post(config.API.NAME, "API.BUDGET", { body });
+    return AMPLIFY.post(config.API.NAME, API.BUDGET, { body });
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
