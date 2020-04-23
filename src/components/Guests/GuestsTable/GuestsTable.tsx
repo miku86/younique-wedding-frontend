@@ -15,7 +15,10 @@ const GuestsTable = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete 
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof GuestInputs>("name");
 
-  const handleRequestSort = (property: any) => (event: React.MouseEvent<unknown>) => {
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: any
+  ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
