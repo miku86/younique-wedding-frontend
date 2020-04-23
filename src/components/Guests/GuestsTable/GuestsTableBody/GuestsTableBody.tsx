@@ -1,11 +1,11 @@
-import { makeStyles, TableBody, TableCell, TableRow, Theme } from '@material-ui/core';
-import { Create, Delete } from '@material-ui/icons';
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/core";
+import { Create, Delete } from "@material-ui/icons";
+import React, { FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Guest, GuestInputs, Order } from "../../../../utils/customTypes";
-import { getSorting, stableSort } from '../../../../utils/helpers';
-import CheckingIcon from '../../../shared/CheckingIcon';
-import GuestUpdate from './GuestUpdate';
+import { getSorting, stableSort } from "../../../../utils/helpers";
+import CheckingIcon from "../../../shared/CheckingIcon";
+import GuestUpdate from "./GuestUpdate";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
@@ -18,11 +18,19 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface Props {
   data: Guest[];
-  handleUpdateBools: any;
-  handleUpdateTexts: any;
-  handleDelete: any;
   order: Order;
   orderBy: keyof GuestInputs;
+  handleDelete: (guestId: string) => void;
+  handleUpdateBools: (
+    guestId: string,
+    fieldKey: string,
+    fieldValue: boolean
+  ) => void;
+  handleUpdateTexts: (
+    event: FormEvent<HTMLFormElement>,
+    guestId: string,
+    fields: GuestInputs
+  ) => void;
 }
 
 const GuestsTableBody = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete, order, orderBy }: Props) => {

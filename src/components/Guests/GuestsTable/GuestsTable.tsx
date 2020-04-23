@@ -1,8 +1,8 @@
-import { Paper, Table, TableContainer } from '@material-ui/core';
-import React, { useState } from 'react';
-import { Guest, GuestInputs, HeadCell, Order } from '../../../utils/customTypes';
-import ItemsTableHeader from '../../shared/ItemsTableHeader';
-import GuestsTableBody from './GuestsTableBody';
+import { Paper, Table, TableContainer } from "@material-ui/core";
+import React, { FormEvent, useState } from "react";
+import { Guest, GuestInputs, HeadCell, Order } from "../../../utils/customTypes";
+import ItemsTableHeader from "../../shared/ItemsTableHeader";
+import GuestsTableBody from "./GuestsTableBody";
 
 const headCells: HeadCell[] = [
   { id: "name", sorting: true },
@@ -16,9 +16,17 @@ const headCells: HeadCell[] = [
 
 interface Props {
   data: Guest[];
-  handleUpdateBools: any;
-  handleUpdateTexts: any;
-  handleDelete: any;
+  handleUpdateBools: (
+    guestId: string,
+    fieldKey: string,
+    fieldValue: boolean
+  ) => void;
+  handleUpdateTexts: (
+    event: FormEvent<HTMLFormElement>,
+    guestId: string,
+    fields: GuestInputs
+  ) => void;
+  handleDelete: (guestId: string) => void;
 }
 
 const GuestsTable = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete }: Props) => {
