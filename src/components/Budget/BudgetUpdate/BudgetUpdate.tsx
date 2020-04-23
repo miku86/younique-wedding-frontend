@@ -1,9 +1,9 @@
 import { Button, Dialog, DialogContent, DialogTitle, makeStyles, TextField, Theme } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { BudgetItem, BudgetItemInputs } from "../../utils/customTypes";
-import { useFormFields } from "../../utils/hooks";
-import LoadingButton from "../shared/LoadingButton";
+import { BudgetItem, BudgetItemInputs } from "../../../utils/customTypes";
+import { useFormFields } from "../../../utils/hooks";
+import LoadingButton from "../../shared/LoadingButton";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
@@ -36,7 +36,7 @@ interface Props {
   ) => void;
 }
 
-const UpdateBudgetItem: React.FC<Props> = ({
+const BudgetUpdate: React.FC<Props> = ({
   item,
   open,
   handleClose,
@@ -61,7 +61,7 @@ const UpdateBudgetItem: React.FC<Props> = ({
       keepMounted
       onClose={handleClose}
     >
-      <div className={classes.content}>
+      <div className={classes.content} data-testid="budget-update-form">
         <DialogTitle> {t("updateBudgetItemHeading")}</DialogTitle>
         <DialogContent>
           <form
@@ -77,6 +77,7 @@ const UpdateBudgetItem: React.FC<Props> = ({
               fullWidth
               autoFocus
               required
+              data-testid="budget-update-name"
             />
             <TextField
               label={t("plannedCost")}
@@ -86,6 +87,7 @@ const UpdateBudgetItem: React.FC<Props> = ({
               onChange={handleFieldsChange}
               variant="outlined"
               fullWidth
+              data-testid="budget-update-plannedcost"
             />
             <TextField
               label={t("actualCost")}
@@ -95,9 +97,14 @@ const UpdateBudgetItem: React.FC<Props> = ({
               onChange={handleFieldsChange}
               variant="outlined"
               fullWidth
+              data-testid="budget-update-actualcost"
             />
 
-            <Button onClick={handleClose} color="primary">
+            <Button
+              onClick={handleClose}
+              color="primary"
+              data-testid="budget-update-cancel"
+            >
               {t("cancel")}
             </Button>
 
@@ -108,6 +115,7 @@ const UpdateBudgetItem: React.FC<Props> = ({
               disabled={!validateForm()}
               isLoading={isLoading}
               type="submit"
+              data-testid="budget-update-submit"
             >
               {t("save")}
             </LoadingButton>
@@ -118,4 +126,4 @@ const UpdateBudgetItem: React.FC<Props> = ({
   );
 };
 
-export default UpdateBudgetItem;
+export default BudgetUpdate;

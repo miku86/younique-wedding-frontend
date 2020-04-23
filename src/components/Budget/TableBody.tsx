@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { BudgetItem, BudgetItemInputs, Order } from "../../utils/customTypes";
 import { getSorting, stableSort } from "../../utils/helpers";
 import CheckingIcon from "../shared/CheckingIcon";
-import UpdateBudgetItem from "./UpdateBudgetItem";
+import BudgetUpdate from "./BudgetUpdate";
 
 const useStyles = makeStyles((theme: Theme) => ({
   deleteButton: {
@@ -95,7 +95,7 @@ const ExtendedTableBody: React.FC<Props> = ({
           </TableRow>
         )}
       {openUpdateDialog && (
-        <UpdateBudgetItem
+        <BudgetUpdate
           item={selectedItemData}
           open={openUpdateDialog}
           handleClose={handleClose}
