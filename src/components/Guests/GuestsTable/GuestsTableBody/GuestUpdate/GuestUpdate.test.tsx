@@ -13,6 +13,7 @@ describe("component", () => {
     }
 
     const { getByTestId } = renderWithRouter(<GuestUpdate {...props} />);
+    expect(getByTestId("guest-update-form")).toBeInTheDocument();
     expect(getByTestId("guest-update-name")).toBeInTheDocument();
     expect(getByTestId("guest-update-comment")).toBeInTheDocument();
     expect(getByTestId("guest-update-cancel")).toBeInTheDocument();
