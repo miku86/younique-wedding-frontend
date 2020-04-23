@@ -13,7 +13,7 @@ describe("component", () => {
 
     const { getByTestId } = renderWithRouter(<GuestsTable {...props} />);
     expect(getByTestId("guests-table")).toBeInTheDocument();
-    expect(getByTestId("guests-table-header")).toBeInTheDocument();
+    expect(getByTestId("items-table-header")).toBeInTheDocument();
     expect(getByTestId("guests-table-body")).toBeInTheDocument();
   });
 });
