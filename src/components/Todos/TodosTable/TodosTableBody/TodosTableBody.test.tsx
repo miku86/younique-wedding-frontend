@@ -14,7 +14,10 @@ describe("component", () => {
       orderBy: "name",
     }
 
-    const { getByTestId } = renderWithRouter(<TodosTableBody {...props} />);
+    const { getByTestId } = renderWithRouter(
+      <TodosTableBody {...props} />,
+      "table"
+    );
     expect(getByTestId("todos-table-body")).toBeInTheDocument();
     expect(getByTestId("todos-table-body-no-entries")).toBeInTheDocument();
   });
@@ -29,7 +32,10 @@ describe("component", () => {
       orderBy: "name",
     }
 
-    const { getByTestId } = renderWithRouter(<TodosTableBody {...props} />);
+    const { getByTestId } = renderWithRouter(
+      <TodosTableBody {...props} />,
+      "table"
+    );
     expect(getByTestId("todos-table-body")).toBeInTheDocument();
     expect(getByTestId("todos-table-body-done")).toBeInTheDocument();
     expect(getByTestId("todos-table-body-title")).toBeInTheDocument();

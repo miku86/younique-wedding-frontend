@@ -14,7 +14,10 @@ describe("component", () => {
       orderBy: "name",
     }
 
-    const { getByTestId } = renderWithRouter(<GuestsTableBody {...props} />);
+    const { getByTestId } = renderWithRouter(
+      <GuestsTableBody {...props} />,
+      "table"
+    );
     expect(getByTestId("guests-table-body")).toBeInTheDocument();
     expect(getByTestId("guests-table-body-no-entries")).toBeInTheDocument();
   });
@@ -29,7 +32,10 @@ describe("component", () => {
       orderBy: "name",
     }
 
-    const { getByTestId } = renderWithRouter(<GuestsTableBody {...props} />);
+    const { getByTestId } = renderWithRouter(
+      <GuestsTableBody {...props} />,
+      "table"
+    );
     expect(getByTestId("guests-table-body")).toBeInTheDocument();
     expect(getByTestId("guests-table-body-name")).toBeInTheDocument();
     expect(getByTestId("guests-table-body-sentsavethedate")).toBeInTheDocument();

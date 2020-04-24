@@ -14,7 +14,10 @@ describe("component", () => {
       orderBy: "name",
     }
 
-    const { getByTestId } = renderWithRouter(<BudgetTableBody {...props} />);
+    const { getByTestId } = renderWithRouter(
+      <BudgetTableBody {...props} />,
+      "table"
+    );
     expect(getByTestId("budget-table-body")).toBeInTheDocument();
     expect(getByTestId("budget-table-body-no-entries")).toBeInTheDocument();
   });
@@ -29,7 +32,10 @@ describe("component", () => {
       orderBy: "name",
     }
 
-    const { getByTestId } = renderWithRouter(<BudgetTableBody {...props} />);
+    const { getByTestId } = renderWithRouter(
+      <BudgetTableBody {...props} />,
+      "table"
+    );
     expect(getByTestId("budget-table-body")).toBeInTheDocument();
     expect(getByTestId("budget-table-body-done")).toBeInTheDocument();
     expect(getByTestId("budget-table-body-name")).toBeInTheDocument();

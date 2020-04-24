@@ -18,7 +18,10 @@ describe("component", () => {
       handleRequestSort: jest.fn()
     }
 
-    const { getByTestId } = renderWithRouter(<ItemsTableHeader {...props} />);
+    const { getByTestId } = renderWithRouter(
+      <ItemsTableHeader {...props} />,
+      "table"
+    );
     expect(getByTestId("items-table-header")).toBeInTheDocument();
   });
 });
