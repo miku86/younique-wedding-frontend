@@ -58,6 +58,13 @@
       ]
     }
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/index.ts",
+      "!src/**/*.d.ts"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
