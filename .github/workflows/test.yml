@@ -1,0 +1,24 @@
+name: Install, Unit, E2E
+on: [push]
+
+jobs:
+  test:
+    name: Install, Unit, E2E
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Unit Tests
+        run: npm run test --watchAll=false
+
+      - name: E2E Tests
+        uses: cypress-io/github-action@v1
+        with:
+          install: false
+          start: npm start
+          wait-on: "http://localhost:3000"
