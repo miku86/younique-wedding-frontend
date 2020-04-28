@@ -16,7 +16,7 @@ describe("component", () => {
       order: "asc",
       orderBy: "name",
       handleRequestSort: jest.fn()
-    }
+    };
 
     const { getByTestId } = renderWithRouter(
       <ItemsTableHeader {...props} />,

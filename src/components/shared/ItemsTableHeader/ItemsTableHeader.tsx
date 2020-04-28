@@ -74,7 +74,7 @@ const ItemsTableHeader = ({ headCells, order, orderBy, handleRequestSort }: Prop
         })}
       </TableRow>
     </TableHead>
-  )
-}
+  );
+};
 
-export default ItemsTableHeader
+export default ItemsTableHeader;

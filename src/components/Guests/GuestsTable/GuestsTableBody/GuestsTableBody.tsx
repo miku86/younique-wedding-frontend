@@ -122,7 +122,7 @@ const GuestsTableBody = ({ data, handleUpdateBools, handleUpdateTexts, handleDel
         />
       )}
     </TableBody>
-  )
-}
+  );
+};
 
-export default GuestsTableBody
+export default GuestsTableBody;

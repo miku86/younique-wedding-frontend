@@ -24,7 +24,7 @@ const ItemNewButton = ({ link }: Props) => {
         </Link>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default ItemNewButton
+export default ItemNewButton;

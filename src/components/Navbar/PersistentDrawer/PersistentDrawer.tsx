@@ -106,7 +106,7 @@ const PersistentDrawer = ({ drawerOpen, setDrawerOpen }: Props) => {
         ))}
       </List>
     </Drawer>
-  )
-}
+  );
+};
 
-export default PersistentDrawer
+export default PersistentDrawer;

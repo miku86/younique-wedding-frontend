@@ -10,7 +10,7 @@ describe("component", () => {
       open: false,
       handleClose: jest.fn(),
       handleSubmit: jest.fn()
-    }
+    };
 
     const { getByTestId } = renderWithRouter(<TodoUpdate {...props} />);
     expect(getByTestId("todo-update-form")).toBeInTheDocument();

@@ -83,7 +83,7 @@ const DashboardCard = ({ link, image, data, title, text }: Props) => {
         </CardActionArea>
       </Link>
     </Card>
-  )
-}
+  );
+};
 
-export default DashboardCard
+export default DashboardCard;

@@ -9,7 +9,7 @@ export const todoItem = {
   responsible: "0",
   timestamp: 0,
   done: false,
-}
+};
 
 export const guestItem = {
   PK: "0",
@@ -23,7 +23,7 @@ export const guestItem = {
   receivedResponse: false,
   coming: false,
   timestamp: 1,
-}
+};
 
 export const budgetItem = {
   PK: "0",
@@ -35,4 +35,4 @@ export const budgetItem = {
   plannedCost: "0",
   actualCost: "0",
   timestamp: 1,
-}
+};

@@ -53,7 +53,7 @@ const TodosTable = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete }
         />
       </Table>
     </TableContainer>
-  )
-}
+  );
+};
 
-export default TodosTable
+export default TodosTable;

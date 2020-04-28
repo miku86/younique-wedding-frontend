@@ -9,7 +9,7 @@ describe("component", () => {
       handleUpdateBools: jest.fn(),
       handleUpdateTexts: jest.fn(),
       handleDelete: jest.fn(),
-    }
+    };
 
     const { getByTestId } = renderWithRouter(<GuestsTable {...props} />);
     expect(getByTestId("guests-table")).toBeInTheDocument();

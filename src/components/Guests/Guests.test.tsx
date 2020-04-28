@@ -8,6 +8,6 @@ describe("component", () => {
     const { getByTestId } = renderWithRouter(<Guests />);
     await waitFor(() => {
       expect(getByTestId("page-guests")).toBeInTheDocument();
-    })
+    });
   });
 });

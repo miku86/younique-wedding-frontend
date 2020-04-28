@@ -12,7 +12,7 @@ describe("component", () => {
       handleDelete: jest.fn(),
       order: "asc",
       orderBy: "name",
-    }
+    };
 
     const { getByTestId } = renderWithRouter(
       <GuestsTableBody {...props} />,
@@ -30,7 +30,7 @@ describe("component", () => {
       handleDelete: jest.fn(),
       order: "asc",
       orderBy: "name",
-    }
+    };
 
     const { getByTestId } = renderWithRouter(
       <GuestsTableBody {...props} />,
@@ -44,5 +44,5 @@ describe("component", () => {
     expect(getByTestId("guests-table-body-comment")).toBeInTheDocument();
     expect(getByTestId("guests-table-body-update")).toBeInTheDocument();
     expect(getByTestId("guests-table-body-delete")).toBeInTheDocument();
-  })
-})
+  });
+});

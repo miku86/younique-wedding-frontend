@@ -12,7 +12,7 @@ describe("component", () => {
       handleDelete: jest.fn(),
       order: "asc",
       orderBy: "name",
-    }
+    };
 
     const { getByTestId } = renderWithRouter(
       <BudgetTableBody {...props} />,
@@ -30,7 +30,7 @@ describe("component", () => {
       handleDelete: jest.fn(),
       order: "asc",
       orderBy: "name",
-    }
+    };
 
     const { getByTestId } = renderWithRouter(
       <BudgetTableBody {...props} />,
@@ -43,5 +43,5 @@ describe("component", () => {
     expect(getByTestId("budget-table-body-actualcost")).toBeInTheDocument();
     expect(getByTestId("budget-table-body-update")).toBeInTheDocument();
     expect(getByTestId("budget-table-body-delete")).toBeInTheDocument();
-  })
-})
+  });
+});

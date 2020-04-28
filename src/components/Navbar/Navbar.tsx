@@ -189,6 +189,6 @@ const Navbar = ({ children }: Props) => {
       </main>
     </div >
   );
-}
+};
 
-export default Navbar
+export default Navbar;

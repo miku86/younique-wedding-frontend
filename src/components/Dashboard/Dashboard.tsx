@@ -99,7 +99,7 @@ const Dashboard: React.FC<Props> = () => {
             </>
           )}
       </div>
-    )
+    );
 };
 
 export default Dashboard;

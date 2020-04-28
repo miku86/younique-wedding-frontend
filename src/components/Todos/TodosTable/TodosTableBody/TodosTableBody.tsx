@@ -91,7 +91,7 @@ const TodosTableBody = ({ data, handleUpdateBools, handleUpdateTexts, handleDele
         />
       )}
     </TableBody>
-  )
-}
+  );
+};
 
-export default TodosTableBody
+export default TodosTableBody;

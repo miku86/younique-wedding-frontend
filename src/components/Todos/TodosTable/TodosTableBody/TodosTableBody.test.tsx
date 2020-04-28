@@ -12,7 +12,7 @@ describe("component", () => {
       handleDelete: jest.fn(),
       order: "asc",
       orderBy: "name",
-    }
+    };
 
     const { getByTestId } = renderWithRouter(
       <TodosTableBody {...props} />,
@@ -30,7 +30,7 @@ describe("component", () => {
       handleDelete: jest.fn(),
       order: "asc",
       orderBy: "name",
-    }
+    };
 
     const { getByTestId } = renderWithRouter(
       <TodosTableBody {...props} />,
@@ -44,5 +44,5 @@ describe("component", () => {
     expect(getByTestId("todos-table-body-comment")).toBeInTheDocument();
     expect(getByTestId("todos-table-body-update")).toBeInTheDocument();
     expect(getByTestId("todos-table-body-delete")).toBeInTheDocument();
-  })
-})
+  });
+});

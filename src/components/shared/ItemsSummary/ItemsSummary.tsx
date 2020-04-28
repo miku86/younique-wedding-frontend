@@ -71,7 +71,7 @@ const ItemsSummary = ({ title, amountItems, amountDoneItems }: Props) => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default ItemsSummary
+export default ItemsSummary;

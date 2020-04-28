@@ -62,7 +62,7 @@ const GuestsTable = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete 
         />
       </Table>
     </TableContainer>
-  )
-}
+  );
+};
 
-export default GuestsTable
+export default GuestsTable;

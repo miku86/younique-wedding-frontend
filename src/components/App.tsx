@@ -49,7 +49,7 @@ const App: React.FC = () => {
       setIsAuthenticating(true);
 
       try {
-        await Auth.currentSession()
+        await Auth.currentSession();
         setIsAuthenticated(true);
       } catch (error) {
         onError(error);

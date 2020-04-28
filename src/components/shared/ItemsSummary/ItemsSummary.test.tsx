@@ -8,7 +8,7 @@ describe("component", () => {
       title: "done",
       amountItems: 0,
       amountDoneItems: 0
-    }
+    };
 
     const { getByTestId } = renderWithRouter(<ItemsSummary {...props} />);
     expect(getByTestId("items-summary")).toBeInTheDocument();
