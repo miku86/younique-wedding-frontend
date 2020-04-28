@@ -3,7 +3,6 @@ on: [push]
 
 jobs:
   test:
-    name: Install, Unit, E2E
     runs-on: ubuntu-18.04
 
     steps:
@@ -14,7 +13,7 @@ jobs:
         run: npm ci
 
       - name: Unit Tests
-        run: npm run test --watchAll=false
+        run: npm run test:unit:coverage
 
       - name: E2E Tests
         uses: cypress-io/github-action@v1
