@@ -56,7 +56,8 @@
       "quotes": [
         2,
         "double"
-      ]
+      ],
+      "semi": "error"
     }
   },
   "jest": {
