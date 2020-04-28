@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "analyze": "npm run build && source-map-explorer 'build/static/js/*.js'",
     "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
     "start": "react-scripts start",
     "build": "CI=false react-scripts build",
