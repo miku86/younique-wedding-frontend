@@ -13,8 +13,7 @@
     "test:e2e:cli": "cypress run",
     "test:e2e:cli:server": "start-server-and-test start :3000 test:e2e:cli",
     "test:e2e:gui": "cypress open",
-    "test:e2e:gui:server": "start-server-and-test start :3000 test:e2e:gui",
-    "eject": "react-scripts eject"
+    "test:e2e:gui:server": "start-server-and-test start :3000 test:e2e:gui"
   },
   "dependencies": {
     "@material-ui/core": "4.9.11",
