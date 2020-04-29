@@ -5,32 +5,12 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "typeface-roboto";
 import App from "./components/App";
-import { config } from "./config";
+import { amplifyConfig } from "./config";
 import "./index.css";
 import { initSentry } from "./utils/error";
 import "./utils/i18n/i18n";
 
-Amplify.configure({
-  Auth: {
-    mandatorySignIn: true,
-    region: config.Auth.REGION,
-    userPoolId: config.Auth.USER_POOL_ID,
-    identityPoolId: config.Auth.IDENTITY_POOL_ID,
-    userPoolWebClientId: config.Auth.APP_CLIENT_ID,
-  },
-  API: {
-    endpoints: [
-      {
-        name: config.API.NAME,
-        endpoint: config.API.ENDPOINT,
-        region: config.API.REGION,
-      },
-    ],
-  },
-  Analytics: {
-    disabled: config.Analytics.DISABLED,
-  },
-});
+Amplify.configure(amplifyConfig);
 
 const customTheme = createMuiTheme({
   palette: {

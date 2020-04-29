@@ -32,6 +32,30 @@ const prod = {
   },
 };
 
+export const config = process.env.REACT_APP_STAGE === "prod" ? prod : dev;
+
+export const amplifyConfig = {
+  Auth: {
+    mandatorySignIn: true,
+    region: config.Auth.REGION,
+    userPoolId: config.Auth.USER_POOL_ID,
+    identityPoolId: config.Auth.IDENTITY_POOL_ID,
+    userPoolWebClientId: config.Auth.APP_CLIENT_ID,
+  },
+  API: {
+    endpoints: [
+      {
+        name: config.API.NAME,
+        endpoint: config.API.ENDPOINT,
+        region: config.API.REGION,
+      },
+    ],
+  },
+  Analytics: {
+    disabled: config.Analytics.DISABLED,
+  },
+};
+
 export const API = {
   DASHBOARD: "/dashboard",
   TODOS: "/todos",
@@ -53,8 +77,6 @@ export const ROUTE = {
   LOGIN: "/login",
   SIGNUP: "/signup",
 };
-
-export const config = process.env.REACT_APP_STAGE === "prod" ? prod : dev;
 
 export const demoUser = {
   email: "demo@miku86.com",
