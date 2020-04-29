@@ -1,4 +1,4 @@
-import { API } from "../../src/config";
+import { API, ROUTES } from "../../src/config";
 import { mockTodo1, mockTodo2 } from "../fixtures/data";
 
 const mockTodos = [
@@ -11,14 +11,14 @@ describe("Todos: User can see Todos", () => {
     cy.server();
     cy.route({
       method: "GET",
-      url: "*/todos",
+      url: `*${API.TODOS}`,
       response: mockTodos
     }).as("getTodos");
 
-    cy.visit(API.TODOS);
+    cy.visit(ROUTES.TODOS);
     cy.get("[data-testid='demo-account']").click();
     cy.url()
-      .should("equal", Cypress.config().baseUrl + API.TODOS);
+      .should("equal", Cypress.config().baseUrl + ROUTES.TODOS);
     cy.wait("@getTodos")
       .should((xhr) => {
         expect(xhr.method).to.equal("GET");
