@@ -1,6 +1,12 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Younique Weddings
+
+Master: [![Netlify Status](https://api.netlify.com/api/v1/badges/bb2b0eaa-8906-43bc-af10-9ae1647a4db7/deploy-status)](https://app.netlify.com/sites/younique-weddings-master/deploys)
+
+Dev: [![Netlify Status](https://api.netlify.com/api/v1/badges/5945a0e5-6159-4296-83d0-fe4fca2364b9/deploy-status)](https://app.netlify.com/sites/younique-weddings-dev/deploys)
 
 ## Available Scripts
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
