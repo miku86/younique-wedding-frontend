@@ -1,6 +1,6 @@
 import { makeStyles, Theme } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { API, ROUTE } from "../../config";
+import { API, ROUTES } from "../../config";
 import budgetImage from "../../static/images/budget.jpg";
 import guestsImage from "../../static/images/guests.jpg";
 import todosImage from "../../static/images/todos.jpg";
@@ -76,21 +76,21 @@ const Dashboard: React.FC<Props> = () => {
         ) : (
             <>
               <DashboardCard
-                link={ROUTE.TODOS}
+                link={ROUTES.TODOS}
                 image={todosImage}
                 data={data?.todos || []}
                 title="todos"
                 text="done"
               />
               <DashboardCard
-                link={ROUTE.GUESTS}
+                link={ROUTES.GUESTS}
                 image={guestsImage}
                 data={data.guests || []}
                 title="guests"
                 text="coming"
               />
               <DashboardCard
-                link={ROUTE.BUDGET}
+                link={ROUTES.BUDGET}
                 image={budgetImage}
                 data={data.budget || []}
                 title="budget"

@@ -3,7 +3,7 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { API, config, ROUTE } from "../../config";
+import { API, config, ROUTES } from "../../config";
 import { GuestInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
@@ -65,7 +65,7 @@ const GuestNew: React.FC<Props> = () => {
 
     try {
       await createGuest(fields);
-      history.push(ROUTE.GUESTS);
+      history.push(ROUTES.GUESTS);
     } catch (error) {
       onError(error);
       setIsLoading(false);

@@ -2,7 +2,7 @@ import { makeStyles, Theme } from "@material-ui/core";
 import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { API, config, ROUTE } from "../../config";
+import { API, config, ROUTES } from "../../config";
 import { useAppContext } from "../../utils/context";
 import { Todo, TodoInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
@@ -118,7 +118,7 @@ const Todos: React.FC<Props> = () => {
               handleDelete={handleDelete}
             />
 
-            <ItemNewButton link={ROUTE.TODOSNEW} />
+            <ItemNewButton link={ROUTES.TODOSNEW} />
           </>
         )}
     </div>

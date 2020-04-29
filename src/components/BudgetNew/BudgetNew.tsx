@@ -3,7 +3,7 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { API, config, ROUTE } from "../../config";
+import { API, config, ROUTES } from "../../config";
 import { BudgetItemInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
@@ -71,7 +71,7 @@ const BudgetNew: React.FC<Props> = () => {
 
     try {
       await createBudgetItem(fields);
-      history.push(ROUTE.BUDGET);
+      history.push(ROUTES.BUDGET);
     } catch (error) {
       onError(error);
       setIsLoading(false);

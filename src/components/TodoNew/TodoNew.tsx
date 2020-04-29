@@ -3,7 +3,7 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { API, config, ROUTE } from "../../config";
+import { API, config, ROUTES } from "../../config";
 import { TodoInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
@@ -74,7 +74,7 @@ const TodoNew: React.FC<Props> = () => {
 
     try {
       await createTodo(fields);
-      history.push(ROUTE.TODOS);
+      history.push(ROUTES.TODOS);
     } catch (error) {
       onError(error);
       setIsLoading(false);

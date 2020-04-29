@@ -3,7 +3,7 @@ import { ChevronLeft, Euro, FormatListBulleted, Home, Person } from "@material-u
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
-import { ROUTE } from "../../../config";
+import { ROUTES } from "../../../config";
 
 const useStyles = makeStyles((theme: Theme) => ({
   drawer: {
@@ -38,9 +38,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const sidebarItems = [
   { id: 1, text: "Dashboard", path: "/", icon: "Home" },
-  { id: 2, text: "todos", path: ROUTE.TODOS, icon: "FormatListBulleted" },
-  { id: 3, text: "guests", path: ROUTE.GUESTS, icon: "Person" },
-  { id: 4, text: "budget", path: ROUTE.BUDGET, icon: "Euro" },
+  { id: 2, text: "todos", path: ROUTES.TODOS, icon: "FormatListBulleted" },
+  { id: 3, text: "guests", path: ROUTES.GUESTS, icon: "Person" },
+  { id: 4, text: "budget", path: ROUTES.BUDGET, icon: "Euro" },
 ];
 
 interface Props {

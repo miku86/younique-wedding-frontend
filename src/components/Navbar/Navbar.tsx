@@ -12,7 +12,7 @@ import clsx from "clsx";
 import React, { ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink, useHistory } from "react-router-dom";
-import { ROUTE } from "../../config";
+import { ROUTES } from "../../config";
 import { useAppContext } from "../../utils/context";
 import PersistentDrawer from "./PersistentDrawer";
 
@@ -94,11 +94,11 @@ const Navbar = ({ children }: Props) => {
     switch (lastPath) {
       case "":
         return t("dashboard");
-      case ROUTE.TODOS:
+      case ROUTES.TODOS:
         return t("todos");
-      case ROUTE.GUESTS:
+      case ROUTES.GUESTS:
         return t("guests");
-      case ROUTE.BUDGET:
+      case ROUTES.BUDGET:
         return t("budget");
       case "settings":
         return t("settings");
@@ -113,7 +113,7 @@ const Navbar = ({ children }: Props) => {
     await Auth.signOut();
     setAnchorEl(null);
     setIsAuthenticated!(false);
-    history.push(ROUTE.LOGIN);
+    history.push(ROUTES.LOGIN);
   };
 
   return (
@@ -159,7 +159,7 @@ const Navbar = ({ children }: Props) => {
                 <MenuItem
                   color="inherit"
                   component={RouterLink}
-                  to={ROUTE.SETTINGS}
+                  to={ROUTES.SETTINGS}
                 >
                   {t("settings")}
                 </MenuItem>
@@ -168,10 +168,10 @@ const Navbar = ({ children }: Props) => {
             </>
           ) : (
               <>
-                <Button color="inherit" component={RouterLink} to={ROUTE.SIGNUP}>
+                <Button color="inherit" component={RouterLink} to={ROUTES.SIGNUP}>
                   {t("signup")}
                 </Button>
-                <Button color="inherit" component={RouterLink} to={ROUTE.LOGIN}>
+                <Button color="inherit" component={RouterLink} to={ROUTES.LOGIN}>
                   {t("login")}
                 </Button>
               </>

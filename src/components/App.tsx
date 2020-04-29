@@ -2,7 +2,7 @@ import { makeStyles, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ROUTE } from "../config";
+import { ROUTES } from "../config";
 import budgetImage from "../static/images/budget.jpg";
 import guestsImage from "../static/images/guests.jpg";
 import dashboardImage from "../static/images/landing.jpg";
@@ -62,11 +62,11 @@ const App: React.FC = () => {
     switch (path) {
       case "/":
         return dashboardImage;
-      case ROUTE.TODOS:
+      case ROUTES.TODOS:
         return todosImage;
-      case ROUTE.GUESTS:
+      case ROUTES.GUESTS:
         return guestsImage;
-      case ROUTE.BUDGET:
+      case ROUTES.BUDGET:
         return budgetImage;
     }
   };

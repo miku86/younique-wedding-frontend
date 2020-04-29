@@ -66,7 +66,7 @@ export const API = {
   SIGNUP: "/signup",
 };
 
-export const ROUTE = {
+export const ROUTES = {
   TODOS: "/todos",
   TODOSNEW: "/todos/new",
   GUESTS: "/guests",
