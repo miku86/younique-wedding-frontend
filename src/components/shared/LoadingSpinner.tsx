@@ -8,8 +8,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: "100vh",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 }));
 
 const LoadingSpinner: React.FC<Props> = () => {

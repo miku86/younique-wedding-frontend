@@ -1,43 +1,35 @@
-import { Box, Fab, Link, makeStyles, Theme } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
-import { API } from "aws-amplify";
-import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { config } from "../../config";
-import { TisAuthenticated } from "../../utils/customTypes";
-import Landing from "../shared/Landing";
+import { makeStyles, Theme } from "@material-ui/core";
+import { API as AMPLIFY } from "aws-amplify";
+import React, { FormEvent, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { API, config, ROUTE } from "../../config";
+import { useAppContext } from "../../utils/context";
+import { Guest, GuestInputs } from "../../utils/customTypes";
+import { onError } from "../../utils/error";
+import { useApi } from "../../utils/hooks/useApi";
+import ItemNewButton from "../shared/ItemNewButton";
+import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import CustomTable from "./Table";
+import GuestsTable from "./GuestsTable";
 
-interface Props {
-  isAuthenticated: TisAuthenticated;
-}
+interface Props { }
 
 const useStyles = makeStyles((theme: Theme) => ({
   guests: {
-    padding: "0px 20px",
-    textAlign: "center",
-
     "& h1": {
-      fontWeight: "600"
+      fontWeight: "600",
     },
     "& p": {
-      color: "#666"
-    }
-  }
+      color: "#666",
+    },
+  },
 }));
 
-const Guests: React.FC<Props> = ({ isAuthenticated }) => {
+const Guests: React.FC<Props> = () => {
   const classes = useStyles();
-  const [isLoading, setIsLoading] = useState(false);
-  const [guests, setGuests] = useState([]);
-
-  const fetchGuests = async () => {
-    setIsLoading(true);
-    const guests = await API.get(config.API.NAME, "/guests", {});
-    setGuests(guests);
-    setIsLoading(false);
-  };
+  const { isAuthenticated } = useAppContext();
+  const { t } = useTranslation();
+  const [{ data, isLoading }, doFetch] = useApi(API.GUESTS, []);
 
   useEffect(() => {
     (async () => {
@@ -46,27 +38,27 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
       }
 
       try {
-        fetchGuests();
+        doFetch(API.GUESTS);
       } catch (error) {
-        alert(error);
+        onError(error);
       }
     })();
-  }, [isAuthenticated]);
+  }, [doFetch, isAuthenticated]);
 
   const deleteGuest = async (guestId: string) => {
-    const body = {
-      guestId
-    };
+    return AMPLIFY.del(config.API.NAME, API.GUESTS, {
+      body: {
+        guestId,
+      },
+    });
+  };
 
-    setIsLoading(true);
-    await API.del(config.API.NAME, "/guests", { body });
-    setIsLoading(false);
+  const updateGuest = (guestId: string, data: any) => {
+    AMPLIFY.put(config.API.NAME, API.GUESTS, { body: { guestId, data } });
   };
 
   const handleDelete = async (guestId: string) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this guest?"
-    );
+    const confirmed = window.confirm(t("deleteQuestion"));
 
     if (!confirmed) {
       return;
@@ -74,80 +66,71 @@ const Guests: React.FC<Props> = ({ isAuthenticated }) => {
 
     try {
       await deleteGuest(guestId);
-      fetchGuests();
+      doFetch(API.GUESTS);
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
   };
 
-  const updateGuest = (
-    guestId: string,
-    fieldKey: string,
-    newFieldValue: boolean
-  ) => {
-    const body = {
-      guestId,
-      fieldKey,
-      newFieldValue
-    };
-
-    return API.put(config.API.NAME, "/guests", { body });
-  };
-
-  const handleUpdate = async (
+  const handleUpdateBools = async (
     guestId: string,
     fieldKey: string,
     fieldValue: boolean
   ) => {
-    const newFieldValue = !fieldValue;
-
-    setIsLoading(true);
+    const data = {
+      [fieldKey]: !fieldValue,
+    };
 
     try {
-      await updateGuest(guestId, fieldKey, newFieldValue);
-      fetchGuests();
+      await updateGuest(guestId, data);
+      doFetch(API.GUESTS);
     } catch (error) {
-      alert(error.message);
-      setIsLoading(false);
+      onError(error);
     }
   };
 
-  const renderGuests = () => {
-    return (
-      <div className={classes.guests}>
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
-          <>
-            <h1>Your Guests</h1>
-            <CustomTable
-              data={guests}
-              showDeleteButton={true}
-              handleDelete={handleDelete}
-              handleUpdate={handleUpdate}
-            />
+  const handleUpdateTexts = async (
+    event: FormEvent<HTMLFormElement>,
+    guestId: string,
+    fields: GuestInputs
+  ) => {
+    event.preventDefault();
 
-            <Box display="flex" my={2}>
-              <Box justifyContent="flex-start">
-                <Link
-                  color="inherit"
-                  underline="none"
-                  component={RouterLink}
-                  to="/guests/new"
-                >
-                  <Fab color="primary" aria-label="add">
-                    <Add />
-                  </Fab>
-                </Link>
-              </Box>
-            </Box>
-          </>
-        )}
-      </div>
-    );
+    try {
+      await updateGuest(guestId, fields);
+      doFetch(API.GUESTS);
+    } catch (error) {
+      onError(error);
+    }
   };
 
-  return <div>{isAuthenticated ? renderGuests() : <Landing />}</div>;
+  const amountItems = data.length;
+  const amountDoneItems = data.filter((item: Guest) => item.coming).length;
+
+  return (
+    <div className={classes.guests} data-testid="page-guests">
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+          <>
+            <ItemsSummary
+              title="coming"
+              amountItems={amountItems}
+              amountDoneItems={amountDoneItems}
+            />
+
+            <GuestsTable
+              data={data}
+              handleUpdateBools={handleUpdateBools}
+              handleUpdateTexts={handleUpdateTexts}
+              handleDelete={handleDelete}
+            />
+
+            <ItemNewButton link={ROUTE.GUESTSNEW} />
+          </>
+        )}
+    </div>
+  );
 };
 
 export default Guests;

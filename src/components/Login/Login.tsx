@@ -1,19 +1,20 @@
-import { makeStyles, TextField, Theme } from "@material-ui/core";
+import { Button, makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
-import { TsetIsAuthenticated } from "../../utils/customTypes";
+import { useTranslation } from "react-i18next";
+import { demoUser } from "../../config";
+import { useAppContext } from "../../utils/context";
+import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
-interface Props {
-  setIsAuthenticated: TsetIsAuthenticated;
-}
+interface Props { }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: "60px 0",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   form: {
     display: "flex",
@@ -21,18 +22,24 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
-      width: 200
-    }
-  }
+      width: 260,
+    },
+  },
+  demoButton: {
+    marginTop: 100,
+    color: "rgba(0, 0, 0, 0.5)",
+  },
 }));
 
-const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
+const Login: React.FC<Props> = () => {
   const classes = useStyles();
+  const { setIsAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
     email: "",
-    password: ""
+    password: "",
   });
+  const { t } = useTranslation();
 
   const validateForm = () => {
     return fields.email.length > 0 && fields.password.length >= 8;
@@ -45,18 +52,32 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
 
     try {
       await Auth.signIn(fields.email, fields.password);
-      setIsAuthenticated(true);
+      setIsAuthenticated!(true);
     } catch (error) {
-      alert(error.message);
+      onError(error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleUseDemo = async (event: any) => {
+    event.preventDefault();
+
+    setIsLoading(true);
+
+    try {
+      await Auth.signIn(demoUser.email, demoUser.password);
+      setIsAuthenticated!(true);
+    } catch (error) {
+      onError(error);
       setIsLoading(false);
     }
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid="page-login">
       <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
-          label="E-Mail"
+          label={t("email")}
           id="email"
           placeholder="max@mustermann.com"
           value={fields.email}
@@ -67,7 +88,7 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
           required
         />
         <TextField
-          label="Password"
+          label={t("password")}
           type="password"
           id="password"
           value={fields.password}
@@ -84,9 +105,20 @@ const Login: React.FC<Props> = ({ setIsAuthenticated }) => {
           disabled={!validateForm()}
           isLoading={isLoading}
           type="submit"
+          data-testid="login-submit"
         >
-          Login
+          {t("login")}
         </LoadingButton>
+
+        <Button
+          variant="outlined"
+          fullWidth
+          onClick={handleUseDemo}
+          className={classes.demoButton}
+          data-testid="demo-account"
+        >
+          {t("useDemoAccount")}
+        </Button>
       </form>
     </div>
   );

@@ -1,68 +1,59 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Dashboard from "../components/Dashboard/Dashboard";
-import Guests from "../components/Guests/Guests";
-import NewGuest from "../components/Guests/NewGuest";
+import Budget from "../components/Budget";
+import BudgetNew from "../components/BudgetNew";
+import Dashboard from "../components/Dashboard";
+import NewGuest from "../components/GuestNew";
+import Guests from "../components/Guests";
 import Login from "../components/Login/Login";
 import NotFound from "../components/NotFound/NotFound";
+import Settings from "../components/Settings/Settings";
 import AuthRoute from "../components/shared/AuthRoute";
 import CustomRoute from "../components/shared/CustomRoute";
 import UnauthRoute from "../components/shared/UnauthRoute";
 import Signup from "../components/Signup/Signup";
-import NewTodo from "../components/Todos/NewTodo";
-import Todos from "../components/Todos/Todos";
-import { IappProps } from "./customTypes";
+import TodoNew from "../components/TodoNew";
+import Todos from "../components/Todos";
+import { ROUTE } from "../config";
 
-interface Props {
-  appProps: IappProps;
-}
+interface Props { }
 
-const Routes: React.FC<Props> = ({ appProps }) => {
+const Routes: React.FC<Props> = () => {
   return (
     <Switch>
-      <CustomRoute
-        path="/"
-        exact={true}
-        component={Dashboard}
-        appProps={appProps}
-      />
-      <UnauthRoute
-        path="/login"
-        exact={true}
-        component={Login}
-        appProps={appProps}
-      />
-      <UnauthRoute
-        path="/signup"
-        exact={true}
-        component={Signup}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/todos"
-        exact={true}
-        component={Todos}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/todos/new"
-        exact={true}
-        component={NewTodo}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/guests"
-        exact={true}
-        component={Guests}
-        appProps={appProps}
-      />
-      <AuthRoute
-        path="/guests/new"
-        exact={true}
-        component={NewGuest}
-        appProps={appProps}
-      />
-      <Route component={NotFound} />
+      <CustomRoute path="/" exact={true}>
+        <Dashboard />
+      </CustomRoute>
+      <UnauthRoute path={ROUTE.LOGIN} exact={true}>
+        <Login />
+      </UnauthRoute>
+      <UnauthRoute path={ROUTE.SIGNUP} exact={true}>
+        <Signup />
+      </UnauthRoute>
+      <AuthRoute path={ROUTE.SETTINGS} exact={true}>
+        <Settings />
+      </AuthRoute>
+      <AuthRoute path={ROUTE.TODOS} exact={true}>
+        <Todos />
+      </AuthRoute>
+      <AuthRoute path={`${ROUTE.TODOSNEW}`} exact={true}>
+        <TodoNew />
+      </AuthRoute>
+      <AuthRoute path={ROUTE.GUESTS} exact={true}>
+        <Guests />
+      </AuthRoute>
+      <AuthRoute path={`${ROUTE.GUESTSNEW}`} exact={true}>
+        <NewGuest />
+      </AuthRoute>
+      <AuthRoute path={ROUTE.BUDGET} exact={true}>
+        <Budget />
+      </AuthRoute>
+      <AuthRoute path={`${ROUTE.BUDGETNEW}`} exact={true}>
+        <BudgetNew />
+      </AuthRoute>
+      <Route>
+        <NotFound />
+      </Route>
     </Switch>
   );
 };

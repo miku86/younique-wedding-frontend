@@ -1,20 +1,20 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { TsetIsAuthenticated } from "../../utils/customTypes";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
+import { onError } from "../../utils/error";
+import { useAppContext } from "../../utils/context";
 
-interface Props {
-  setIsAuthenticated: TsetIsAuthenticated;
-}
+interface Props {}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: "60px 0",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   form: {
     display: "flex",
@@ -22,21 +22,23 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     "& .MuiTextField-root": {
       marginBottom: theme.spacing(3),
-      width: 200
-    }
-  }
+      width: 260,
+    },
+  },
 }));
 
-const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
+const Signup: React.FC<Props> = () => {
   const classes = useStyles();
   let history = useHistory();
+  const { setIsAuthenticated } = useAppContext();
   const [newUser, setNewUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
     email: "",
     password: "",
-    confirmationCode: ""
+    confirmationCode: "",
   });
+  const { t } = useTranslation();
 
   const validateForm = () => {
     return fields.email.length > 0 && fields.password.length >= 8;
@@ -54,11 +56,11 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
     try {
       const newUser = await Auth.signUp({
         username: fields.email,
-        password: fields.password
+        password: fields.password,
       });
       setNewUser(newUser);
     } catch (error) {
-      alert(error.message);
+      onError(error);
     }
     setIsLoading(false);
   };
@@ -73,10 +75,10 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
     try {
       await Auth.confirmSignUp(fields.email, fields.confirmationCode);
       await Auth.signIn(fields.email, fields.password);
-      setIsAuthenticated(true);
+      setIsAuthenticated!(true);
       history.push("/");
     } catch (error) {
-      alert(error.message);
+      onError(error);
       setIsLoading(false);
     }
   };
@@ -85,7 +87,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
     return (
       <form onSubmit={handleSubmit} className={classes.form}>
         <TextField
-          label="E-Mail"
+          label={t("email")}
           id="email"
           placeholder="max@mustermann.com"
           value={fields.email}
@@ -96,7 +98,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
           required
         />
         <TextField
-          label="Password"
+          label={t("passwordMin")}
           type="password"
           id="password"
           value={fields.password}
@@ -114,7 +116,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
           isLoading={isLoading}
           type="submit"
         >
-          Signup
+          {t("signup")}
         </LoadingButton>
       </form>
     );
@@ -140,7 +142,7 @@ const Signup: React.FC<Props> = ({ setIsAuthenticated }) => {
           isLoading={isLoading}
           type="submit"
         >
-          Verify E-Mail Code
+          {t("verify")}
         </LoadingButton>
       </form>
     );

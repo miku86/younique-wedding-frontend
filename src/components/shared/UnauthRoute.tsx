@@ -1,6 +1,6 @@
-import React, { ReactType } from "react";
+import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { IappProps } from "../../utils/customTypes";
+import { useAppContext } from "../../utils/context";
 
 const querystring = (name: string, url: string = window.location.href) => {
   name = name.replace(/[[]]/g, "\\$&");
@@ -21,26 +21,20 @@ const querystring = (name: string, url: string = window.location.href) => {
 interface Props {
   path: string;
   exact: boolean;
-  component: ReactType;
-  appProps: IappProps;
 }
 
-const UnauthRoute: React.FC<Props> = ({ component: C, appProps, ...rest }) => {
+const UnauthRoute: React.FC<Props> = ({ children, ...rest }) => {
+  const { isAuthenticated } = useAppContext();
   const redirect = querystring("redirect");
 
   return (
-    <Route
-      {...rest}
-      render={props =>
-        !appProps.isAuthenticated ? (
-          <C {...props} {...appProps} />
-        ) : (
-          <Redirect
-            to={redirect === "" || redirect === null ? "/" : redirect}
-          />
-        )
-      }
-    />
+    <Route {...rest}>
+      {!isAuthenticated ? (
+        children
+      ) : (
+        <Redirect to={redirect === "" || redirect === null ? "/" : redirect} />
+      )}
+    </Route>
   );
 };
 

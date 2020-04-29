@@ -1,5 +1,6 @@
 import { makeStyles, Theme } from "@material-ui/core";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   landing: {
@@ -7,24 +8,25 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center",
 
     "& h1": {
-      fontWeight: "600"
+      fontWeight: "600",
     },
 
     "& p": {
-      color: "#999"
-    }
-  }
+      color: "#999",
+    },
+  },
 }));
 
-interface Props {}
+interface Props { }
 
 const Landing: React.FC<Props> = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
-    <div className={classes.landing}>
-      <h1>Younique Wedding</h1>
-      <p>Plan your Wedding the right way</p>
+    <div className={classes.landing} data-testid="page-landing">
+      <h1 data-testid="landing-title">{t("siteTitle")}</h1>
+      <p data-testid="landing-pitch">{t("sitePitch")}</p>
     </div>
   );
 };

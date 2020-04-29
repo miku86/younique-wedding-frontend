@@ -8,8 +8,8 @@ export const useFormFields = (initialState: any) => {
     (event: ChangeEvent<HTMLInputElement>) => {
       setFields({
         ...fields,
-        [event.target.id]: event.target.value
+        [event.target.id]: event.target.value,
       });
-    }
+    },
   ];
 };
