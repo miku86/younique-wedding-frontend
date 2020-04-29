@@ -5,7 +5,7 @@ import BudgetNew from "../components/BudgetNew";
 import Dashboard from "../components/Dashboard";
 import NewGuest from "../components/GuestNew";
 import Guests from "../components/Guests";
-import Login from "../components/Login/Login";
+import Login from "../components/Login";
 import NotFound from "../components/NotFound/NotFound";
 import Settings from "../components/Settings/Settings";
 import AuthRoute from "../components/shared/AuthRoute";
