@@ -53,3 +53,10 @@ export function getSorting<K extends keyof any>(
 export const getRandomNumberBetween = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
+
+export const getRandomDate = () => {
+  const year = getRandomNumberBetween(2000, 2030);
+  const month = String(getRandomNumberBetween(1, 12)).padStart(2, "0");
+  const day = getRandomNumberBetween(1, 28);
+  return `${year}-${month}-${day}`;
+};
