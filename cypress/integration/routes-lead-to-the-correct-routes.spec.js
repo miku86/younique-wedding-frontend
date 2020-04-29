@@ -1,4 +1,4 @@
-import { ROUTE } from "../../src/config";
+import { ROUTES } from "../../src/config";
 
 const createRandomPaths = () => {
   const numberOfPaths = 10;
@@ -13,14 +13,14 @@ const createRandomPaths = () => {
 };
 
 const baseUrl = Cypress.config().baseUrl;
-const validPaths = Object.values(ROUTE).map(value => value);
+const validPaths = Object.values(ROUTES).map(value => value);
 const dontRedirects = ["/login", "/signup"];
 
 describe("routing", () => {
   it("should redirect unauthed users to login", () => {
     const filteredPaths = validPaths.filter(path => !dontRedirects.includes(path));
     filteredPaths.forEach((path) => {
-      cy.visit(`${path}`);
+      cy.visit(path);
       cy.url().should("eq", `${baseUrl}/login?redirect=${path}`);
     });
   });
@@ -28,7 +28,7 @@ describe("routing", () => {
   it("should show correct page for unauthed user", () => {
     const filteredPaths = validPaths.filter(path => dontRedirects.includes(path));
     filteredPaths.forEach((path) => {
-      cy.visit(`${path}`);
+      cy.visit(path);
       cy.url().should("eq", `${baseUrl}${path}`);
     });
   });
@@ -37,7 +37,7 @@ describe("routing", () => {
     const randomPaths = createRandomPaths();
     const filteredRandomPaths = randomPaths.filter(path => !validPaths.includes(path));
     filteredRandomPaths.forEach((path) => {
-      cy.visit(`${path}`);
+      cy.visit(path);
       cy.url().should("eq", `${baseUrl}${path}`);
       cy.get("[data-testid='page-404']");
     });
@@ -45,13 +45,12 @@ describe("routing", () => {
 
   it("should show correct page for authed user", () => {
     cy.visit("/login");
-    cy.get("[data-testid='demo-account']")
-      .click();
+    cy.get("[data-testid='demo-account']").click();
     cy.url().should("eq", `${baseUrl}/`);
 
     const filteredPaths = validPaths.filter(path => !dontRedirects.includes(path));
     filteredPaths.forEach((path) => {
-      cy.visit(`${path}`);
+      cy.visit(path);
       cy.url().should("eq", `${baseUrl}${path}`);
     });
   });
