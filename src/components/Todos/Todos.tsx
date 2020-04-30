@@ -6,7 +6,7 @@ import { API, config, ROUTES } from "../../config";
 import { useAppContext } from "../../utils/context";
 import { Todo, TodoInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
-import { useApi } from "../../utils/hooks/useApi";
+import { useApiFetch } from "../../utils/hooks/useApiFetch";
 import ItemNewButton from "../shared/ItemNewButton";
 import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -29,7 +29,7 @@ const Todos: React.FC<Props> = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAppContext();
   const { t } = useTranslation();
-  const [{ data, isLoading }, doFetch] = useApi(API.TODOS, []);
+  const [{ data, isLoading }, doFetch] = useApiFetch(API.TODOS, []);
 
   useEffect(() => {
     if (!isAuthenticated) return;

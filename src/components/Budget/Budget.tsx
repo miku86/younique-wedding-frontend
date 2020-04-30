@@ -7,7 +7,7 @@ import { useAppContext } from "../../utils/context";
 import { BudgetItem, BudgetItemInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { formatter } from "../../utils/format";
-import { useApi } from "../../utils/hooks/useApi";
+import { useApiFetch } from "../../utils/hooks/useApiFetch";
 import ItemNewButton from "../shared/ItemNewButton";
 import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -31,7 +31,7 @@ const Budget: React.FC<Props> = () => {
   const { isAuthenticated } = useAppContext();
   const [availableBudget, setAvailableBudget] = useState(0);
   const { t } = useTranslation();
-  const [{ data, isLoading }, doFetch] = useApi(API.TODOS, []);
+  const [{ data, isLoading }, doFetch] = useApiFetch(API.BUDGET, []);
 
   useEffect(() => {
     if (!isAuthenticated) return;
