@@ -32,15 +32,8 @@ const Todos: React.FC<Props> = () => {
   const [{ data, isLoading }, doFetch] = useApi(API.TODOS, []);
 
   useEffect(() => {
-    (async () => {
-      if (!isAuthenticated) return;
-
-      try {
-        doFetch(API.TODOS);
-      } catch (error) {
-        onError(error);
-      }
-    })();
+    if (!isAuthenticated) return;
+    doFetch(API.TODOS);
   }, [doFetch, isAuthenticated]);
 
   const handleDelete = async (todoId: string) => {

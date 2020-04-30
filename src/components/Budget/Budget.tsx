@@ -34,15 +34,8 @@ const Budget: React.FC<Props> = () => {
   const [{ data, isLoading }, doFetch] = useApi(API.TODOS, []);
 
   useEffect(() => {
-    (async () => {
-      if (!isAuthenticated) return;
-
-      try {
-        doFetch(API.BUDGET);
-      } catch (error) {
-        onError(error);
-      }
-    })();
+    if (!isAuthenticated) return;
+    doFetch(API.BUDGET);
   }, [doFetch, isAuthenticated]);
 
   const fetchAvailableBudget = async () => {

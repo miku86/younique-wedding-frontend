@@ -5,7 +5,6 @@ import budgetImage from "../../static/images/budget.jpg";
 import guestsImage from "../../static/images/guests.jpg";
 import todosImage from "../../static/images/todos.jpg";
 import { useAppContext } from "../../utils/context";
-import { onError } from "../../utils/error";
 import { useApi } from "../../utils/hooks/useApi";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -54,15 +53,8 @@ const Dashboard: React.FC<Props> = () => {
   const [{ data, isLoading }, doFetch] = useApi(API.DASHBOARD, {});
 
   useEffect(() => {
-    (async () => {
-      if (!isAuthenticated) return;
-
-      try {
-        doFetch(API.DASHBOARD);
-      } catch (error) {
-        onError(error);
-      }
-    })();
+    if (!isAuthenticated) return;
+    doFetch(API.DASHBOARD);
   }, [doFetch, isAuthenticated]);
 
   return !isAuthenticated

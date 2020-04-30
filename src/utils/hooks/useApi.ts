@@ -1,6 +1,6 @@
-import { useState, useEffect, useReducer } from "react";
-import { config } from "../../config";
 import { API as AMPLIFY } from "aws-amplify";
+import { useEffect, useReducer, useState } from "react";
+import { config } from "../../config";
 
 const dataFetchReducer = (state: any, action: any) => {
   switch (action.type) {
@@ -31,9 +31,9 @@ const dataFetchReducer = (state: any, action: any) => {
 export const useApi = (initialUrl: string, initialData: any) => {
   const [url, setUrl] = useState(initialUrl);
   const [state, dispatch] = useReducer(dataFetchReducer, {
+    data: initialData,
     isLoading: false,
     isError: false,
-    data: initialData,
   });
 
   useEffect(() => {

@@ -32,15 +32,8 @@ const Guests: React.FC<Props> = () => {
   const [{ data, isLoading }, doFetch] = useApi(API.GUESTS, []);
 
   useEffect(() => {
-    (async () => {
-      if (!isAuthenticated) return;
-
-      try {
-        doFetch(API.GUESTS);
-      } catch (error) {
-        onError(error);
-      }
-    })();
+    if (!isAuthenticated) return;
+    doFetch(API.GUESTS);
   }, [doFetch, isAuthenticated]);
 
   const deleteGuest = async (guestId: string) => {
