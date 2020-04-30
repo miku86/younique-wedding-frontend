@@ -41,7 +41,7 @@ export const useApiFetch = (initialUrl: string, initialData: any) => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       dispatch({ type: FETCH_INIT });
       try {
         const result = await AMPLIFY.get(config.API.NAME, url, {});
@@ -49,8 +49,7 @@ export const useApiFetch = (initialUrl: string, initialData: any) => {
       } catch (error) {
         dispatch({ type: FETCH_FAILURE });
       }
-    };
-    fetchData();
+    })();
   }, [url]);
 
   return [state, setUrl];
