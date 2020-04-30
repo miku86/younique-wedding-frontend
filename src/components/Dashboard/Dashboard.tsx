@@ -55,9 +55,7 @@ const Dashboard: React.FC<Props> = () => {
 
   useEffect(() => {
     (async () => {
-      if (!isAuthenticated) {
-        return;
-      }
+      if (!isAuthenticated) return;
 
       try {
         doFetch(API.DASHBOARD);

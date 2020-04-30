@@ -35,9 +35,7 @@ const Budget: React.FC<Props> = () => {
 
   useEffect(() => {
     (async () => {
-      if (!isAuthenticated) {
-        return;
-      }
+      if (!isAuthenticated) return;
 
       try {
         doFetch(API.BUDGET);
@@ -54,9 +52,7 @@ const Budget: React.FC<Props> = () => {
 
   useEffect(() => {
     (async () => {
-      if (!isAuthenticated) {
-        return;
-      }
+      if (!isAuthenticated) return;
 
       try {
         await fetchAvailableBudget();

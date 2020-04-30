@@ -33,9 +33,7 @@ const Todos: React.FC<Props> = () => {
 
   useEffect(() => {
     (async () => {
-      if (!isAuthenticated) {
-        return;
-      }
+      if (!isAuthenticated) return;
 
       try {
         doFetch(API.TODOS);
