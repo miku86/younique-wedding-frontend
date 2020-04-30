@@ -57,7 +57,7 @@ const DashboardCard = ({ link, image, data, title, text }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} data-testid="dashboard-card">
       <Link component={RouterLink} to={link}>
         <CardActionArea>
           <CardMedia className={classes.media} image={image} />

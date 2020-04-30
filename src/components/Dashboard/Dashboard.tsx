@@ -60,7 +60,7 @@ const Dashboard: React.FC<Props> = () => {
   return !isAuthenticated
     ? <Landing />
     : (
-      <div className={classes.dashboard}>
+      <div className={classes.dashboard} data-testid="page-dashboard">
         {isLoading ? (
           <LoadingSpinner />
         ) : (
