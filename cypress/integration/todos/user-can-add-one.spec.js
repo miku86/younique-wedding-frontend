@@ -1,5 +1,5 @@
-import { API, ROUTES } from "../../src/config";
-import { getRandomDate, getRandomNumberBetween } from "../../src/utils/helpers";
+import { API, ROUTES } from "../../../src/config";
+import { getRandomDate, getRandomNumberBetween } from "../../../src/utils/helpers";
 
 describe("Todos: User can add a Todo", () => {
   it("should add a todo", () => {
@@ -20,13 +20,6 @@ describe("Todos: User can add a Todo", () => {
     cy.get("[data-testid='todo-new-comment']").type(String(getRandomNumberBetween(10, 1000)));
     cy.get("[data-testid='todo-new-add']").click();
 
-    cy.wait("@addTodo")
-      .should((xhr) => {
-        expect(xhr.method).to.equal("POST");
-        expect(xhr.url).to.match(/\/todos$/);
-        expect(xhr.status).to.equal(200);
-      });
-
-    cy.get("[data-testid='page-todos']").contains(title);
+    cy.get("[data-testid='page-todos']").should("contain", title);
   });
 });
