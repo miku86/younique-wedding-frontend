@@ -57,6 +57,6 @@ export const getRandomNumberBetween = (min: number, max: number) => {
 export const getRandomDate = () => {
   const year = getRandomNumberBetween(2000, 2030);
   const month = String(getRandomNumberBetween(1, 12)).padStart(2, "0");
-  const day = getRandomNumberBetween(1, 28);
+  const day = String(getRandomNumberBetween(1, 28)).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
