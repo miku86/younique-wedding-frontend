@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "analyze": "npm run build && source-map-explorer 'build/static/js/*.js'",
-    "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
+    "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}' --fix",
     "start": "react-scripts start",
     "build": "CI=false react-scripts build",
     "test": "npm run test:e2e:cli:server && npm run test:unit:coverage",
