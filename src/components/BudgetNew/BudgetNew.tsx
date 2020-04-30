@@ -1,9 +1,9 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
-import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { API, config, ROUTES } from "../../config";
+import { API, ROUTES } from "../../config";
+import { createOne } from "../../utils/api/api";
 import { BudgetItemInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
@@ -50,18 +50,12 @@ const BudgetNew: React.FC<Props> = () => {
     return fields.name.length > 0;
   };
 
-  const createBudgetItem = ({
-    name,
-    plannedCost,
-    actualCost,
-  }: BudgetItemInputs) => {
-    const body = {
+  const createItem = ({ name, plannedCost, actualCost }: BudgetItemInputs) => {
+    return createOne(API.BUDGET, {
       name,
       plannedCost,
       actualCost,
-    };
-
-    return AMPLIFY.post(config.API.NAME, API.BUDGET, { body });
+    });
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -70,7 +64,7 @@ const BudgetNew: React.FC<Props> = () => {
     setIsLoading(true);
 
     try {
-      await createBudgetItem(fields);
+      await createItem(fields);
       history.push(ROUTES.BUDGET);
     } catch (error) {
       onError(error);

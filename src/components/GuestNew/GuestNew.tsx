@@ -1,9 +1,9 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
-import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { API, config, ROUTES } from "../../config";
+import { API, ROUTES } from "../../config";
+import { createOne } from "../../utils/api/api";
 import { GuestInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
@@ -49,13 +49,11 @@ const GuestNew: React.FC<Props> = () => {
     return fields.name.length > 0;
   };
 
-  const createGuest = ({ name, comment }: GuestInputs) => {
-    const body = {
+  const createItem = ({ name, comment }: GuestInputs) => {
+    return createOne(API.GUESTS, {
       name,
       comment,
-    };
-
-    return AMPLIFY.post(config.API.NAME, API.GUESTS, { body });
+    });
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -64,7 +62,7 @@ const GuestNew: React.FC<Props> = () => {
     setIsLoading(true);
 
     try {
-      await createGuest(fields);
+      await createItem(fields);
       history.push(ROUTES.GUESTS);
     } catch (error) {
       onError(error);
