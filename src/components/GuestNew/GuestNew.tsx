@@ -6,6 +6,7 @@ import { API, ROUTES } from "../../config";
 import { createOne } from "../../utils/api/api";
 import { GuestInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
+import { isPropLongerThanZero } from "../../utils/helpers";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
@@ -44,10 +45,6 @@ const GuestNew: React.FC<Props> = () => {
     comment: "",
   });
   const { t } = useTranslation();
-
-  const validateForm = () => {
-    return fields.name.length > 0;
-  };
 
   const createItem = ({ name, comment }: GuestInputs) => {
     return createOne(API.GUESTS, {
@@ -98,7 +95,7 @@ const GuestNew: React.FC<Props> = () => {
             variant="contained"
             color="primary"
             fullWidth
-            disabled={!validateForm()}
+            disabled={!isPropLongerThanZero(fields, "name")}
             isLoading={isLoading}
             type="submit"
             data-testid="guest-new-add"

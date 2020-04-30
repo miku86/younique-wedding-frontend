@@ -6,6 +6,7 @@ import { API, ROUTES } from "../../config";
 import { createOne } from "../../utils/api/api";
 import { BudgetItemInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
+import { isPropLongerThanZero } from "../../utils/helpers";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
@@ -45,10 +46,6 @@ const BudgetNew: React.FC<Props> = () => {
     actualCost: 0,
   });
   const { t } = useTranslation();
-
-  const validateForm = () => {
-    return fields.name.length > 0;
-  };
 
   const createItem = ({ name, plannedCost, actualCost }: BudgetItemInputs) => {
     return createOne(API.BUDGET, {
@@ -111,7 +108,7 @@ const BudgetNew: React.FC<Props> = () => {
             variant="contained"
             color="primary"
             fullWidth
-            disabled={!validateForm()}
+            disabled={!isPropLongerThanZero(fields, "name")}
             isLoading={isLoading}
             type="submit"
             data-testid="budget-new-add"

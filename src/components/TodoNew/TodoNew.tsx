@@ -6,6 +6,7 @@ import { API, ROUTES } from "../../config";
 import { createOne } from "../../utils/api/api";
 import { TodoInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
+import { isPropLongerThanZero } from "../../utils/helpers";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
 
@@ -46,10 +47,6 @@ const TodoNew: React.FC<Props> = () => {
     comment: "",
   });
   const { t } = useTranslation();
-
-  const validateForm = () => {
-    return fields.title.length > 0;
-  };
 
   const createItem = ({ title, deadline, responsible, comment }: TodoInputs) => {
     return createOne(API.TODOS, {
@@ -124,7 +121,7 @@ const TodoNew: React.FC<Props> = () => {
             variant="contained"
             color="primary"
             fullWidth
-            disabled={!validateForm()}
+            disabled={!isPropLongerThanZero(fields, "title")}
             isLoading={isLoading}
             type="submit"
             data-testid="todo-new-add"

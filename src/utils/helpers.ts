@@ -60,3 +60,7 @@ export const getRandomDate = () => {
   const day = String(getRandomNumberBetween(1, 28)).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
+
+export const isPropLongerThanZero = (fields: {[key:string]: any}, prop: string) => {
+  return fields[prop].length > 0;
+};
