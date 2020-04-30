@@ -3,6 +3,7 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { API, config, ROUTES } from "../../config";
+import { deleteOne } from "../../utils/api/api";
 import { useAppContext } from "../../utils/context";
 import { Guest, GuestInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
@@ -36,25 +37,16 @@ const Guests: React.FC<Props> = () => {
     doFetch(API.GUESTS);
   }, [doFetch, isAuthenticated]);
 
-  const deleteGuest = async (guestId: string) => {
-    return AMPLIFY.del(config.API.NAME, API.GUESTS, {
-      body: {
-        guestId,
-      },
-    });
-  };
-
   const updateGuest = (guestId: string, data: any) => {
     AMPLIFY.put(config.API.NAME, API.GUESTS, { body: { guestId, data } });
   };
 
-  const handleDelete = async (guestId: string) => {
+  const handleDelete = async (itemId: string) => {
     const confirmed = window.confirm(t("deleteQuestion"));
     if (!confirmed) return;
 
     try {
-      await deleteGuest(guestId);
-      doFetch(API.GUESTS);
+      deleteOne(API.GUESTS, itemId);
     } catch (error) {
       onError(error);
     }

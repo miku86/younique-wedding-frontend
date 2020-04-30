@@ -3,6 +3,7 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { API, config, ROUTES } from "../../config";
+import { deleteOne } from "../../utils/api/api";
 import { useAppContext } from "../../utils/context";
 import { BudgetItem, BudgetItemInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
@@ -55,27 +56,18 @@ const Budget: React.FC<Props> = () => {
     })();
   }, [isAuthenticated]);
 
-  const deleteBudgetItem = async (budgetItemId: string) => {
-    return AMPLIFY.del(config.API.NAME, API.BUDGET, {
-      body: {
-        budgetItemId,
-      },
-    });
-  };
-
   const updateBudgetItem = (budgetItemId: string, data: any) => {
     return AMPLIFY.put(config.API.NAME, API.BUDGET, {
       body: { budgetItemId, data },
     });
   };
 
-  const handleDelete = async (budgetItemId: string) => {
+  const handleDelete = async (itemId: string) => {
     const confirmed = window.confirm(t("deleteQuestion"));
     if (!confirmed) return;
 
     try {
-      await deleteBudgetItem(budgetItemId);
-      doFetch(API.BUDGET);
+      deleteOne(API.BUDGET, itemId);
     } catch (error) {
       onError(error);
     }

@@ -3,6 +3,7 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { API, config, ROUTES } from "../../config";
+import { deleteOne } from "../../utils/api/api";
 import { useAppContext } from "../../utils/context";
 import { Todo, TodoInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
@@ -36,13 +37,12 @@ const Todos: React.FC<Props> = () => {
     doFetch(API.TODOS);
   }, [doFetch, isAuthenticated]);
 
-  const handleDelete = async (todoId: string) => {
+  const handleDelete = async (itemId: string) => {
     const confirmed = window.confirm(t("deleteQuestion"));
     if (!confirmed) return;
 
     try {
-      await AMPLIFY.del(config.API.NAME, API.TODOS, { body: { todoId } });
-      doFetch(API.TODOS);
+      deleteOne(API.TODOS, itemId);
     } catch (error) {
       onError(error);
     }
