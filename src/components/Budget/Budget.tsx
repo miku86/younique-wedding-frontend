@@ -71,10 +71,7 @@ const Budget: React.FC<Props> = () => {
 
   const handleDelete = async (budgetItemId: string) => {
     const confirmed = window.confirm(t("deleteQuestion"));
-
-    if (!confirmed) {
-      return;
-    }
+    if (!confirmed) return;
 
     try {
       await deleteBudgetItem(budgetItemId);

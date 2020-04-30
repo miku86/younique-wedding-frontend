@@ -50,10 +50,7 @@ const Guests: React.FC<Props> = () => {
 
   const handleDelete = async (guestId: string) => {
     const confirmed = window.confirm(t("deleteQuestion"));
-
-    if (!confirmed) {
-      return;
-    }
+    if (!confirmed) return;
 
     try {
       await deleteGuest(guestId);

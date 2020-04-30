@@ -38,10 +38,7 @@ const Todos: React.FC<Props> = () => {
 
   const handleDelete = async (todoId: string) => {
     const confirmed = window.confirm(t("deleteQuestion"));
-
-    if (!confirmed) {
-      return;
-    }
+    if (!confirmed) return;
 
     try {
       await AMPLIFY.del(config.API.NAME, API.TODOS, { body: { todoId } });
