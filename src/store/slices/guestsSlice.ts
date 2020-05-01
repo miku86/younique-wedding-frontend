@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import api from "../api/api";
-import { Guest } from "../customTypes";
+import api from "../../api";
+import { Guest } from "../../utils/customTypes";
 
 let initialState = {
   items: [] as Guest[],

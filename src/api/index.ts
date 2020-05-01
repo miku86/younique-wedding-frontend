@@ -1,5 +1,5 @@
 import { API as AMPLIFY } from "aws-amplify";
-import { config } from "../../config";
+import { config } from "../config";
 
 export const createOne = (path: string, data: any) => {
   return AMPLIFY.post(config.API.NAME, path, { body: data });

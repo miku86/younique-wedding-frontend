@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import api from "../api/api";
-import { DashboardData, DashboardItem } from "../customTypes";
+import api from "../../api";
+import { DashboardData, DashboardItem } from "../../utils/customTypes";
 
 let initialState: DashboardData = {
   todos: {} as DashboardItem,

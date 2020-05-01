@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import api from "../api/api";
-import { BudgetItem } from "../customTypes";
+import api from "../../api";
+import { BudgetItem } from "../../utils/customTypes";
 
 let initialState = {
   items: [] as BudgetItem[],

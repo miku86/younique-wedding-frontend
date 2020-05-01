@@ -8,10 +8,10 @@ import "typeface-roboto";
 import App from "./components/App";
 import { amplifyConfig } from "./config";
 import "./index.css";
+import store from "./store/store";
 import { customTheme } from "./theme";
 import { initSentry } from "./utils/error";
 import "./utils/i18n/i18n";
-import store from "./utils/store/store";
 
 Amplify.configure(amplifyConfig);
 initSentry();
