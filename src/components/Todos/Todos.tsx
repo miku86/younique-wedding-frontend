@@ -1,16 +1,23 @@
 import { makeStyles, Theme } from "@material-ui/core";
 import { API as AMPLIFY } from "aws-amplify";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { connect } from "react-redux";
 import { API, config, ROUTES } from "../../config";
 import { deleteOne } from "../../utils/api/api";
-import { TodoInputs } from "../../utils/customTypes";
+import { useAppContext } from "../../utils/context";
+import { Todo, TodoInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
+import { fetchAll } from "../../utils/store/todos/actions";
 import ItemNewButton from "../shared/ItemNewButton";
+import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import TodosTable from "./TodosTable";
 
-interface Props {}
+interface Props {
+  data: Todo[];
+  fetchAll: any;
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   todos: {
@@ -23,9 +30,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Todos: React.FC<Props> = () => {
+const Todos: React.FC<Props> = ({ data, fetchAll }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { isAuthenticated } = useAppContext();
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    fetchAll(API.TODOS);
+  }, [fetchAll, isAuthenticated]);
 
   const handleDelete = async (itemId: string) => {
     const confirmed = window.confirm(t("deleteQuestion"));
@@ -72,6 +85,9 @@ const Todos: React.FC<Props> = () => {
     }
   };
 
+  const amountItems = data.length;
+  const amountDoneItems = data.filter((item: Todo) => item.done).length;
+
   const isLoading = false;
 
   return (
@@ -80,7 +96,11 @@ const Todos: React.FC<Props> = () => {
         <LoadingSpinner />
       ) : (
         <>
-          {/*           <ItemsSummary title="done" /> */}
+          <ItemsSummary
+            title="done"
+            amountItems={amountItems}
+            amountDoneItems={amountDoneItems}
+          />
 
           <TodosTable
             handleUpdateBools={handleUpdateBools}
@@ -95,4 +115,12 @@ const Todos: React.FC<Props> = () => {
   );
 };
 
-export default Todos;
+const mapStateToProps = (state: any) => ({
+  data: state.todos.items,
+});
+
+const mapDispatchToProps = {
+  fetchAll,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);
