@@ -4,3 +4,7 @@ export const FETCH_FAILURE = "FETCH_FAILURE";
 export const DELETE_INIT = "DELETE_INIT";
 export const DELETE_SUCCESS = "DELETE_SUCCESS";
 export const DELETE_FAILURE = "DELETE_FAILURE";
+export const READ_TODOS= "READ_TODOS";
+export const CREATE_TODO= "CREATE_TODO";
+export const UPDATE_TODO= "UPDATE_TODO";
+export const DELETE_TODO= "DELETE_TODO";
