@@ -1,16 +1,21 @@
 import { makeStyles, Theme } from "@material-ui/core";
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { API, ROUTES } from "../../config";
 import budgetImage from "../../static/images/budget.jpg";
 import guestsImage from "../../static/images/guests.jpg";
 import todosImage from "../../static/images/todos.jpg";
 import { useAppContext } from "../../utils/context";
-import { useApiFetch } from "../../utils/hooks/useApiFetch";
+import { DashboardData } from "../../utils/customTypes";
+import { fetchAll } from "../../utils/store/dashboardSlice";
 import Landing from "../shared/Landing";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import DashboardCard from "./DashboardCard";
 
-interface Props { }
+interface Props {
+  data: DashboardData;
+  fetchAll: any;
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   dashboard: {
@@ -47,49 +52,59 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Dashboard: React.FC<Props> = () => {
+const Dashboard: React.FC<Props> = ({ data, fetchAll }) => {
   const classes = useStyles();
   const { isAuthenticated } = useAppContext();
-  const [{ data, isLoading }, doFetch] = useApiFetch(API.DASHBOARD, {});
 
   useEffect(() => {
     if (!isAuthenticated) return;
-    doFetch(API.DASHBOARD);
-  }, [doFetch, isAuthenticated]);
+    fetchAll(API.DASHBOARD);
+  }, [fetchAll, isAuthenticated]);
 
-  return !isAuthenticated
-    ? <Landing />
-    : (
-      <div className={classes.dashboard} data-testid="page-dashboard">
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
-            <>
-              <DashboardCard
-                link={ROUTES.TODOS}
-                image={todosImage}
-                data={data?.todos || []}
-                title="todos"
-                text="done"
-              />
-              <DashboardCard
-                link={ROUTES.GUESTS}
-                image={guestsImage}
-                data={data.guests || []}
-                title="guests"
-                text="coming"
-              />
-              <DashboardCard
-                link={ROUTES.BUDGET}
-                image={budgetImage}
-                data={data.budget || []}
-                title="budget"
-                text="bought"
-              />
-            </>
-          )}
-      </div>
-    );
+  // TODO: add state
+  const isLoading = false;
+
+  return !isAuthenticated ? (
+    <Landing />
+  ) : (
+    <div className={classes.dashboard} data-testid="page-dashboard">
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <DashboardCard
+            link={ROUTES.TODOS}
+            image={todosImage}
+            data={data.todos || []}
+            title="todos"
+            text="done"
+          />
+          <DashboardCard
+            link={ROUTES.GUESTS}
+            image={guestsImage}
+            data={data.guests || []}
+            title="guests"
+            text="coming"
+          />
+          <DashboardCard
+            link={ROUTES.BUDGET}
+            image={budgetImage}
+            data={data.budget || []}
+            title="budget"
+            text="bought"
+          />
+        </>
+      )}
+    </div>
+  );
 };
 
-export default Dashboard;
+const mapStateToProps = (state: any) => ({
+  data: state.dashboard
+});
+
+const mapDispatchToProps = {
+  fetchAll,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

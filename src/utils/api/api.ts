@@ -1,10 +1,6 @@
 import { API as AMPLIFY } from "aws-amplify";
 import { config } from "../../config";
 
-export const fetchAll = async (path: string) => {
-  return AMPLIFY.get(config.API.NAME, path, {});
-};
-
 export const createOne = (path: string, data: any) => {
   return AMPLIFY.post(config.API.NAME, path, { body: data });
 };

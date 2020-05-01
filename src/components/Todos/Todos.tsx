@@ -8,7 +8,7 @@ import { deleteOne } from "../../utils/api/api";
 import { useAppContext } from "../../utils/context";
 import { Todo, TodoInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
-import { fetchAll } from "../../utils/store/todos/actions";
+import { fetchAll } from "../../utils/store/todosSlice";
 import ItemNewButton from "../shared/ItemNewButton";
 import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -88,6 +88,7 @@ const Todos: React.FC<Props> = ({ data, fetchAll }) => {
   const amountItems = data.length;
   const amountDoneItems = data.filter((item: Todo) => item.done).length;
 
+  // TODO: add state
   const isLoading = false;
 
   return (

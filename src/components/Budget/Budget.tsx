@@ -2,19 +2,23 @@ import { makeStyles, Theme } from "@material-ui/core";
 import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { connect } from "react-redux";
 import { API, config, ROUTES } from "../../config";
 import { deleteOne } from "../../utils/api/api";
 import { useAppContext } from "../../utils/context";
 import { BudgetItem, BudgetItemInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
 import { formatter } from "../../utils/format";
-import { useApiFetch } from "../../utils/hooks/useApiFetch";
+import { fetchAll } from "../../utils/store/budgetSlice";
 import ItemNewButton from "../shared/ItemNewButton";
 import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import BudgetTable from "./BudgetTable";
 
-interface Props { }
+interface Props {
+  data: BudgetItem[];
+  fetchAll: any;
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   budgetItems: {
@@ -27,17 +31,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Budget: React.FC<Props> = () => {
+const Budget: React.FC<Props> = ({ data, fetchAll }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { isAuthenticated } = useAppContext();
   const [availableBudget, setAvailableBudget] = useState(0);
-  const { t } = useTranslation();
-  const [{ data, isLoading }, doFetch] = useApiFetch(API.BUDGET, []);
 
   useEffect(() => {
     if (!isAuthenticated) return;
-    doFetch(API.BUDGET);
-  }, [doFetch, isAuthenticated]);
+    fetchAll(API.BUDGET);
+  }, [fetchAll, isAuthenticated]);
 
   const fetchAvailableBudget = async () => {
     const [result] = await AMPLIFY.get(config.API.NAME, API.SETTINGS, {});
@@ -84,7 +87,6 @@ const Budget: React.FC<Props> = () => {
 
     try {
       await updateBudgetItem(budgetItemId, data);
-      doFetch(API.BUDGET);
     } catch (error) {
       onError(error);
     }
@@ -99,7 +101,6 @@ const Budget: React.FC<Props> = () => {
 
     try {
       await updateBudgetItem(budgetItemId, fields);
-      doFetch(API.BUDGET);
     } catch (error) {
       onError(error);
     }
@@ -112,30 +113,41 @@ const Budget: React.FC<Props> = () => {
   const amountItems = formatter.format(availableBudget);
   const amountDoneItems = formatter.format(availableBudget - actualCosts);
 
+    // TODO: add state
+  const isLoading = false;
+
   return (
     <div className={classes.budgetItems} data-testid="page-budget">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-          <>
-            <ItemsSummary
-              title="availableBudget"
-              amountItems={amountItems}
-              amountDoneItems={amountDoneItems}
-            />
+        <>
+          <ItemsSummary
+            title="availableBudget"
+            amountItems={amountItems}
+            amountDoneItems={amountDoneItems}
+          />
 
-            <BudgetTable
-              data={data}
-              handleUpdateBools={handleUpdateBools}
-              handleUpdateTexts={handleUpdateTexts}
-              handleDelete={handleDelete}
-            />
+          <BudgetTable
+            data={data}
+            handleUpdateBools={handleUpdateBools}
+            handleUpdateTexts={handleUpdateTexts}
+            handleDelete={handleDelete}
+          />
 
-            <ItemNewButton link={ROUTES.BUDGETNEW} />
-          </>
-        )}
+          <ItemNewButton link={ROUTES.BUDGETNEW} />
+        </>
+      )}
     </div>
   );
 };
 
-export default Budget;
+const mapStateToProps = (state: any) => ({
+  data: state.budget.items,
+});
+
+const mapDispatchToProps = {
+  fetchAll,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Budget);

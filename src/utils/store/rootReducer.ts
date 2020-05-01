@@ -1,4 +1,12 @@
 import { combineReducers } from "redux";
-import todos from "./todos/reducer";
+import budgetReducer from "./budgetSlice";
+import dashboardReducer from "./dashboardSlice";
+import guestsReducer from "./guestsSlice";
+import todosReducer from "./todosSlice";
 
-export default combineReducers({todos});
+export default combineReducers({
+  dashboard: dashboardReducer,
+  todos: todosReducer,
+  guests: guestsReducer,
+  budget: budgetReducer,
+});
