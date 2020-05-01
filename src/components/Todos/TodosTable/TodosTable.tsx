@@ -1,6 +1,6 @@
 import { Paper, Table, TableContainer } from "@material-ui/core";
 import React, { useState } from "react";
-import { HeadCell, Order, Todo, TodoInputs } from "../../../utils/customTypes";
+import { HeadCell, Order, TodoInputs } from "../../../utils/customTypes";
 import ItemsTableHeader from "../../shared/ItemsTableHeader";
 import TodosTableBody from "./TodosTableBody";
 
@@ -14,13 +14,16 @@ const headCells: HeadCell[] = [
 ];
 
 interface Props {
-  data: Todo[];
   handleUpdateBools: any;
   handleUpdateTexts: any;
   handleDelete: any;
 }
 
-const TodosTable = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete }: Props) => {
+const TodosTable = ({
+  handleUpdateBools,
+  handleUpdateTexts,
+  handleDelete,
+}: Props) => {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof TodoInputs>("done");
 
@@ -43,13 +46,11 @@ const TodosTable = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete }
           handleRequestSort={handleRequestSort}
         />
         <TodosTableBody
-          data={data}
           handleUpdateBools={handleUpdateBools}
           handleUpdateTexts={handleUpdateTexts}
           handleDelete={handleDelete}
           order={order}
           orderBy={orderBy}
-
         />
       </Table>
     </TableContainer>

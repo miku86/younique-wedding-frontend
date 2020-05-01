@@ -1,9 +1,13 @@
 import { makeStyles, TableBody, TableCell, TableRow, Theme } from "@material-ui/core";
 import { Create, Delete } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { connect } from "react-redux";
+import { API } from "../../../../config";
+import { useAppContext } from "../../../../utils/context";
 import { Order, Todo, TodoInputs } from "../../../../utils/customTypes";
 import { getSorting, stableSort } from "../../../../utils/helpers";
+import { fetchAll } from "../../../../utils/store/todos/actions";
 import CheckingIcon from "../../../shared/CheckingIcon";
 import TodoUpdate from "./TodoUpdate";
 
@@ -23,13 +27,20 @@ interface Props {
   handleDelete: any;
   order: Order;
   orderBy: keyof TodoInputs;
+  fetchAll: any;
 }
 
-const TodosTableBody = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete, order, orderBy }: Props) => {
+const TodosTableBody = ({ data, handleUpdateBools, handleUpdateTexts, handleDelete, order, orderBy, fetchAll }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
   const [selectedItemData, setSelectedItemData] = useState<any>();
+  const { isAuthenticated } = useAppContext();
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    fetchAll(API.TODOS);
+  }, [fetchAll, isAuthenticated]);
 
   const handleOpenUpdateDialog = (item: Todo) => {
     setSelectedItemData(item);
@@ -94,4 +105,12 @@ const TodosTableBody = ({ data, handleUpdateBools, handleUpdateTexts, handleDele
   );
 };
 
-export default TodosTableBody;
+const mapStateToProps = (state: any) => ({
+  data: state.todos.items,
+});
+
+const mapDispatchToProps = {
+  fetchAll,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodosTableBody);

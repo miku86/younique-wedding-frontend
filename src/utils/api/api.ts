@@ -16,3 +16,11 @@ export const updateOne = (path: string, id: string, data: any) => {
 export const deleteOne = (path: string, itemId: string) => {
   return AMPLIFY.del(config.API.NAME, path, { body: { itemId } });
 };
+
+const api = {
+  fetchAll(path: string) {
+    return AMPLIFY.get(config.API.NAME, path, {});
+  },
+};
+
+export default api;

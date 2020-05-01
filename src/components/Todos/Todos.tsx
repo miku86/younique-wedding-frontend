@@ -1,19 +1,16 @@
 import { makeStyles, Theme } from "@material-ui/core";
 import { API as AMPLIFY } from "aws-amplify";
-import React, { FormEvent, useEffect } from "react";
+import React, { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { API, config, ROUTES } from "../../config";
 import { deleteOne } from "../../utils/api/api";
-import { useAppContext } from "../../utils/context";
-import { Todo, TodoInputs } from "../../utils/customTypes";
+import { TodoInputs } from "../../utils/customTypes";
 import { onError } from "../../utils/error";
-import { useApiFetch } from "../../utils/hooks/useApiFetch";
 import ItemNewButton from "../shared/ItemNewButton";
-import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import TodosTable from "./TodosTable";
 
-interface Props { }
+interface Props {}
 
 const useStyles = makeStyles((theme: Theme) => ({
   todos: {
@@ -28,14 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Todos: React.FC<Props> = () => {
   const classes = useStyles();
-  const { isAuthenticated } = useAppContext();
   const { t } = useTranslation();
-  const [{ data, isLoading }, doFetch] = useApiFetch(API.TODOS, []);
-
-  useEffect(() => {
-    if (!isAuthenticated) return;
-    doFetch(API.TODOS);
-  }, [doFetch, isAuthenticated]);
 
   const handleDelete = async (itemId: string) => {
     const confirmed = window.confirm(t("deleteQuestion"));
@@ -63,7 +53,6 @@ const Todos: React.FC<Props> = () => {
 
     try {
       await updateTodo(todoId, data);
-      doFetch(API.TODOS);
     } catch (error) {
       onError(error);
     }
@@ -78,37 +67,30 @@ const Todos: React.FC<Props> = () => {
 
     try {
       await updateTodo(todoId, fields);
-      doFetch(API.TODOS);
     } catch (error) {
       onError(error);
     }
   };
 
-  const amountItems = data.length;
-  const amountDoneItems = data.filter((item: Todo) => item.done).length;
+  const isLoading = false;
 
   return (
     <div className={classes.todos} data-testid="page-todos">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-          <>
-            <ItemsSummary
-              title="done"
-              amountItems={amountItems}
-              amountDoneItems={amountDoneItems}
-            />
+        <>
+          {/*           <ItemsSummary title="done" /> */}
 
-            <TodosTable
-              data={data}
-              handleUpdateBools={handleUpdateBools}
-              handleUpdateTexts={handleUpdateTexts}
-              handleDelete={handleDelete}
-            />
+          <TodosTable
+            handleUpdateBools={handleUpdateBools}
+            handleUpdateTexts={handleUpdateTexts}
+            handleDelete={handleDelete}
+          />
 
-            <ItemNewButton link={ROUTES.TODOSNEW} />
-          </>
-        )}
+          <ItemNewButton link={ROUTES.TODOSNEW} />
+        </>
+      )}
     </div>
   );
 };
