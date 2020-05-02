@@ -1,5 +1,6 @@
-import { makeStyles, Theme } from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Auth } from "aws-amplify";
+import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ROUTES } from "../config";
@@ -19,7 +20,29 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     minHeight: "100vh",
     display: "flex",
+  },
+  main: {
+    flexGrow: 1,
+    display: "flex",
     flexDirection: "column",
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -theme.custom.drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
@@ -40,14 +63,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAuthenticating, setIsAuthenticating] = useState<boolean>(false);
+  const [isAuthenticating, setIsAuthenticating] = useState<boolean>(true);
+  const [drawerOpen, setDrawerOpen] = useState(true);
   const classes = useStyles();
   let history = useHistory();
 
   useEffect(() => {
     (async () => {
-      setIsAuthenticating(true);
-
       try {
         await Auth.currentSession();
         setIsAuthenticated(true);
@@ -77,18 +99,23 @@ const App: React.FC = () => {
       <ErrorBoundary>
         <AppContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
           <div className={classes.root}>
-            <Navbar>
+            <Navbar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen}/>
+            <main
+              className={clsx(
+                classes.main,
+                {[classes.contentShift]: drawerOpen}
+              )}
+            >
+              <div className={classes.drawerHeader} />
               <div
                 className={classes.content}
-                style={{
-                  backgroundImage: `url(${renderImage(history.location.pathname)})`,
-                }}
+                style={{ backgroundImage: `url(${renderImage(history.location.pathname)})` }}
               >
                 <Routes />
                 {isAuthenticated && <Feedbackbox />}
               </div>
-            </Navbar>
-          </div>
+            </main>
+          </div >
         </AppContext.Provider>
       </ErrorBoundary>
     );
