@@ -1,12 +1,12 @@
 import React from "react";
+import { mockTodo1 } from "../../../utils/fixtures";
 import { renderWithRouter } from "../../../utils/testing";
-import { todoItem } from "../../../utils/testing/fixtures";
 import TodoUpdate from "../TodosTable/TodoUpdate";
 
 describe("component", () => {
   it("should render the component with all fields", () => {
     const props = {
-      item: todoItem,
+      item: mockTodo1,
       open: false,
       handleClose: jest.fn(),
       handleSubmit: jest.fn()

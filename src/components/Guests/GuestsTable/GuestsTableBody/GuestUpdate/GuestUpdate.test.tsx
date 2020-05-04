@@ -1,12 +1,12 @@
 import React from "react";
+import { mockGuest1 } from "../../../../../utils/fixtures";
 import { renderWithRouter } from "../../../../../utils/testing";
-import { guestItem } from "../../../../../utils/testing/fixtures";
 import GuestUpdate from "./GuestUpdate";
 
 describe("component", () => {
   it("should render the component with all fields", () => {
     const props = {
-      item: guestItem,
+      item: mockGuest1,
       open: false,
       handleClose: jest.fn(),
       handleSubmit: jest.fn()

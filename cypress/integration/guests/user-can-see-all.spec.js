@@ -1,5 +1,5 @@
 import { API, ROUTES } from "../../../src/config";
-import { mockGuest1, mockGuest2 } from "../../fixtures/data";
+import { mockGuest1, mockGuest2 } from "../../../src/utils/fixtures";
 
 const mockData = [
   mockGuest1,

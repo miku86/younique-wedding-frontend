@@ -1,6 +1,6 @@
 import React from "react";
+import { mockGuest1 } from "../../../../utils/fixtures";
 import { renderWithRouter } from "../../../../utils/testing";
-import { guestItem } from "../../../../utils/testing/fixtures";
 import BudgetTableBody from "./BudgetTableBody";
 
 describe("component", () => {
@@ -24,7 +24,7 @@ describe("component", () => {
 
   it("should render the component data", () => {
     const props = {
-      data: [guestItem],
+      data: [mockGuest1],
       handleUpdateBools: jest.fn(),
       handleUpdateTexts: jest.fn(),
       handleDelete: jest.fn(),
