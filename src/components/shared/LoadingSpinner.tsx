@@ -1,7 +1,9 @@
 import { CircularProgress, makeStyles, Theme } from "@material-ui/core";
 import React from "react";
 
-interface Props {}
+interface Props {
+
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -16,7 +18,7 @@ const LoadingSpinner: React.FC<Props> = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid="loading-indicator">
       <CircularProgress />
     </div>
   );
