@@ -1,6 +1,7 @@
-import { render, RenderResult } from "@testing-library/react";
+import { RenderResult } from "@testing-library/react";
 import React from "react";
 import { mockTodo1, mockTodo2 } from "../../../../cypress/fixtures/data";
+import { renderWithRouter } from "../../../utils/testing";
 import { Todos } from "../Todos";
 
 describe("component", () => {
@@ -22,7 +23,7 @@ describe("component", () => {
 
     loadTodos = props.loadTodos;
 
-    context = render(<Todos {...props} />);
+    context = renderWithRouter(<Todos {...props} />);
   };
 
   describe("when loading succeeds", () => {
