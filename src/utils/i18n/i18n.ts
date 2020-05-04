@@ -55,6 +55,7 @@ const resources = {
       settings: "Settings",
       availableBudget: "Available Budget",
       newEntry: "New Entry",
+      loadingError: "Loading Error: please reload the page."
     },
   },
   de: {
@@ -110,6 +111,7 @@ const resources = {
       settings: "Einstellungen",
       availableBudget: "Verfügbares Budget",
       newEntry: "Neuer Eintrag",
+      loadingError: "Fehler: Laden fehlgeschlagen. Seite bitte neu laden."
     },
   },
 };

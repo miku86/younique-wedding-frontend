@@ -48,8 +48,7 @@ export const Todos = ({ loadTodos, todos, isError, isLoading, isAuthenticated = 
 
   return (
     <div className={classes.todos} data-testid="page-todos">
-      {isError && <Alert severity="error" variant="filled" data-testid="loading-error">Fehler</Alert>}
-      {isLoading && <LoadingSpinner data-testid="loading-indicator" />}
+      {isError && <Alert severity="error" variant="filled" data-testid="loading-error">{t("loadingError")}</Alert>}
 
       <ItemsSummary
         title="done"
