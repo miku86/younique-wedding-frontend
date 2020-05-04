@@ -1,7 +1,7 @@
 import React from "react";
-import { renderWithRouter } from "../../../../../utils/testing";
-import { todoItem } from "../../../../../utils/testing/fixtures";
-import TodoUpdate from "./TodoUpdate";
+import { renderWithRouter } from "../../../utils/testing";
+import { todoItem } from "../../../utils/testing/fixtures";
+import TodoUpdate from "../TodosTable/TodoUpdate";
 
 describe("component", () => {
   it("should render the component with all fields", () => {
