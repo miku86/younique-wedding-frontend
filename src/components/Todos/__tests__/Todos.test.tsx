@@ -1,6 +1,6 @@
 import { RenderResult } from "@testing-library/react";
 import React from "react";
-import { mockTodo1, mockTodo2 } from "../../../../cypress/fixtures/data";
+import { mockTodo1, mockTodo2 } from "../../../utils/fixtures";
 import { renderWithRouter } from "../../../utils/testing";
 import { Todos } from "../Todos";
 

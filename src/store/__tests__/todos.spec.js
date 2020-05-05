@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
-import { mockTodo1, mockTodo2 } from "../../../cypress/fixtures/data";
+import { mockTodo1, mockTodo2 } from "../../utils/fixtures";
 import todosReducer, { loadTodos } from "../slices/todosSlice";
 
 describe("todos", () => {
