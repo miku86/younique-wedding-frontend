@@ -1,11 +1,12 @@
 import { API, ROUTES } from "../../../src/config";
-import { mockTodo1 } from "../../../src/utils/fixtures";
+import { mockTodo1, mockTodo2 } from "../../../src/utils/fixtures";
 
 const mockTodos = [
   mockTodo1,
+  mockTodo2,
 ];
 
-describe("Todos: User can delete a Todo", () => {
+describe("Todos: User can delete a todo", () => {
   it("should delete a todo", () => {
     cy.server();
     cy.route({
@@ -21,8 +22,11 @@ describe("Todos: User can delete a Todo", () => {
 
     cy.visit(ROUTES.TODOS);
     cy.get("[data-testid='demo-account']").click();
-    cy.get("[data-testid='todos-table-body-delete']").click();
+    cy.get("[data-testid='todos-table-body-delete']").first().click();
+    cy.wait("@deleteTodo").its("requestBody").should("deep.equal", {
+      body: { itemId: mockTodo1.todoId }
+    });
 
-    cy.get("[data-testid='page-todos']").should("not.contain", mockTodo1.title);
+    cy.get("[data-testid='todos-table-body-delete']").should("have.length", mockTodos.length - 1);
   });
 });
