@@ -1,7 +1,8 @@
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
-import { mockTodo1, mockTodo2 } from "../../utils/fixtures";
-import todosReducer, { loadTodos } from "../slices/todosSlice";
+import { API } from "../../config";
+import { createMockTodoNew, mockTodo1, mockTodo2 } from "../../utils/fixtures";
+import todosReducer, { addTodo, loadTodos } from "../slices/todosSlice";
 
 describe("todos", () => {
   describe("loadTodos action", () => {
@@ -32,7 +33,7 @@ describe("todos", () => {
     describe("while loading", () => {
       let store;
 
-      beforeEach(()=>{
+      beforeEach(() => {
         const initialState = {
           isError: true
         };
@@ -85,7 +86,7 @@ describe("todos", () => {
         return store.dispatch(loadTodos());
       });
 
-      it("should store the todos", () => {
+      it("should fetch the todos from the server", () => {
         expect(store.getState().items).toEqual(items);
       });
 
@@ -98,7 +99,7 @@ describe("todos", () => {
       let store;
 
       beforeEach(() => {
-        const initialState = { };
+        const initialState = {};
 
         const api = {
           fetchAll: () => Promise.reject(),
@@ -119,6 +120,49 @@ describe("todos", () => {
 
       it("should set the error flag", () => {
         expect(store.getState().isError).toEqual(true);
+      });
+    });
+  });
+
+  describe("addTodo action", () => {
+    const newTodo = createMockTodoNew();
+
+    let store;
+    let api;
+
+    beforeEach(() => {
+      const initialState = {
+        items: [mockTodo1]
+      };
+
+      api = {
+        createOne: jest.fn().mockName("createOne")
+      };
+
+      store = createStore(
+        todosReducer,
+        initialState,
+        applyMiddleware(thunk.withExtraArgument(api)),
+      );
+    });
+
+    it("should add a todo to the server", () => {
+      api.createOne.mockResolvedValue(newTodo);
+      store.dispatch(addTodo(newTodo));
+      expect(api.createOne).toHaveBeenCalledWith(API.TODOS, newTodo);
+    });
+
+    describe("when save succeeds", () => {
+      beforeEach(() => {
+        api.createOne.mockResolvedValue(newTodo);
+        store.dispatch(addTodo(newTodo));
+      });
+
+      it("should store the returned todo in the store", () => {
+        expect(store.getState().items).toEqual([
+          mockTodo1,
+          newTodo
+        ]);
       });
     });
   });

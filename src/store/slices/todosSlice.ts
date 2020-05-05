@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Todo } from "../../utils/customTypes";
+import { API } from "../../config";
+import { Todo, TodoInputs } from "../../utils/customTypes";
 
 const todosSlice = createSlice({
   name: "todos",
@@ -20,22 +21,41 @@ const todosSlice = createSlice({
     errorLoading(state) {
       state.isLoading = false;
       state.isError = true;
+    },
+    errorServer(state){
+      state.isLoading = false;
+      state.isError = true;
+    },
+    storeTodo(state, action: PayloadAction<Todo>){
+      state.items.push(action.payload);
     }
   }
 });
 
-export const { storeTodos, startLoading, errorLoading } = todosSlice.actions;
+export const { storeTodos, startLoading, errorLoading, errorServer, storeTodo } = todosSlice.actions;
 
 export default todosSlice.reducer;
 
-export const loadTodos = (path: string) => (dispatch: any, getState: any, api: any) => {
+export const loadTodos = () => (dispatch: any, getState: any, api: any) => {
   dispatch(startLoading());
   api
-  .fetchAll(path)
-  .then((items: Todo[]) => {
-    dispatch(storeTodos(items));
-  })
-  .catch(() => {
-    dispatch(errorLoading());
-  });
+    .fetchAll(API.TODOS)
+    .then((items: Todo[]) => {
+      dispatch(storeTodos(items));
+    })
+    .catch(() => {
+      dispatch(errorLoading());
+    });
+};
+
+export const addTodo = (todo: TodoInputs) => (dispatch: any, getState: any, api: any) => {
+  dispatch(startLoading());
+  api
+    .createOne(API.TODOS, todo)
+    .then((item: Todo) =>{
+      dispatch(storeTodo(item));
+    })
+    .catch(() => {
+      dispatch(errorServer());
+    });
 };

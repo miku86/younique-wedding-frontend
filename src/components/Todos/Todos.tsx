@@ -3,7 +3,7 @@ import Alert from "@material-ui/lab/Alert";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { API, ROUTES } from "../../config";
+import { ROUTES } from "../../config";
 import { loadTodos } from "../../store/slices/todosSlice";
 import { Todo } from "../../utils/customTypes";
 import ItemNewButton from "../shared/ItemNewButton";
@@ -36,7 +36,7 @@ export const Todos = ({ loadTodos, todos, isError, isLoading, isAuthenticated = 
 
   useEffect(() => {
     if (!isAuthenticated) return;
-    loadTodos(API.TODOS);
+    loadTodos();
   }, [isAuthenticated, loadTodos]);
 
   const handleUpdateBools = () => { };

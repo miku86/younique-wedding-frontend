@@ -17,6 +17,9 @@ const api = {
   fetchAll(path: string) {
     return AMPLIFY.get(config.API.NAME, path, {});
   },
+  createOne(path: string, data: any) {
+    return AMPLIFY.post(config.API.NAME, path, { body: data });
+  }
 };
 
 export default api;

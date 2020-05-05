@@ -1,10 +1,11 @@
 import { makeStyles, TextField, Theme } from "@material-ui/core";
-import React, { FormEvent, useState } from "react";
+import Alert from "@material-ui/lab/Alert";
+import React, { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createOne } from "../../api";
-import { API, ROUTES } from "../../config";
-import { TodoInputs } from "../../utils/customTypes";
+import { ROUTES } from "../../config";
+import { addTodo } from "../../store/slices/todosSlice";
 import { onError } from "../../utils/error";
 import { isPropLongerThanZero } from "../../utils/helpers";
 import { useFormFields } from "../../utils/hooks";
@@ -34,47 +35,41 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface Props { }
+interface Props {
+  addTodo?: any;
+  isError?: boolean;
+}
 
-const TodoNew: React.FC<Props> = () => {
+export const TodoNew = ({ addTodo, isError }: Props) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   let history = useHistory();
-  const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldsChange] = useFormFields({
     title: "",
     deadline: "",
     responsible: "",
     comment: "",
   });
-  const { t } = useTranslation();
-
-  const createItem = ({ title, deadline, responsible, comment }: TodoInputs) => {
-    return createOne(API.TODOS, {
-      title,
-      deadline,
-      responsible,
-      comment,
-    });
-  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setIsLoading(true);
-
-    try {
-      await createItem(fields);
-      history.push(ROUTES.TODOS);
-    } catch (error) {
-      onError(error);
-      setIsLoading(false);
+    if (isPropLongerThanZero(fields, "title")) {
+      addTodo(fields)
+        .then(() => {
+          history.push(ROUTES.TODOS);
+        })
+        .catch((error: any) => {
+          onError(error);
+        });
     }
   };
 
   return (
-    <div className={classes.root} data-testid="page-todo-new">
+    <div className={classes.root}>
       <div className={classes.card}>
-        <form onSubmit={handleSubmit} className={classes.form} data-testid="todo-new-form">
+        {isError && <Alert severity="error" variant="filled" data-testid="server-error">Server didn't respond</Alert>}
+        <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
             label={t("title")}
             id="title"
@@ -84,20 +79,24 @@ const TodoNew: React.FC<Props> = () => {
             fullWidth
             autoFocus
             required
-            data-testid="todo-new-title"
+            inputProps={{
+              "data-testid": "todo-new-title"
+            }}
           />
           <TextField
             label={t("deadline")}
             id="deadline"
             value={fields.deadline}
-            type="date"
             onChange={handleFieldsChange}
+            type="date"
             variant="outlined"
             fullWidth
             InputLabelProps={{
               shrink: true,
             }}
-            data-testid="todo-new-deadline"
+            inputProps={{
+              "data-testid": "todo-new-deadline"
+            }}
           />
           <TextField
             label={t("responsible")}
@@ -106,7 +105,9 @@ const TodoNew: React.FC<Props> = () => {
             onChange={handleFieldsChange}
             variant="outlined"
             fullWidth
-            data-testid="todo-new-responsible"
+            inputProps={{
+              "data-testid": "todo-new-responsible"
+            }}
           />
           <TextField
             label={t("comment")}
@@ -115,23 +116,33 @@ const TodoNew: React.FC<Props> = () => {
             onChange={handleFieldsChange}
             variant="outlined"
             fullWidth
-            data-testid="todo-new-comment"
+            inputProps={{
+              "data-testid": "todo-new-comment"
+            }}
           />
           <LoadingButton
             variant="contained"
             color="primary"
             fullWidth
             disabled={!isPropLongerThanZero(fields, "title")}
-            isLoading={isLoading}
             type="submit"
             data-testid="todo-new-add"
           >
             {t("add")}
           </LoadingButton>
+
         </form>
       </div>
-    </div>
+    </div >
   );
 };
 
-export default TodoNew;
+const mapStateToProps = (state: any) => ({
+  isError: state.todos.isError,
+});
+
+const mapDispatchToProps = {
+  addTodo
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoNew);
