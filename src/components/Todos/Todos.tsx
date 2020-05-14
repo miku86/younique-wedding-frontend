@@ -41,7 +41,6 @@ export const Todos = ({ loadTodos, todos, isError, isLoading, isAuthenticated = 
 
   const handleUpdateBools = () => { };
   const handleUpdateTexts = () => { };
-  const handleDelete = () => { };
 
   const amountItems = todos.length;
   const amountDoneItems = todos.filter((item: Todo) => item.done).length;
@@ -61,7 +60,6 @@ export const Todos = ({ loadTodos, todos, isError, isLoading, isAuthenticated = 
         data={todos}
         handleUpdateBools={handleUpdateBools}
         handleUpdateTexts={handleUpdateTexts}
-        handleDelete={handleDelete}
       />
 
       <ItemNewButton link={ROUTES.TODOSNEW} />

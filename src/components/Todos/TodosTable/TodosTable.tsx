@@ -30,14 +30,12 @@ interface Props {
   data: Todo[];
   handleUpdateBools: any;
   handleUpdateTexts: any;
-  handleDelete: any;
 }
 
 const TodosTable = ({
   data,
   handleUpdateBools,
   handleUpdateTexts,
-  handleDelete,
 }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -63,6 +61,8 @@ const TodosTable = ({
   const handleClose = () => {
     setOpenUpdateDialog(false);
   };
+
+  const handleDelete = (itemId: string) => { };
 
   return (
     <TableContainer component={Paper} data-testid="todos-table">
