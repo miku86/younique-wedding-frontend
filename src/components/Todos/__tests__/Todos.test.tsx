@@ -1,5 +1,7 @@
 import { RenderResult } from "@testing-library/react";
 import React from "react";
+import { Provider } from "react-redux";
+import store from "../../../store/store";
 import { mockTodo1, mockTodo2 } from "../../../utils/fixtures";
 import { renderWithRouter } from "../../../utils/testing";
 import { Todos } from "../Todos";
@@ -23,7 +25,11 @@ describe("component", () => {
 
     loadTodos = props.loadTodos;
 
-    context = renderWithRouter(<Todos {...props} />);
+    context = renderWithRouter(
+      <Provider store={store}>
+        <Todos {...props} />
+      </Provider>
+    );
   };
 
   describe("when loading succeeds", () => {
