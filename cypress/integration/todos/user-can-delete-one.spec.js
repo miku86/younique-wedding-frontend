@@ -8,12 +8,13 @@ const mockTodos = [
 
 describe("Todos: User can delete a todo", () => {
   it("should delete a todo", () => {
-    cy.server();
+    cy.server({ force404: true });
+
     cy.route({
       method: "GET",
       url: `*${API.TODOS}`,
       response: mockTodos
-    }).as("getTodos");
+    });
 
     cy.route({
       method: "DELETE",
@@ -22,9 +23,11 @@ describe("Todos: User can delete a todo", () => {
 
     cy.visit(ROUTES.TODOS);
     cy.get("[data-testid='demo-account']").click();
+
     cy.get("[data-testid='todos-table-body-delete']").first().click();
+
     cy.wait("@deleteTodo").its("requestBody").should("deep.equal", {
-      body: { itemId: mockTodo1.todoId }
+      itemId: mockTodo1.todoId
     });
 
     cy.get("[data-testid='todos-table-body-delete']").should("have.length", mockTodos.length - 1);
