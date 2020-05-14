@@ -22,17 +22,20 @@ const todosSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
     },
-    errorServer(state){
+    errorServer(state) {
       state.isLoading = false;
       state.isError = true;
     },
-    storeTodo(state, action: PayloadAction<Todo>){
+    storeTodo(state, action: PayloadAction<Todo>) {
       state.items.push(action.payload);
+    },
+    removeTodo(state, action: PayloadAction<string>) {
+      state.items = state.items.filter(item => item.todoId !== action.payload);
     }
   }
 });
 
-export const { storeTodos, startLoading, errorLoading, errorServer, storeTodo } = todosSlice.actions;
+export const { storeTodos, startLoading, errorLoading, errorServer, storeTodo, removeTodo } = todosSlice.actions;
 
 export default todosSlice.reducer;
 
@@ -52,8 +55,19 @@ export const addTodo = (todo: TodoInputs) => (dispatch: any, getState: any, api:
   dispatch(startLoading());
   api
     .createOne(API.TODOS, todo)
-    .then((item: Todo) =>{
+    .then((item: Todo) => {
       dispatch(storeTodo(item));
+    })
+    .catch(() => {
+      dispatch(errorServer());
+    });
+};
+
+export const deleteTodo = (id: string) => (dispatch: any, getState: any, api: any) => {
+  api
+    .deleteOne(API.TODOS, id)
+    .then(({itemId}: {itemId: string}) => {
+      dispatch(removeTodo(itemId));
     })
     .catch(() => {
       dispatch(errorServer());

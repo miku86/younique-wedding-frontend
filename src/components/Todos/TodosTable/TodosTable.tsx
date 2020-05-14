@@ -2,6 +2,8 @@ import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRo
 import { Create, Delete } from "@material-ui/icons";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { connect } from "react-redux";
+import { deleteTodo } from "../../../store/slices/todosSlice";
 import { HeadCell, Order, Todo, TodoInputs } from "../../../utils/customTypes";
 import { getSorting, stableSort } from "../../../utils/helpers";
 import CheckingIcon from "../../shared/CheckingIcon";
@@ -30,12 +32,14 @@ interface Props {
   data: Todo[];
   handleUpdateBools: any;
   handleUpdateTexts: any;
+  deleteTodo?: any;
 }
 
-const TodosTable = ({
+export const TodosTable = ({
   data,
   handleUpdateBools,
   handleUpdateTexts,
+  deleteTodo
 }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -61,8 +65,6 @@ const TodosTable = ({
   const handleClose = () => {
     setOpenUpdateDialog(false);
   };
-
-  const handleDelete = (itemId: string) => { };
 
   return (
     <TableContainer component={Paper} data-testid="todos-table">
@@ -102,7 +104,7 @@ const TodosTable = ({
                     />
                     <Delete
                       className={classes.deleteButton}
-                      onClick={() => handleDelete(item.todoId)}
+                      onClick={() =>  deleteTodo(item.todoId)}
                       data-testid="todos-table-body-delete"
                     />
                   </TableCell>
@@ -129,4 +131,9 @@ const TodosTable = ({
   );
 };
 
-export default TodosTable;
+const mapStateToProps = null;
+const mapDispatchToProps = {
+  deleteTodo
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodosTable);

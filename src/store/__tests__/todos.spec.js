@@ -2,7 +2,7 @@ import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
 import { API } from "../../config";
 import { createMockTodoNew, mockTodo1, mockTodo2 } from "../../utils/fixtures";
-import todosReducer, { addTodo, loadTodos } from "../slices/todosSlice";
+import todosReducer, { addTodo, deleteTodo, loadTodos } from "../slices/todosSlice";
 
 describe("todos", () => {
   describe("loadTodos action", () => {
@@ -163,6 +163,45 @@ describe("todos", () => {
           mockTodo1,
           newTodo
         ]);
+      });
+    });
+  });
+
+  describe("deleteTodo action", () => {
+    let store;
+    let api;
+    const initialState = {
+      items: [mockTodo1, mockTodo2]
+    };
+
+    beforeEach(() => {
+      api = {
+        deleteOne: jest.fn().mockName("deleteOne")
+      };
+
+      store = createStore(
+        todosReducer,
+        initialState,
+        applyMiddleware(thunk.withExtraArgument(api)),
+      );
+    });
+
+    it("should delete a todo from the server", () => {
+      api.deleteOne.mockResolvedValue(mockTodo1);
+      store.dispatch(deleteTodo(mockTodo1.todoId));
+      expect(api.deleteOne).toHaveBeenCalledWith(API.TODOS, mockTodo1.todoId);
+    });
+
+    describe("when save succeeds", () => {
+      beforeEach(() => {
+        api.deleteOne.mockResolvedValue({itemId: mockTodo1.todoId});
+        store.dispatch(deleteTodo(mockTodo1.todoId));
+      });
+
+      it("should delete the returned todo from the store", () => {
+        expect(store.getState().items).toEqual(
+          initialState.items.filter(item => item.todoId !== mockTodo1.todoId)
+        );
       });
     });
   });

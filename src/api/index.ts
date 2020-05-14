@@ -19,6 +19,9 @@ const api = {
   },
   createOne(path: string, data: any) {
     return AMPLIFY.post(config.API.NAME, path, { body: data });
+  },
+  deleteOne(path: string, itemId: string){
+    return AMPLIFY.del(config.API.NAME, path, { body: { itemId } });
   }
 };
 
