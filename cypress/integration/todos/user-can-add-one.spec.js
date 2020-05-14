@@ -23,7 +23,6 @@ describe("Todos: User can add a Todo", () => {
     cy.visit(ROUTES.TODOSNEW);
     cy.get("[data-testid='demo-account']").click();
 
-
     cy.get("[data-testid='todo-new-title']").type(title);
     cy.get("[data-testid='todo-new-deadline']").type(deadline);
     cy.get("[data-testid='todo-new-responsible']").type(responsible);
