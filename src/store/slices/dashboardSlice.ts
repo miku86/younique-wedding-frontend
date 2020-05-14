@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import api from "../../api";
 import { DashboardData, DashboardItem } from "../../utils/customTypes";
+import { AppDispatch } from "../store";
 
 let initialState: DashboardData = {
   todos: {} as DashboardItem,
@@ -24,7 +25,7 @@ export const { storeDashboard } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;
 
-export const fetchAll = (path: string) => (dispatch: any) => {
+export const fetchAll = (path: string) => (dispatch: AppDispatch) => {
   api.fetchAll(path).then((items: DashboardData) => {
     dispatch(storeDashboard(items));
   });

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { API } from "../../config";
 import { Todo, TodoInputs } from "../../utils/customTypes";
+import { AppDispatch } from "../store";
 
 const todosSlice = createSlice({
   name: "todos",
@@ -29,7 +30,7 @@ const todosSlice = createSlice({
     storeTodo(state, action: PayloadAction<Todo>) {
       state.items.push(action.payload);
     },
-    removeTodo(state, action: PayloadAction<string>) {
+    removeTodo(state, action: PayloadAction<Todo["todoId"]>) {
       state.items = state.items.filter(item => item.todoId !== action.payload);
     }
   }
@@ -39,7 +40,7 @@ export const { storeTodos, startLoading, errorLoading, errorServer, storeTodo, r
 
 export default todosSlice.reducer;
 
-export const loadTodos = () => (dispatch: any, getState: any, api: any) => {
+export const loadTodos = () => (dispatch: AppDispatch, _: any, api: any) => {
   dispatch(startLoading());
   api
     .fetchAll(API.TODOS)
@@ -51,7 +52,7 @@ export const loadTodos = () => (dispatch: any, getState: any, api: any) => {
     });
 };
 
-export const addTodo = (todo: TodoInputs) => (dispatch: any, getState: any, api: any) => {
+export const addTodo = (todo: TodoInputs) => (dispatch: AppDispatch, _: any, api: any) => {
   dispatch(startLoading());
   api
     .createOne(API.TODOS, todo)
@@ -63,10 +64,10 @@ export const addTodo = (todo: TodoInputs) => (dispatch: any, getState: any, api:
     });
 };
 
-export const deleteTodo = (id: string) => (dispatch: any, getState: any, api: any) => {
+export const deleteTodo = (id: string) => (dispatch: AppDispatch, _: any, api: any) => {
   api
     .deleteOne(API.TODOS, id)
-    .then(({itemId}: {itemId: string}) => {
+    .then(({itemId}: {itemId: Todo["todoId"]}) => {
       dispatch(removeTodo(itemId));
     })
     .catch(() => {

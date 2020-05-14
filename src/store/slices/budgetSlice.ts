@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import api from "../../api";
 import { BudgetItem } from "../../utils/customTypes";
+import { AppDispatch } from "../store";
 
 let initialState = {
   items: [] as BudgetItem[],
@@ -20,7 +21,7 @@ export const { storeBudget } = budgetSlice.actions;
 
 export default budgetSlice.reducer;
 
-export const fetchAll = (path: string) => (dispatch: any) => {
+export const fetchAll = (path: string) => (dispatch: AppDispatch) => {
   api.fetchAll(path).then((items: BudgetItem[]) => {
     dispatch(storeBudget(items));
   });

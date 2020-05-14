@@ -1,12 +1,10 @@
-import { applyMiddleware, compose, createStore } from "redux";
-import { devToolsEnhancer } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import api from "../api";
+import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
 
-const store = createStore(
-  rootReducer,
-  compose(applyMiddleware(thunk.withExtraArgument(api)), devToolsEnhancer({}))
-);
+const store = configureStore({
+  reducer: rootReducer
+});
+
+export type AppDispatch = typeof store.dispatch;
 
 export default store;
