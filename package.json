@@ -39,7 +39,7 @@
     "typescript": "3.9.2"
   },
   "devDependencies": {
-    "cypress": "4.5.0",
+    "cypress": "4.6.0",
     "eslint-plugin-cypress": "2.10.3",
     "husky": "4.2.5",
     "jest-environment-jsdom-sixteen": "1.0.3",
