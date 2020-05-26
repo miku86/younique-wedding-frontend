@@ -1,12 +1,12 @@
 import React from "react";
+import { mockBudget1 } from "../../../../../utils/fixtures";
 import { renderWithRouter } from "../../../../../utils/testing";
-import { budgetItem } from "../../../../../utils/testing/fixtures";
 import BudgetUpdate from "./BudgetUpdate";
 
 describe("component", () => {
   it("should render the component with all fields", () => {
     const props = {
-      item: budgetItem,
+      item: mockBudget1,
       open: false,
       handleClose: jest.fn(),
       handleSubmit: jest.fn()

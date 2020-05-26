@@ -1,19 +1,15 @@
 import { makeStyles, Theme } from "@material-ui/core";
-import { API as AMPLIFY } from "aws-amplify";
-import React, { FormEvent, useEffect } from "react";
+import Alert from "@material-ui/lab/Alert";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { API, config, ROUTES } from "../../config";
-import { deleteOne } from "../../utils/api/api";
-import { useAppContext } from "../../utils/context";
-import { Todo, TodoInputs } from "../../utils/customTypes";
-import { onError } from "../../utils/error";
-import { useApiFetch } from "../../utils/hooks/useApiFetch";
+import { connect } from "react-redux";
+import { ROUTES } from "../../config";
+import { loadTodos } from "../../store/slices/todosSlice";
+import { Todo } from "../../utils/customTypes";
 import ItemNewButton from "../shared/ItemNewButton";
 import ItemsSummary from "../shared/ItemsSummary";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import TodosTable from "./TodosTable";
-
-interface Props { }
 
 const useStyles = makeStyles((theme: Theme) => ({
   todos: {
@@ -26,91 +22,59 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Todos: React.FC<Props> = () => {
+interface Props {
+  isAuthenticated?: boolean;
+  isError?: boolean;
+  isLoading?: boolean;
+  loadTodos?: any;
+  todos?: any;
+}
+
+export const Todos = ({ loadTodos, todos, isError, isLoading, isAuthenticated = true }: Props) => {
   const classes = useStyles();
-  const { isAuthenticated } = useAppContext();
   const { t } = useTranslation();
-  const [{ data, isLoading }, doFetch] = useApiFetch(API.TODOS, []);
 
   useEffect(() => {
     if (!isAuthenticated) return;
-    doFetch(API.TODOS);
-  }, [doFetch, isAuthenticated]);
+    loadTodos();
+  }, [isAuthenticated, loadTodos]);
 
-  const handleDelete = async (itemId: string) => {
-    const confirmed = window.confirm(t("deleteQuestion"));
-    if (!confirmed) return;
+  const handleUpdateBools = () => { };
+  const handleUpdateTexts = () => { };
 
-    try {
-      deleteOne(API.TODOS, itemId);
-    } catch (error) {
-      onError(error);
-    }
-  };
-
-  const updateTodo = (todoId: string, data: any) => {
-    return AMPLIFY.put(config.API.NAME, API.TODOS, { body: { todoId, data } });
-  };
-
-  const handleUpdateBools = async (
-    todoId: string,
-    fieldKey: string,
-    fieldValue: boolean
-  ) => {
-    const data = {
-      [fieldKey]: !fieldValue,
-    };
-
-    try {
-      await updateTodo(todoId, data);
-      doFetch(API.TODOS);
-    } catch (error) {
-      onError(error);
-    }
-  };
-
-  const handleUpdateTexts = async (
-    event: FormEvent<HTMLFormElement>,
-    todoId: string,
-    fields: TodoInputs
-  ) => {
-    event.preventDefault();
-
-    try {
-      await updateTodo(todoId, fields);
-      doFetch(API.TODOS);
-    } catch (error) {
-      onError(error);
-    }
-  };
-
-  const amountItems = data.length;
-  const amountDoneItems = data.filter((item: Todo) => item.done).length;
+  const amountItems = todos.length;
+  const amountDoneItems = todos.filter((item: Todo) => item.done).length;
 
   return (
     <div className={classes.todos} data-testid="page-todos">
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-          <>
-            <ItemsSummary
-              title="done"
-              amountItems={amountItems}
-              amountDoneItems={amountDoneItems}
-            />
+      {isError && <Alert severity="error" variant="filled" data-testid="loading-error">{t("loadingError")}</Alert>}
+      {isLoading && <LoadingSpinner/>}
 
-            <TodosTable
-              data={data}
-              handleUpdateBools={handleUpdateBools}
-              handleUpdateTexts={handleUpdateTexts}
-              handleDelete={handleDelete}
-            />
+      <ItemsSummary
+        title="done"
+        amountItems={amountItems}
+        amountDoneItems={amountDoneItems}
+      />
 
-            <ItemNewButton link={ROUTES.TODOSNEW} />
-          </>
-        )}
-    </div>
+      <TodosTable
+        data={todos}
+        handleUpdateBools={handleUpdateBools}
+        handleUpdateTexts={handleUpdateTexts}
+      />
+
+      <ItemNewButton link={ROUTES.TODOSNEW} />
+    </div >
   );
 };
 
-export default Todos;
+const mapStateToProps = (state: any) => ({
+  isError: state.todos.isError,
+  isLoading: state.todos.isLoading,
+  todos: state.todos.items,
+});
+
+const mapDispatchToProps = {
+  loadTodos,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);

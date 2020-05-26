@@ -8,14 +8,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface Props {
-  isLoading: boolean;
+  isLoading?: boolean;
   className?: string;
-  disabled: boolean;
+  disabled?: boolean;
   [key: string]: any;
 }
 
 const LoadingButton: React.FC<Props> = ({
-  isLoading,
+  isLoading = false,
   className = "",
   disabled = false,
   ...props

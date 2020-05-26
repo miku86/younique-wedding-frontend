@@ -9,7 +9,7 @@ import { AccountCircle } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Auth } from "aws-amplify";
 import clsx from "clsx";
-import React, { ReactNode, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import { ROUTES } from "../../config";
@@ -17,10 +17,6 @@ import { useAppContext } from "../../utils/context";
 import PersistentDrawer from "./PersistentDrawer";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    display: "flex",
-    flexGrow: 1
-  },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
@@ -41,30 +37,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   hide: {
     display: "none",
   },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
-  },
-  content: {
-    flexGrow: 1,
-    display: "flex",
-    flexDirection: "column",
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -theme.custom.drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
   title: {
     flexGrow: 1,
     fontSize: "1.25rem",
@@ -75,17 +47,18 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+
 interface Props {
-  children: ReactNode;
+  drawerOpen: boolean;
+  setDrawerOpen: (drawerOpen: boolean) => void;
 }
 
-const Navbar = ({ children }: Props) => {
+const Navbar = ({ drawerOpen, setDrawerOpen }: Props) => {
   const classes = useStyles();
   let history = useHistory();
   const { t } = useTranslation();
   const { isAuthenticated, setIsAuthenticated } = useAppContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [drawerOpen, setDrawerOpen] = useState(true);
 
   const renderSiteTitle = () => {
     const path = history.location.pathname.split("/");
@@ -117,7 +90,7 @@ const Navbar = ({ children }: Props) => {
   };
 
   return (
-    <div className={classes.root}>
+    <>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -179,15 +152,7 @@ const Navbar = ({ children }: Props) => {
         </Toolbar>
       </AppBar>
       <PersistentDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: drawerOpen,
-        })}
-      >
-        <div className={classes.drawerHeader} />
-        {children}
-      </main>
-    </div >
+    </>
   );
 };
 

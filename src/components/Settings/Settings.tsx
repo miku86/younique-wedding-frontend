@@ -3,11 +3,11 @@ import { API as AMPLIFY } from "aws-amplify";
 import React, { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { config, API } from "../../config";
+import { API, config } from "../../config";
 import { SettingsInputs } from "../../utils/customTypes";
+import { onError } from "../../utils/error";
 import { useFormFields } from "../../utils/hooks";
 import LoadingButton from "../shared/LoadingButton";
-import { onError } from "../../utils/error";
 
 interface Props {}
 
@@ -49,7 +49,6 @@ const Settings: React.FC<Props> = () => {
   };
 
   const updateSettings = (data: SettingsInputs) => {
-    setIsLoading(true);
     return AMPLIFY.put(config.API.NAME, API.SETTINGS, {
       body: { data },
     });

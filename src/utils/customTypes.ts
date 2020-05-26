@@ -14,7 +14,7 @@ export interface DashboardItem {
   amountDoneItems: number;
 }
 
-interface DashboardData {
+export interface DashboardData {
   todos: DashboardItem;
   guests: DashboardItem;
   budget: DashboardItem;

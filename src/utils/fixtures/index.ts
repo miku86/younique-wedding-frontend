@@ -1,3 +1,5 @@
+import { getRandomDate, getRandomNumberBetween } from "../helpers";
+
 export const mockTodo1 = {
   PK: "USER#b1170078",
   SK: "TODO#b1170078#67219839",
@@ -74,4 +76,13 @@ export const mockDashboard = {
   todos: { amountItems: 1, amountDoneItems: 0 },
   guests: { amountItems: 2, amountDoneItems: 0 },
   budget: { amountItems: 3, amountDoneItems: 0 }
+};
+
+export const createMockTodoNew = () =>{
+  return {
+    title:  String(getRandomNumberBetween(10, 1000)),
+    deadline:  getRandomDate(),
+    responsible:  String(getRandomNumberBetween(10, 1000)),
+    comment:  String(getRandomNumberBetween(10, 1000)),
+  };
 };
