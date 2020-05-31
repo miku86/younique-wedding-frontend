@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "cypress": "4.6.0",
-    "eslint-plugin-cypress": "2.10.3",
+    "eslint-plugin-cypress": "2.11.1",
     "husky": "4.2.5",
     "jest-environment-jsdom-sixteen": "1.0.3",
     "source-map-explorer": "2.4.2",
