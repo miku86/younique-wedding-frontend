@@ -29,7 +29,7 @@
     "@types/react-router-dom": "5.1.5",
     "aws-amplify": "2.3.0",
     "clsx": "1.1.1",
-    "i18next": "19.4.5",
+    "i18next": "19.7.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-i18next": "11.5.0",
